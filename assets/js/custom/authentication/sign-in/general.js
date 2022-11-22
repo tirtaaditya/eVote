@@ -33,10 +33,10 @@ var KTSigninGeneral = function() {
                 n.preventDefault(), i.validate().then((function(i) {
                     "Valid" == i ? (e.setAttribute("data-kt-indicator", "on"), e.disabled = !0, setTimeout((function() {
                         e.removeAttribute("data-kt-indicator"), e.disabled = !1, Swal.fire({
-                            text: "You have successfully logged in!",
+                            text: "Login berhasil",
                             icon: "success",
                             buttonsStyling: !1,
-                            confirmButtonText: "Ok, got it!",
+                            confirmButtonText: "Ok",
                             customClass: {
                                 confirmButton: "btn btn-primary"
                             }

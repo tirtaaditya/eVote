@@ -10,15 +10,6 @@ class Main extends BaseController
 		// $this->session->destroy();
 		if($this->session->has('user'))
 		{
-			if( $this->session->user['working_unit']=='KC')
-			{
-				if( $this->session->user['open_close']=='pendingClose')
-				{
-					$this->session->set('errorMessage', 'Belum dilakukan close branch pada hari sebelumnya. Harap lakukan opname kas dan close branch agar dapat bertransaksi');
-					$this->session->markAsFlashdata('errorMessage');
-				}
-			}
-
 			return redirect()->to(base_url().'/home');
 		}
 		else
@@ -119,33 +110,8 @@ class Main extends BaseController
 
 	public function logout()
 	{
-		try
-        {
-            $params['user_type'] = $this->session->user['user_type'];
-            $params['user_id'] = $this->session->user['user_id'];
-
-			$response = $this->client->request('POST', $this->urlHelper->logout, 
-						[
-						    'form_params' => $params
-						]);
-
-			$response = json_decode($response->getBody(), true);
-        }
-        catch (\Exception $e)
-        {
-        }
-
 		$this->session->destroy();
 
 		return redirect()->to(base_url().'/main');
 	}
-
-	public function old()
-	{
-		$masterpage_data['content'] = view('DashboardView');
-		$masterpage_data['postback_url'] = base_url()."/dashboard";
-
-		return view('MasterPageView-old', $masterpage_data);
-	}
-
 }
