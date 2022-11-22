@@ -1,0 +1,57 @@
+CRITICAL - 2022-11-07 13:55:39 --> Maximum execution time of 120 seconds exceeded
+#0 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+#1 {main}
+CRITICAL - 2022-11-07 13:55:39 --> Maximum execution time of 120 seconds exceeded
+#0 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+#1 {main}
+CRITICAL - 2022-11-07 13:55:39 --> Maximum execution time of 120 seconds exceeded
+#0 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+#1 {main}
+CRITICAL - 2022-11-07 13:55:39 --> Maximum execution time of 120 seconds exceeded
+#0 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+#1 {main}
+CRITICAL - 2022-11-07 13:55:39 --> Maximum execution time of 120 seconds exceeded
+#0 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+#1 {main}
+CRITICAL - 2022-11-07 14:37:49 --> Too few arguments to function App\Controllers\Kurs\Modal::getKursModalByCurrency(), 1 passed in D:\xampp\htdocs\moneychanger\Web\system\CodeIgniter.php on line 928 and exactly 2 expected
+#0 D:\xampp\htdocs\moneychanger\Web\system\CodeIgniter.php(928): App\Controllers\Kurs\Modal->getKursModalByCurrency('31')
+#1 D:\xampp\htdocs\moneychanger\Web\system\CodeIgniter.php(436): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Kurs\Modal))
+#2 D:\xampp\htdocs\moneychanger\Web\system\CodeIgniter.php(336): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 D:\xampp\htdocs\moneychanger\Web\index.php(45): CodeIgniter\CodeIgniter->run()
+#4 {main}
+CRITICAL - 2022-11-07 14:40:20 --> Too few arguments to function App\Controllers\Kurs\Modal::getKursModalByCurrency(), 1 passed in D:\xampp\htdocs\moneychanger\Web\system\CodeIgniter.php on line 928 and exactly 2 expected
+#0 D:\xampp\htdocs\moneychanger\Web\system\CodeIgniter.php(928): App\Controllers\Kurs\Modal->getKursModalByCurrency('31')
+#1 D:\xampp\htdocs\moneychanger\Web\system\CodeIgniter.php(436): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Kurs\Modal))
+#2 D:\xampp\htdocs\moneychanger\Web\system\CodeIgniter.php(336): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 D:\xampp\htdocs\moneychanger\Web\index.php(45): CodeIgniter\CodeIgniter->run()
+#4 {main}
+CRITICAL - 2022-11-07 14:41:41 --> Too few arguments to function App\Controllers\Kurs\Modal::getKursModalByCurrency(), 1 passed in D:\xampp\htdocs\moneychanger\Web\system\CodeIgniter.php on line 928 and exactly 2 expected
+#0 D:\xampp\htdocs\moneychanger\Web\system\CodeIgniter.php(928): App\Controllers\Kurs\Modal->getKursModalByCurrency('31')
+#1 D:\xampp\htdocs\moneychanger\Web\system\CodeIgniter.php(436): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Kurs\Modal))
+#2 D:\xampp\htdocs\moneychanger\Web\system\CodeIgniter.php(336): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 D:\xampp\htdocs\moneychanger\Web\index.php(45): CodeIgniter\CodeIgniter->run()
+#4 {main}
+CRITICAL - 2022-11-07 14:42:28 --> Too few arguments to function App\Controllers\Kurs\Modal::getKursModalByCurrency(), 1 passed in D:\xampp\htdocs\moneychanger\Web\system\CodeIgniter.php on line 928 and exactly 2 expected
+#0 D:\xampp\htdocs\moneychanger\Web\system\CodeIgniter.php(928): App\Controllers\Kurs\Modal->getKursModalByCurrency('31')
+#1 D:\xampp\htdocs\moneychanger\Web\system\CodeIgniter.php(436): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Kurs\Modal))
+#2 D:\xampp\htdocs\moneychanger\Web\system\CodeIgniter.php(336): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 D:\xampp\htdocs\moneychanger\Web\index.php(45): CodeIgniter\CodeIgniter->run()
+#4 {main}
+CRITICAL - 2022-11-07 14:58:29 --> Too few arguments to function App\Controllers\Kurs\Modal::getKursModalByCurrency(), 1 passed in D:\xampp\htdocs\moneychanger\Web\system\CodeIgniter.php on line 928 and exactly 2 expected
+#0 D:\xampp\htdocs\moneychanger\Web\system\CodeIgniter.php(928): App\Controllers\Kurs\Modal->getKursModalByCurrency('31')
+#1 D:\xampp\htdocs\moneychanger\Web\system\CodeIgniter.php(436): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Kurs\Modal))
+#2 D:\xampp\htdocs\moneychanger\Web\system\CodeIgniter.php(336): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 D:\xampp\htdocs\moneychanger\Web\index.php(45): CodeIgniter\CodeIgniter->run()
+#4 {main}
+CRITICAL - 2022-11-07 15:11:16 --> Too few arguments to function App\Controllers\Kurs\Modal::getKursModalByCurrency(), 1 passed in D:\xampp\htdocs\moneychanger\Web\system\CodeIgniter.php on line 928 and exactly 2 expected
+#0 D:\xampp\htdocs\moneychanger\Web\system\CodeIgniter.php(928): App\Controllers\Kurs\Modal->getKursModalByCurrency('31')
+#1 D:\xampp\htdocs\moneychanger\Web\system\CodeIgniter.php(436): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Kurs\Modal))
+#2 D:\xampp\htdocs\moneychanger\Web\system\CodeIgniter.php(336): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 D:\xampp\htdocs\moneychanger\Web\index.php(45): CodeIgniter\CodeIgniter->run()
+#4 {main}
+CRITICAL - 2022-11-07 15:13:09 --> Too few arguments to function App\Controllers\Kurs\Modal::getKursModalByCurrency(), 1 passed in D:\xampp\htdocs\moneychanger\Web\system\CodeIgniter.php on line 928 and exactly 2 expected
+#0 D:\xampp\htdocs\moneychanger\Web\system\CodeIgniter.php(928): App\Controllers\Kurs\Modal->getKursModalByCurrency('31')
+#1 D:\xampp\htdocs\moneychanger\Web\system\CodeIgniter.php(436): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Kurs\Modal))
+#2 D:\xampp\htdocs\moneychanger\Web\system\CodeIgniter.php(336): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 D:\xampp\htdocs\moneychanger\Web\index.php(45): CodeIgniter\CodeIgniter->run()
+#4 {main}
