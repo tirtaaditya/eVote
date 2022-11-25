@@ -55,10 +55,10 @@
 								<!--begin::Wrapper-->
 								<div class="d-flex flex-stack mb-2">
 									<!--begin::Label-->
-									<label class="form-label fw-bolder text-dark fs-6 mb-0">Password</label>
+									<label class="form-label fw-bolder text-dark fs-6 mb-0">Kata Sandi</label>
 									<!--end::Label-->
 									<!--begin::Link-->					
-				                    <a href="../../demo1/dist/authentication/flows/basic/password-reset.html" class="link-primary fs-6 fw-bolder">Lupa Password ?</a>
+				                    <a href="../../demo1/dist/authentication/flows/basic/password-reset.html" class="link-primary fs-6 fw-bolder">Lupa Kata Sandi ?</a>
 									<!--end::Link-->
 								</div>
 								<!--end::Wrapper-->
