@@ -67,4 +67,16 @@ class BaseController extends Controller
 		$this->security = \Config\Services::security();
 		$this->request = \Config\Services::request();
 	}
+
+	protected function checkSession()
+	{
+	    if($this->session->has('user'))
+		{
+			return FALSE;		
+		}
+		else
+		{
+			return TRUE;
+		}
+	}
 }

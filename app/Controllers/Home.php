@@ -11,10 +11,9 @@ class Home extends BaseController
         	return redirect()->to(base_url().'/main/logout');
         }
 
-        $data['notificationMenuURL'] = base_url()."/notification";
-        $data['notificationURL'] = base_url()."/notification/getlistnotification";
+		$data = [];
 
-		$masterpage_data['title'] = 'Home';
+		$masterpage_data['title'] = 'Beranda';
 		$masterpage_data['content'] = view('HomeView', $data);
 
 		return view('MasterPageView', $masterpage_data);

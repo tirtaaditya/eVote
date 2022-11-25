@@ -32,26 +32,56 @@ var KTSigninGeneral = function() {
             }), e.addEventListener("click", (function(n) {
                 n.preventDefault(), i.validate().then((function(i) {
                     "Valid" == i ? (e.setAttribute("data-kt-indicator", "on"), e.disabled = !0, setTimeout((function() {
-                        e.removeAttribute("data-kt-indicator"), e.disabled = !1, Swal.fire({
-                            text: "Login berhasil",
-                            icon: "success",
-                            buttonsStyling: !1,
-                            confirmButtonText: "Ok",
-                            customClass: {
-                                confirmButton: "btn btn-primary"
+                        $.ajax({
+                            type: "POST",
+                            url: "/eVote/main/login",
+                            data: {
+                                email: t.querySelector('[name="email"]').value,
+                                password: t.querySelector('[name="password"]').value
+                            },
+                            dataType: 'JSON',
+                            success: function (result) {
+                                if(result.code == "00")
+                                {
+                                    e.removeAttribute("data-kt-indicator"), e.disabled = !1, Swal.fire({
+                                        text: "Login berhasil",
+                                        icon: "success",
+                                        buttonsStyling: !1,
+                                        confirmButtonText: "Ok",
+                                        customClass: {
+                                            confirmButton: "btn btn-primary"
+                                        }
+                                    }).then((function(e) {
+                                        location.reload(); 
+                                    }))
+                                }
+                                else
+                                {
+                                    Swal.fire({
+                                        text: result.message,
+                                        icon: "error",
+                                        buttonsStyling: !1,
+                                        confirmButtonText: "Ok",
+                                        customClass: {
+                                            confirmButton: "btn btn-primary"
+                                        }
+                                    }).then((function(e) {
+                                        location.reload(); 
+                                    }))
+                                }
                             }
-                        }).then((function(e) {
-                            e.isConfirmed && (t.querySelector('[name="email"]').value = "", t.querySelector('[name="password"]').value = "")
-                        }))
+                        });
                     }), 2e3)) : Swal.fire({
-                        text: "Email dan Password tidak ditemukan",
+                        text: "Email dan Password tidak sesuai",
                         icon: "error",
                         buttonsStyling: !1,
                         confirmButtonText: "Ok",
                         customClass: {
                             confirmButton: "btn btn-primary"
                         }
-                    })
+                    }).then((function(e) {
+                        location.reload(); 
+                    }))
                 }))
             }))
         }
