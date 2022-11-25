@@ -44,7 +44,7 @@ class Main extends BaseController
 			
 			if(!isset($dataUser))
 			{
-				$errorMessage = "Email dan Username tidak ditemukan";
+				$errorMessage = "Email dan Password tidak ditemukan";
 			}
 			else
 			{

@@ -203,7 +203,7 @@ $user = session('user');
 					<!--begin::Footer-->
 					<div class="aside-footer flex-column-auto pt-5 pb-7 px-5" id="kt_aside_footer">
 						<a href="#" class="btn btn-custom btn-primary w-100" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss-="click" title="Aplikasi eVote Apartement Kebagusan City">
-							<span class="btn-label">eVote</span>
+							<span class="btn-label">eVote V.1.0</span>
 							<!--begin::Svg Icon | path: icons/duotune/general/gen005.svg-->
 							<span class="svg-icon btn-icon svg-icon-2">
 								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
