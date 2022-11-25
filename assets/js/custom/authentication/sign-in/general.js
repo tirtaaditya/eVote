@@ -34,7 +34,7 @@ var KTSigninGeneral = function() {
                     "Valid" == i ? (e.setAttribute("data-kt-indicator", "on"), e.disabled = !0, setTimeout((function() {
                         $.ajax({
                             type: "POST",
-                            url: "/eVote/main/login",
+                            url: "/main/login",
                             data: {
                                 email: t.querySelector('[name="email"]').value,
                                 password: t.querySelector('[name="password"]').value
