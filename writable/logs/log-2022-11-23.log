@@ -1,0 +1,184 @@
+CRITICAL - 2022-11-23 00:15:03 --> Call to undefined method App\Controllers\Home::checkSession()
+#0 D:\xampp\htdocs\eVote\system\CodeIgniter.php(928): App\Controllers\Home->index()
+#1 D:\xampp\htdocs\eVote\system\CodeIgniter.php(436): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Home))
+#2 D:\xampp\htdocs\eVote\system\CodeIgniter.php(336): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 D:\xampp\htdocs\eVote\index.php(45): CodeIgniter\CodeIgniter->run()
+#4 {main}
+CRITICAL - 2022-11-23 01:09:29 --> Undefined variable: resultBranch
+#0 D:\xampp\htdocs\eVote\app\Controllers\Main.php(50): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined varia...', 'D:\\xampp\\htdocs...', 50, Array)
+#1 D:\xampp\htdocs\eVote\system\CodeIgniter.php(928): App\Controllers\Main->login()
+#2 D:\xampp\htdocs\eVote\system\CodeIgniter.php(436): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Main))
+#3 D:\xampp\htdocs\eVote\system\CodeIgniter.php(336): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 D:\xampp\htdocs\eVote\index.php(45): CodeIgniter\CodeIgniter->run()
+#5 {main}
+CRITICAL - 2022-11-23 01:10:14 --> Undefined variable: resultBranch
+#0 D:\xampp\htdocs\eVote\app\Controllers\Main.php(50): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined varia...', 'D:\\xampp\\htdocs...', 50, Array)
+#1 D:\xampp\htdocs\eVote\system\CodeIgniter.php(928): App\Controllers\Main->login()
+#2 D:\xampp\htdocs\eVote\system\CodeIgniter.php(436): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Main))
+#3 D:\xampp\htdocs\eVote\system\CodeIgniter.php(336): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 D:\xampp\htdocs\eVote\index.php(45): CodeIgniter\CodeIgniter->run()
+#5 {main}
+CRITICAL - 2022-11-23 01:10:17 --> Undefined variable: resultBranch
+#0 D:\xampp\htdocs\eVote\app\Controllers\Main.php(50): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined varia...', 'D:\\xampp\\htdocs...', 50, Array)
+#1 D:\xampp\htdocs\eVote\system\CodeIgniter.php(928): App\Controllers\Main->login()
+#2 D:\xampp\htdocs\eVote\system\CodeIgniter.php(436): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Main))
+#3 D:\xampp\htdocs\eVote\system\CodeIgniter.php(336): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 D:\xampp\htdocs\eVote\index.php(45): CodeIgniter\CodeIgniter->run()
+#5 {main}
+CRITICAL - 2022-11-23 01:12:47 --> Undefined variable: dataUser
+#0 D:\xampp\htdocs\eVote\app\Controllers\Main.php(50): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined varia...', 'D:\\xampp\\htdocs...', 50, Array)
+#1 D:\xampp\htdocs\eVote\system\CodeIgniter.php(928): App\Controllers\Main->login()
+#2 D:\xampp\htdocs\eVote\system\CodeIgniter.php(436): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Main))
+#3 D:\xampp\htdocs\eVote\system\CodeIgniter.php(336): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 D:\xampp\htdocs\eVote\index.php(45): CodeIgniter\CodeIgniter->run()
+#5 {main}
+CRITICAL - 2022-11-23 01:16:54 --> Undefined property: App\Controllers\Main::$session
+#0 D:\xampp\htdocs\eVote\app\Controllers\Main.php(14): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined prope...', 'D:\\xampp\\htdocs...', 14, Array)
+#1 D:\xampp\htdocs\eVote\system\CodeIgniter.php(928): App\Controllers\Main->index()
+#2 D:\xampp\htdocs\eVote\system\CodeIgniter.php(436): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Main))
+#3 D:\xampp\htdocs\eVote\system\CodeIgniter.php(336): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 D:\xampp\htdocs\eVote\index.php(45): CodeIgniter\CodeIgniter->run()
+#5 {main}
+CRITICAL - 2022-11-23 01:16:56 --> Undefined property: App\Controllers\Main::$session
+#0 D:\xampp\htdocs\eVote\app\Controllers\Main.php(14): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined prope...', 'D:\\xampp\\htdocs...', 14, Array)
+#1 D:\xampp\htdocs\eVote\system\CodeIgniter.php(928): App\Controllers\Main->index()
+#2 D:\xampp\htdocs\eVote\system\CodeIgniter.php(436): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Main))
+#3 D:\xampp\htdocs\eVote\system\CodeIgniter.php(336): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 D:\xampp\htdocs\eVote\index.php(45): CodeIgniter\CodeIgniter->run()
+#5 {main}
+CRITICAL - 2022-11-23 01:16:59 --> Undefined property: App\Controllers\Main::$session
+#0 D:\xampp\htdocs\eVote\app\Controllers\Main.php(14): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined prope...', 'D:\\xampp\\htdocs...', 14, Array)
+#1 D:\xampp\htdocs\eVote\system\CodeIgniter.php(928): App\Controllers\Main->index()
+#2 D:\xampp\htdocs\eVote\system\CodeIgniter.php(436): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Main))
+#3 D:\xampp\htdocs\eVote\system\CodeIgniter.php(336): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 D:\xampp\htdocs\eVote\index.php(45): CodeIgniter\CodeIgniter->run()
+#5 {main}
+CRITICAL - 2022-11-23 01:17:06 --> Undefined property: App\Controllers\Main::$session
+#0 D:\xampp\htdocs\eVote\app\Controllers\Main.php(14): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined prope...', 'D:\\xampp\\htdocs...', 14, Array)
+#1 D:\xampp\htdocs\eVote\system\CodeIgniter.php(928): App\Controllers\Main->index()
+#2 D:\xampp\htdocs\eVote\system\CodeIgniter.php(436): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Main))
+#3 D:\xampp\htdocs\eVote\system\CodeIgniter.php(336): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 D:\xampp\htdocs\eVote\index.php(45): CodeIgniter\CodeIgniter->run()
+#5 {main}
+CRITICAL - 2022-11-23 01:17:28 --> Undefined property: App\Controllers\Main::$session
+#0 D:\xampp\htdocs\eVote\app\Controllers\Main.php(13): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined prope...', 'D:\\xampp\\htdocs...', 13, Array)
+#1 D:\xampp\htdocs\eVote\system\CodeIgniter.php(928): App\Controllers\Main->index()
+#2 D:\xampp\htdocs\eVote\system\CodeIgniter.php(436): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Main))
+#3 D:\xampp\htdocs\eVote\system\CodeIgniter.php(336): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 D:\xampp\htdocs\eVote\index.php(45): CodeIgniter\CodeIgniter->run()
+#5 {main}
+CRITICAL - 2022-11-23 01:18:29 --> Call to undefined method CodeIgniter\Database\MySQLi\Connection::getUsers()
+#0 D:\xampp\htdocs\eVote\system\CodeIgniter.php(928): App\Controllers\Main->login()
+#1 D:\xampp\htdocs\eVote\system\CodeIgniter.php(436): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Main))
+#2 D:\xampp\htdocs\eVote\system\CodeIgniter.php(336): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 D:\xampp\htdocs\eVote\index.php(45): CodeIgniter\CodeIgniter->run()
+#4 {main}
+CRITICAL - 2022-11-23 01:20:31 --> Class 'App\Models\AuthModel' not found
+#0 D:\xampp\htdocs\eVote\system\CodeIgniter.php(900): App\Controllers\Main->__construct()
+#1 D:\xampp\htdocs\eVote\system\CodeIgniter.php(426): CodeIgniter\CodeIgniter->createController()
+#2 D:\xampp\htdocs\eVote\system\CodeIgniter.php(336): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 D:\xampp\htdocs\eVote\index.php(45): CodeIgniter\CodeIgniter->run()
+#4 {main}
+CRITICAL - 2022-11-23 01:20:44 --> Class 'App\Models\AuthModel' not found
+#0 D:\xampp\htdocs\eVote\system\CodeIgniter.php(900): App\Controllers\Main->__construct()
+#1 D:\xampp\htdocs\eVote\system\CodeIgniter.php(426): CodeIgniter\CodeIgniter->createController()
+#2 D:\xampp\htdocs\eVote\system\CodeIgniter.php(336): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 D:\xampp\htdocs\eVote\index.php(45): CodeIgniter\CodeIgniter->run()
+#4 {main}
+CRITICAL - 2022-11-23 01:21:15 --> Class 'App\Models\Auth\AuthModel' not found
+#0 D:\xampp\htdocs\eVote\system\CodeIgniter.php(900): App\Controllers\Main->__construct()
+#1 D:\xampp\htdocs\eVote\system\CodeIgniter.php(426): CodeIgniter\CodeIgniter->createController()
+#2 D:\xampp\htdocs\eVote\system\CodeIgniter.php(336): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 D:\xampp\htdocs\eVote\index.php(45): CodeIgniter\CodeIgniter->run()
+#4 {main}
+ERROR - 2022-11-23 01:22:27 --> Error connecting to the database: Access denied for user ''@'localhost' (using password: NO)
+CRITICAL - 2022-11-23 01:22:27 --> Unable to connect to the database.
+Main connection [MySQLi]: Access denied for user ''@'localhost' (using password: NO)
+#0 D:\xampp\htdocs\eVote\system\Database\BaseConnection.php(625): CodeIgniter\Database\BaseConnection->initialize()
+#1 D:\xampp\htdocs\eVote\app\Models\AuthModel.php(11): CodeIgniter\Database\BaseConnection->query('SELECT * FROM s...', Array)
+#2 D:\xampp\htdocs\eVote\app\Controllers\Main.php(43): App\Models\AuthModel->getUsers('admin@evote.com', '40bd001563085fc...')
+#3 D:\xampp\htdocs\eVote\system\CodeIgniter.php(928): App\Controllers\Main->login()
+#4 D:\xampp\htdocs\eVote\system\CodeIgniter.php(436): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Main))
+#5 D:\xampp\htdocs\eVote\system\CodeIgniter.php(336): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#6 D:\xampp\htdocs\eVote\index.php(45): CodeIgniter\CodeIgniter->run()
+#7 {main}
+ERROR - 2022-11-23 01:25:28 --> Unknown column 'security_user_id' in 'where clause'
+CRITICAL - 2022-11-23 01:36:55 --> Call to undefined method App\Controllers\Home::checkSession()
+#0 D:\xampp\htdocs\eVote\system\CodeIgniter.php(928): App\Controllers\Home->index()
+#1 D:\xampp\htdocs\eVote\system\CodeIgniter.php(436): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Home))
+#2 D:\xampp\htdocs\eVote\system\CodeIgniter.php(336): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 D:\xampp\htdocs\eVote\index.php(45): CodeIgniter\CodeIgniter->run()
+#4 {main}
+CRITICAL - 2022-11-23 01:37:18 --> syntax error, unexpected ';', expecting ')'
+#0 D:\xampp\htdocs\eVote\system\Router\Router.php(169): CodeIgniter\Router\Router->autoRoute('/')
+#1 D:\xampp\htdocs\eVote\system\CodeIgniter.php(809): CodeIgniter\Router\Router->handle('/')
+#2 D:\xampp\htdocs\eVote\system\CodeIgniter.php(389): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+#3 D:\xampp\htdocs\eVote\system\CodeIgniter.php(336): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 D:\xampp\htdocs\eVote\index.php(45): CodeIgniter\CodeIgniter->run()
+#5 {main}
+CRITICAL - 2022-11-23 01:39:28 --> Call to undefined method App\Controllers\Home::checkSession()
+#0 D:\xampp\htdocs\eVote\system\CodeIgniter.php(928): App\Controllers\Home->index()
+#1 D:\xampp\htdocs\eVote\system\CodeIgniter.php(436): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Home))
+#2 D:\xampp\htdocs\eVote\system\CodeIgniter.php(336): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 D:\xampp\htdocs\eVote\index.php(45): CodeIgniter\CodeIgniter->run()
+#4 {main}
+CRITICAL - 2022-11-23 01:43:48 --> Call to undefined method App\Controllers\Home::checkSession()
+#0 D:\xampp\htdocs\eVote\system\CodeIgniter.php(928): App\Controllers\Home->index()
+#1 D:\xampp\htdocs\eVote\system\CodeIgniter.php(436): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Home))
+#2 D:\xampp\htdocs\eVote\system\CodeIgniter.php(336): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 D:\xampp\htdocs\eVote\index.php(45): CodeIgniter\CodeIgniter->run()
+#4 {main}
+CRITICAL - 2022-11-23 01:52:30 --> Undefined variable: data
+#0 D:\xampp\htdocs\eVote\app\Controllers\Home.php(15): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined varia...', 'D:\\xampp\\htdocs...', 15, Array)
+#1 D:\xampp\htdocs\eVote\system\CodeIgniter.php(928): App\Controllers\Home->index()
+#2 D:\xampp\htdocs\eVote\system\CodeIgniter.php(436): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Home))
+#3 D:\xampp\htdocs\eVote\system\CodeIgniter.php(336): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 D:\xampp\htdocs\eVote\index.php(45): CodeIgniter\CodeIgniter->run()
+#5 {main}
+CRITICAL - 2022-11-23 01:57:02 --> Undefined variable: notificationURL
+#0 D:\xampp\htdocs\eVote\app\Views\HomeView.php(2): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined varia...', 'D:\\xampp\\htdocs...', 2, Array)
+#1 D:\xampp\htdocs\eVote\system\View\View.php(230): include('D:\\xampp\\htdocs...')
+#2 D:\xampp\htdocs\eVote\system\View\View.php(232): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 D:\xampp\htdocs\eVote\system\Common.php(1271): CodeIgniter\View\View->render('HomeView', Array, true)
+#4 D:\xampp\htdocs\eVote\app\Controllers\Home.php(17): view('HomeView', Array)
+#5 D:\xampp\htdocs\eVote\system\CodeIgniter.php(928): App\Controllers\Home->index()
+#6 D:\xampp\htdocs\eVote\system\CodeIgniter.php(436): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Home))
+#7 D:\xampp\htdocs\eVote\system\CodeIgniter.php(336): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 D:\xampp\htdocs\eVote\index.php(45): CodeIgniter\CodeIgniter->run()
+#9 {main}
+CRITICAL - 2022-11-23 06:54:10 --> syntax error, unexpected '$moduleName' (T_VARIABLE), expecting ';' or ','
+#0 D:\xampp\htdocs\eVote\system\View\View.php(232): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#1 D:\xampp\htdocs\eVote\system\Common.php(1271): CodeIgniter\View\View->render('MasterPageView', Array, true)
+#2 D:\xampp\htdocs\eVote\app\Controllers\Home.php(19): view('MasterPageView', Array)
+#3 D:\xampp\htdocs\eVote\system\CodeIgniter.php(928): App\Controllers\Home->index()
+#4 D:\xampp\htdocs\eVote\system\CodeIgniter.php(436): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Home))
+#5 D:\xampp\htdocs\eVote\system\CodeIgniter.php(336): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#6 D:\xampp\htdocs\eVote\index.php(45): CodeIgniter\CodeIgniter->run()
+#7 {main}
+CRITICAL - 2022-11-23 06:54:23 --> syntax error, unexpected '$title' (T_VARIABLE), expecting ';' or ','
+#0 D:\xampp\htdocs\eVote\system\View\View.php(232): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#1 D:\xampp\htdocs\eVote\system\Common.php(1271): CodeIgniter\View\View->render('MasterPageView', Array, true)
+#2 D:\xampp\htdocs\eVote\app\Controllers\Home.php(19): view('MasterPageView', Array)
+#3 D:\xampp\htdocs\eVote\system\CodeIgniter.php(928): App\Controllers\Home->index()
+#4 D:\xampp\htdocs\eVote\system\CodeIgniter.php(436): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Home))
+#5 D:\xampp\htdocs\eVote\system\CodeIgniter.php(336): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#6 D:\xampp\htdocs\eVote\index.php(45): CodeIgniter\CodeIgniter->run()
+#7 {main}
+CRITICAL - 2022-11-23 06:54:24 --> syntax error, unexpected '$title' (T_VARIABLE), expecting ';' or ','
+#0 D:\xampp\htdocs\eVote\system\View\View.php(232): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#1 D:\xampp\htdocs\eVote\system\Common.php(1271): CodeIgniter\View\View->render('MasterPageView', Array, true)
+#2 D:\xampp\htdocs\eVote\app\Controllers\Home.php(19): view('MasterPageView', Array)
+#3 D:\xampp\htdocs\eVote\system\CodeIgniter.php(928): App\Controllers\Home->index()
+#4 D:\xampp\htdocs\eVote\system\CodeIgniter.php(436): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Home))
+#5 D:\xampp\htdocs\eVote\system\CodeIgniter.php(336): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#6 D:\xampp\htdocs\eVote\index.php(45): CodeIgniter\CodeIgniter->run()
+#7 {main}
+CRITICAL - 2022-11-23 10:05:10 --> syntax error, unexpected '/'
+#0 D:\xampp\htdocs\eVote\system\View\View.php(232): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#1 D:\xampp\htdocs\eVote\system\Common.php(1271): CodeIgniter\View\View->render('MasterPageView', Array, true)
+#2 D:\xampp\htdocs\eVote\app\Controllers\Home.php(19): view('MasterPageView', Array)
+#3 D:\xampp\htdocs\eVote\system\CodeIgniter.php(928): App\Controllers\Home->index()
+#4 D:\xampp\htdocs\eVote\system\CodeIgniter.php(436): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Home))
+#5 D:\xampp\htdocs\eVote\system\CodeIgniter.php(336): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#6 D:\xampp\htdocs\eVote\index.php(45): CodeIgniter\CodeIgniter->run()
+#7 {main}
