@@ -95,7 +95,7 @@
             <!--begin::Header-->
             <div class="card-header align-items-center border-0 mt-4">
                 <h3 class="card-title align-items-start flex-column">
-                    <span class="fw-bolder mb-2 text-dark">Log Aktivitas</span>
+                    <span class="fw-bolder mb-2 text-dark">Aktivitas Hari Ini</span>
                 </h3>
                 
             </div>
@@ -104,20 +104,20 @@
             <div class="card-body pt-5">
                 <!--begin::Timeline-->
                 <div class="timeline-label">
-                    <!--begin::Item-->
-                    <div class="timeline-item">
-                        <!--begin::Label-->
-                        <div class="timeline-label fw-bolder text-gray-800 fs-6">08:42</div>
-                        <!--end::Label-->
-                        <!--begin::Badge-->
-                        <div class="timeline-badge">
-                            <i class="fa fa-genderless text-warning fs-1"></i>
-                        </div>
-                        <!--end::Badge-->
-                        <!--begin::Text-->
-                        <div class="fw-mormal timeline-content text-muted ps-3">Login</div>
-                        <!--end::Text-->
-                    </div>
+                    <?php
+                        foreach ($activity as $key => $value) 
+                        {
+                            $time = date("H:i", strtotime($value['created_on']));
+
+                            echo "<div class='timeline-item'>";
+                            echo "<div class='timeline-label fw-bolder text-gray-800 fs-6'>$time</div>";
+                            echo "<div class='timeline-badge'>";
+                            echo "<i class='fa fa-genderless text-warning fs-1'></i>";
+                            echo "</div>";
+                            echo "<div class='fw-mormal timeline-content text-muted ps-3'>${value['activity']}</div>";
+                            echo "</div>";
+                        }
+                    ?>
                 </div>
                 <!--end::Timeline-->
             </div>
