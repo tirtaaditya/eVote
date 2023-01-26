@@ -243,7 +243,7 @@
 							<input class="form-control form-control-lg form-control-solid" type="text" name="otp"/>
 						</div>
 						<div class="text-center">
-							<button type="submit" id="kt_sign_in_submit" class="btn btn-lg btn-primary w-100 mb-5">
+							<button type="submit" id="kt_sign_in_submit" onclick="validateAbsen()" class="btn btn-lg btn-primary w-100 mb-5">
 								<span class="indicator-label">Konfirmasi</span>
 								<span class="indicator-progress">Please wait...
 								<span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
@@ -264,7 +264,7 @@
 <script>
 	function sendOTP()
 	{
-		var sendOTPURL = "<?=$sendOTPUrl;?>";
+		var sendOTPURL = "<?=$sendOTPUrl;?>";	
 
 		var nomorWhatsapp = document.querySelector("[name='kodeNegaraTelp']").value + document.querySelector("[name='nomorWhatsapp']").value;
 		var nik = document.querySelector("[name='nik']").value;
@@ -303,6 +303,68 @@
 								confirmButton: "btn btn-primary"
 							}
 						});
+					}
+					else
+					{
+						Swal.fire({
+								text: result.message,
+								icon: "error",
+								buttonsStyling: !1,
+								confirmButtonText: "Ok",
+								customClass: {
+									confirmButton: "btn btn-primary"
+								}
+							});
+					}
+				}
+			});
+		}		
+	}
+
+	function validateAbsen()
+	{
+		var validateAbsenUrl = "<?=$validateAbsenUrl;?>";
+		var submitFormUrl = "<?=$submitFormUrl;?>";	
+
+		var paramNik = document.querySelector("[name='nik']").value;
+		var paramOtp = document.querySelector("[name='otp']").value;
+
+		if(paramNik == "" || paramOtp == "")
+		{
+			Swal.fire({
+						text: "NIK dan OTP Tidak Boleh Kosong",
+						icon: "error",
+						buttonsStyling: !1,
+						confirmButtonText: "Ok",
+						customClass: {
+							confirmButton: "btn btn-primary"
+						}
+					});
+		}
+		else
+		{
+			$.ajax({
+				type: "POST",
+				url: validateAbsenUrl,
+				data: {
+					otp: paramOtp,
+					nik: paramNik
+				},
+				dataType: 'JSON',
+				success: function (result) {
+					if(result.code == "00")
+					{
+						Swal.fire({
+							text: result.message,
+							icon: "success",
+							buttonsStyling: !1,
+							confirmButtonText: "Ok",
+							customClass: {
+								confirmButton: "btn btn-primary"
+							}
+						}).then((function(e) {
+								window.location.href = submitFormUrl;
+                            }));
 					}
 					else
 					{

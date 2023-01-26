@@ -20,7 +20,9 @@ class Main extends BaseController
 
 	public function index()
 	{
+		$data['submitFormUrl'] = base_url()."/submitform";
 		$data['sendOTPUrl'] = base_url()."/main/sendOTP";
+		$data['validateAbsenUrl'] = base_url()."/main/validateAbsen";
 
 		return view('AbsenCreateView', $data);		
 	}
@@ -28,7 +30,7 @@ class Main extends BaseController
 	public function sendOTP()
 	{
 		$errorMessage = "";
-		$$successMessage = "";
+		$successMessage = "";
 
 		try
 		{
@@ -42,11 +44,11 @@ class Main extends BaseController
 			$userVote = $this->uservoteModels->getUserVote($nik);
 			if(empty($userVote))
 			{
-				$errorMessage = "NIK Tidak Ditemukan";
+				$errorMessage = "NIK salah/tidak ditemukan";
 			}
 			else
 			{
-				$url =  "https://api.kirimwa.id/v1/messages";;
+				$url =  "https://api.kirimwa.id/v1/messages";
 				$data = array("phone_number" => $nomorWhatsapp, "message" => $message, "device_id" => "samsungmod", "message_type" => "text");
 				$options = array(
 				'http' => array(
@@ -59,11 +61,12 @@ class Main extends BaseController
 				);
 				$context  = stream_context_create( $options );
 				$result = file_get_contents( $url, false, $context );
-				
+
 				$otpUpdate['identity_code'] = $nik;
 				$otpUpdate['otp'] = $otp;
+				$otpUpdate['phone_number'] = $nomorWhatsapp;
 				$updateUserOTP = $this->uservoteModels->updateUserVote($otpUpdate);
-
+				
 				if(!$updateUserOTP)
 				{
 					$errorMessage = "Gagal Sinkronisasi OTP dengan Sistem";
@@ -77,7 +80,44 @@ class Main extends BaseController
 		catch (\Exception $e)
         {
         	$errorMessage = $e->getMessage();
-			echo $errorMessage;die();
+			$this->auditHelper->writeAuditErrorSystem(get_class(), $e, $this->session->user['security_users_id']);
+        }
+
+		$response['code'] = $errorMessage == '' ? '00' : '04';
+        $response['message'] = $errorMessage == '' ? $successMessage : $errorMessage;
+
+		return json_encode($response);
+	}
+
+	public function validateAbsen()
+	{
+		$errorMessage = "";
+		$successMessage = "";
+
+		try
+		{
+			$postData = $this->request->getPost();
+
+			$nik = $postData['nik'];
+			$otp = $postData['otp'];
+			
+			$userValidate = $this->uservoteModels->getUserValidateOTP($nik, $otp);
+
+			if(empty($userValidate))
+			{
+				$errorMessage = "OTP Tidak Sesuai";
+			}
+			else
+			{
+				$successMessage = "Absensi Berhasil";
+
+				$session['nik'] = $nik;
+				$this->session->set('user', $session);
+			}
+		}
+		catch (\Exception $e)
+        {
+        	$errorMessage = $e->getMessage();
 			$this->auditHelper->writeAuditErrorSystem(get_class(), $e, $this->session->user['security_users_id']);
         }
 

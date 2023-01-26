@@ -6,13 +6,22 @@ class UservoteModel extends Model
 {
     function getUserVote($identityCode)
     {
-
         $query = "SELECT * FROM master_users_vote where identity_code = ?";
        
         $result = $this->db->query($query, [$identityCode]);
         
         return $result->getFirstRow('array');           
     }
+
+    function getUserValidateOTP($nik, $otp)
+    {
+        $query = "SELECT * FROM master_users_vote where otp = ? and identity_code = ?";
+       
+        $result = $this->db->query($query, [$otp, $nik]);
+
+        return $result->getFirstRow('array');           
+    }
+
 
     function updateUserVote($data)
 	{
