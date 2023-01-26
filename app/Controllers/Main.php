@@ -62,7 +62,7 @@ class Main extends BaseController
 				
 				$otpUpdate['identity_code'] = $nik;
 				$otpUpdate['otp'] = $otp;
-				$updateUserOTP = $this->uservoteModels->updateUserVote($nik);
+				$updateUserOTP = $this->uservoteModels->updateUserVote($otpUpdate);
 
 				if(!$updateUserOTP)
 				{
