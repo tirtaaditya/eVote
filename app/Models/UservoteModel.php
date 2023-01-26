@@ -13,4 +13,22 @@ class UservoteModel extends Model
         
         return $result->getFirstRow('array');           
     }
+
+    function updateUserVote($data)
+	{
+		$this->db->transBegin();
+
+        $this->db->table('master_users_vote')->where('identity_code', $data['identity_code'])->update($data);;
+        
+        if ($this->db->transStatus() === FALSE)
+        {
+            $this->db->transRollback();
+            return FALSE;
+        }
+        else
+        {
+            $this->db->transCommit();
+            return TRUE;
+        } 
+	}
 }

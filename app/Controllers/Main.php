@@ -37,14 +37,42 @@ class Main extends BaseController
 			$nomorWhatsapp = $postData['nomorWhatsapp'];
 	       	$nik = $postData['nik'];
 			$otp = rand(100000, 999999);
+			$message = $otp." adalah kode OTP anda untuk Form Absensi";
 			
 			$userVote = $this->uservoteModels->getUserVote($nik);
 			if(empty($userVote))
 			{
 				$errorMessage = "NIK Tidak Ditemukan";
 			}
+			else
+			{
+				$url =  "https://api.kirimwa.id/v1/messages";;
+				$data = array("phone_number" => $nomorWhatsapp, "message" => $message, "device_id" => "samsungmod", "message_type" => "text");
+				$options = array(
+				'http' => array(
+					'method'  => 'POST',
+					'content' => json_encode( $data ),
+					'header'=>  "Content-Type: application/json\r\n" .
+								"Accept: application/json\r\n" .
+						"Authorization: Bearer qtkl44hm/c2FdwgDzxBDKx5NYbs+GUgkVdr55Hd6UJwIJIANexmUTSBByiugRMAg-tirta\r\n"
+					)
+				);
+				$context  = stream_context_create( $options );
+				$result = file_get_contents( $url, false, $context );
+				
+				$otpUpdate['identity_code'] = $nik;
+				$otpUpdate['otp'] = $otp;
+				$updateUserOTP = $this->uservoteModels->updateUserVote($nik);
 
-			$successMessage = 'OTP Berhasil Dikirim';
+				if(!$updateUserOTP)
+				{
+					$errorMessage = "Gagal Sinkronisasi OTP dengan Sistem";
+				}
+				else
+				{
+					$successMessage = 'OTP Berhasil Dikirim';
+				}
+			}
 		}
 		catch (\Exception $e)
         {

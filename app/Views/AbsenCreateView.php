@@ -269,7 +269,7 @@
 		var nomorWhatsapp = document.querySelector("[name='kodeNegaraTelp']").value + document.querySelector("[name='nomorWhatsapp']").value;
 		var nik = document.querySelector("[name='nik']").value;
 
-		if(nomorWhatsapp == "" || nik == "")
+		if(document.querySelector("[name='nomorWhatsapp']").value == "" || nik == "")
 		{
 			Swal.fire({
 						text: "NIK dan Nomor Whatsapp Tidak Boleh Kosong",
