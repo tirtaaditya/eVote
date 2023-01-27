@@ -124,16 +124,16 @@
 	backgroundColor: 'rgb(255, 255, 255)' // necessary for saving image as JPEG; can be removed is only saving as PNG or SVG
 	});
 
-	document.getElementById('save-png').addEventListener('click', function () {
-	if (signaturePad.isEmpty()) {
-		alert("Tanda Tangan Anda Kosong! Silahkan tanda tangan terlebih dahulu.");
-	}else{
-		var data = signaturePad.toDataURL('image/png');
-		console.log(data);
-		$('#myModal').modal('show').find('.modal-body').html('<h4>Format .PNG</h4><img src="'+data+'"><textarea id="signature64" name="signed" style="display:none">'+data+'</textarea>');
-		$('#myModal').modal('show');
-	}
-	});
+	// document.getElementById('save-png').addEventListener('click', function () {
+	// if (signaturePad.isEmpty()) {
+	// 	alert("Tanda Tangan Anda Kosong! Silahkan tanda tangan terlebih dahulu.");
+	// }else{
+	// 	var data = signaturePad.toDataURL('image/png');
+	// 	console.log(data);
+	// 	$('#myModal').modal('show').find('.modal-body').html('<h4>Format .PNG</h4><img src="'+data+'"><textarea id="signature64" name="signed" style="display:none">'+data+'</textarea>');
+	// 	$('#myModal').modal('show');
+	// }
+	// });
 
 	// document.getElementById('save-jpeg').addEventListener('click', function () {
 	// if (signaturePad.isEmpty()) {
