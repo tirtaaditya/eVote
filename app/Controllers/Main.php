@@ -83,7 +83,7 @@ class Main extends BaseController
 				$logWhatsapp['message'] = $message;
 				$logWhatsapp['response'] = $result;
 				
-				$this->whatsappModels->insertLogWA($otpUpdate);
+				$this->whatsappModels->insertLogWA($logWhatsapp);
 			}
 		}
 		catch (\Exception $e)
