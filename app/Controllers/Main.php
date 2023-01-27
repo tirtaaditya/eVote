@@ -152,6 +152,38 @@ class Main extends BaseController
 		}
 	}
 
+	public function submitFormTest()
+	{
+		$data['sendOTPUrl'] = base_url()."/main/sendOTP";
+
+		return view('Test', $data);	
+	}
+
+	public function submitForm()
+	{
+		$data['sendOTPUrl'] = base_url()."/main/sendOTP";
+		$data['dataSession'] = $this->session->user;
+		return view('SubmitForm', $data);	
+	}
+
+	public function upload()
+	{
+	$folderPath = "img-upload/";
+	
+		$image_parts = explode(";base64,", $this->input->post('signed'));
+			
+		$image_type_aux = explode("image/", $image_parts[0]);
+		
+		$image_type = $image_type_aux[1];
+		
+		$image_base64 = base64_decode($image_parts[1]);
+		
+		$file = $folderPath . uniqid() . '.'.$image_type;
+		
+		file_put_contents($file, $image_base64);
+		echo "<h3><i>Upload Tanda Tangan Berhasil..</i><h3>";
+	}
+
 	public function login()
 	{
 		$response = [];
