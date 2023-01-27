@@ -423,6 +423,7 @@
 <script>
 	$(document).ready(function () 
 	{
+		$(".screen").hide();
 		$(document).ajaxStart(function()
 		{
 			$(".screen").show();
