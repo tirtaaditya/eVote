@@ -1,12 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head><base href="../../../">
-	    	<title><?= getenv('applicationName')." | Login" ?></title>
+	    <title><?= getenv('applicationName')." | Login" ?></title>
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" />
 		<link href="<?=base_url()?>/assets/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css" />
 		<link href="<?=base_url()?>/assets/css/style.bundle.css" rel="stylesheet" type="text/css" />
+		<style>
+			.screen {
+				position: fixed;
+				transition: all .5s;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				z-index: 10;
+				background-color: rgba(16, 16, 16, 0.5);
+			}
+
+			.loader {
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				display: flex;
+				align-items: center;
+				border-radius:20px;
+			}
+		</style>
 	</head>
 	<body id="kt_body" class="bg-body">
+		<div class="screen">
+			<div class="box">
+				<div class="loader">
+					<div class="spinner-grow text-muted"></div>
+					<div class="spinner-grow text-primary"></div>
+					<div class="spinner-grow text-success"></div>
+					<div class="spinner-grow text-info"></div>
+					<div class="spinner-grow text-warning"></div>
+					<div class="spinner-grow text-danger"></div>
+					<div class="spinner-grow text-secondary"></div>
+					<div class="spinner-grow text-dark"></div>
+					<div class="spinner-grow text-light"></div>
+				</div>
+			</div>
+		</div>
 		<div class="d-flex flex-column flex-root">
 			<div class="d-flex flex-column flex-column-fluid bgi-position-y-bottom position-x-center bgi-no-repeat bgi-size-contain bgi-attachment-fixed" style="background-image: url(<?=base_url()?>/assets/media/illustrations/sketchy-1/14.png">
 				<div class="d-flex flex-center flex-column flex-column-fluid p-10 pb-lg-20">
@@ -382,4 +419,18 @@
 			});
 		}		
 	}
+</script>
+<script>
+	$(document).ready(function () 
+	{
+		$(document).ajaxStart(function()
+		{
+			$(".screen").show();
+		});
+
+		$(document).ajaxStop(function()
+		{
+			$(".screen").hide();
+		});
+	});
 </script>
