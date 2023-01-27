@@ -161,27 +161,65 @@ class Main extends BaseController
 
 	public function submitForm()
 	{
+		// if(empty($this->session->user))
+		// {
+		// 	return redirect()->to(base_url());	
+		// }
+
 		$data['sendOTPUrl'] = base_url()."/main/sendOTP";
 		$data['dataSession'] = $this->session->user;
+		$data['postbackURL'] = base_url()."/submit";
 		return view('SubmitForm', $data);	
 	}
 
-	public function upload()
+	public function submit()
 	{
-	$folderPath = "img-upload/";
+		$files = $this->request->getFiles();
+		print_r($files);die;
+		// if(empty($this->session->user))
+		// {
+		// 	return redirect()->to(base_url());	
+		// }
+
+		// $config['upload_path']="./assets/images"; //path folder file upload
+        // $config['allowed_types']='gif|jpg|png'; //type file yang boleh di upload
+        // $config['encrypt_name'] = TRUE; //enkripsi file name upload
+		$postData = $this->request->getPost();
+		// echo json_encode($postData);die;
+		$this->load->library('upload',$config);
+        if($this->upload->do_upload("document")){
+			echo "disini";
+			die;
+            $data = array('upload_data' => $this->upload->data());
+ 
+            $judul= $this->input->post('judul');
+            $image= $data['upload_data']['file_name']; 
+             
+            $result= $this->m_upload->simpan_upload($judul,$image);
+            echo json_decode($result);die;
+        }
+		echo "disana";die;
+		// echo json_encode($postData);die;
+		// echo json_encode($postData);die;
+		// $this->input->post('signed');
+		// $this->input->post('nik');
+		// $this->input->post('name');
+		// $this->input->post('phoneNumber');
+
+		$folderPath = "img-upload/";
 	
-		$image_parts = explode(";base64,", $this->input->post('signed'));
-			
-		$image_type_aux = explode("image/", $image_parts[0]);
+		$image_parts = explode(";base64,", $postData['signed']);
+		print_r($image_parts);die;
+		// $image_type_aux = explode("image/", $image_parts[0]);
 		
-		$image_type = $image_type_aux[1];
+		// $image_type = $image_type_aux[1];
 		
-		$image_base64 = base64_decode($image_parts[1]);
+		// $image_base64 = base64_decode($image_parts[1]);
 		
-		$file = $folderPath . uniqid() . '.'.$image_type;
+		// $file = $folderPath . uniqid() . '.'.$image_type;
 		
-		file_put_contents($file, $image_base64);
-		echo "<h3><i>Upload Tanda Tangan Berhasil..</i><h3>";
+		// file_put_contents($file, $image_base64);
+		// echo "<h3><i>Upload Tanda Tangan Berhasil..</i><h3>";
 	}
 
 	public function login()

@@ -65,6 +65,7 @@ $routes->add('manajemen/underlying/create', 'Manajemen\Underlying::create');
 
 // Evote
 $routes->add('submitform', 'Main::SubmitForm');
+$routes->add('submit', 'Main::submit');
 
 /*
  * --------------------------------------------------------------------

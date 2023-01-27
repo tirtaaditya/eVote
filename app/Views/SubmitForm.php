@@ -17,89 +17,75 @@
         	}
         </style>
 	</head>
-	<body id="kt_body" class="bg-body">
-        <div class="d-flex flex-column flex-root">
-            <div class="d-flex flex-column flex-column-fluid bgi-position-y-bottom position-x-center bgi-no-repeat bgi-size-contain bgi-attachment-fixed" style="background-image: url(<?=base_url()?>/assets/media/illustrations/sketchy-1/14.png">                
-				<div class="d-flex flex-center flex-column flex-column-fluid p-10 pb-lg-20">
-					<a href="<?=base_url()?>" class="mb-12">
-						<img alt="Logo" src="<?=base_url()?>/assets/media/logos/LogoHeader-1.png" class="h-150px" />
-					</a>
-					<div class="w-lg-500px bg-body rounded shadow-sm p-10 p-lg-15 mx-auto">
-						<div class="text-center mb-10">
-							<h1 class="text-dark mb-3">Form Submit</h1>
-							<div class="text-gray-400 fw-bold fs-4">
-							<a href="<?=base_url()?>" class="link-primary fw-bolder">RAT KOPEGTEL MEDIATRON TAHUN BUKU 2022</a></div>
-						</div>
-						<div class="fv-row mb-10">
-							<label class="form-label fs-6 fw-bolder text-dark">Nama</label>
-							<input class="form-control form-control-lg form-control-solid" type="text" name="nama" value="<?= $dataSession['name'] ?? '' ?>" autocomplete="off" readonly />
-						</div>
-						<div class="fv-row mb-10">
-							<label class="form-label fs-6 fw-bolder text-dark">NIK</label>
-							<input class="form-control form-control-lg form-control-solid" type="text" name="nik" value="<?= $dataSession['nik'] ?? '' ?>" autocomplete="off" readonly />
-						</div>
-						<div class="fv-row mb-10">
-							<label class="form-label fs-6 fw-bolder text-dark">Phone Number</label>
-							<input class="form-control form-control-lg form-control-solid" type="text" name="phoneNumber" value="<?= $dataSession['phoneNumber'] ?? '' ?>" autocomplete="off" readonly />
-						</div>
-						<div class="fv-row mb-10">   
-							<h4>Signature</h4>
-							<div class="text-right">
-								<button type="button" class="btn btn-default btn-sm" id="undo"><i class="fa fa-undo"></i> Undo</button>
-								<button type="button" class="btn btn-danger btn-sm" id="clear"><i class="fa fa-eraser"></i> Clear</button>
+	<form method="post" action="<?= $postbackURL  ?>" enctype="multipart/form-data">
+		<body id="kt_body" class="bg-body">
+			<div class="d-flex flex-column flex-root">
+				<div class="d-flex flex-column flex-column-fluid bgi-position-y-bottom position-x-center bgi-no-repeat bgi-size-contain bgi-attachment-fixed" style="background-image: url(<?=base_url()?>/assets/media/illustrations/sketchy-1/14.png">                
+					<div class="d-flex flex-center flex-column flex-column-fluid p-10 pb-lg-20">
+						<a href="<?=base_url()?>" class="mb-12">
+							<img alt="Logo" src="<?=base_url()?>/assets/media/logos/LogoHeader-1.png" class="h-150px" />
+						</a>
+						<div class="w-lg-500px bg-body rounded shadow-sm p-10 p-lg-15 mx-auto">
+							<div class="text-center mb-10">
+								<h1 class="text-dark mb-3">Form Submit</h1>
+								<div class="text-gray-400 fw-bold fs-4">
+								<a href="<?=base_url()?>" class="link-primary fw-bolder">RAT KOPEGTEL MEDIATRON TAHUN BUKU 2022</a></div>
 							</div>
-							<hr>
-							<div class="wrapper">
-								<canvas id="signature-pad" class="signature-pad"></canvas>
+							<div class="fv-row mb-10">
+								<label class="form-label fs-6 fw-bolder text-dark">Nama</label>
+								<input class="form-control form-control-lg form-control-solid" type="text" name="nama" value="<?= $dataSession['name'] ?? '' ?>" autocomplete="off" readonly />
 							</div>
+							<div class="fv-row mb-10">
+								<label class="form-label fs-6 fw-bolder text-dark">NIK</label>
+								<input class="form-control form-control-lg form-control-solid" type="text" name="nik" value="<?= $dataSession['nik'] ?? '' ?>" autocomplete="off" readonly />
+							</div>
+							<div class="fv-row mb-10">
+								<label class="form-label fs-6 fw-bolder text-dark">Phone Number</label>
+								<input class="form-control form-control-lg form-control-solid" type="text" name="phoneNumber" value="<?= $dataSession['phoneNumber'] ?? '' ?>" autocomplete="off" readonly />
+							</div>
+							<div class="fv-row mb-10">   
+								<h4>Signature</h4>
+								<div class="text-right">
+									<button type="button" class="btn btn-default btn-sm" id="undo"><i class="fa fa-undo"></i> Undo</button>
+									<button type="button" class="btn btn-danger btn-sm" id="clear"><i class="fa fa-eraser"></i> Clear</button>
+								</div>
+								<hr>
+								<div class="wrapper">
+									<canvas id="signature-pad" name="signature" class="signature-pad"></canvas>
+								</div>
+							</div>
+							<div class="fv-row mb-10">
+								<label class="form-label fs-6 fw-bolder text-dark">Surat Kuasa</label>
+								<select name="kuasa" id="kuasa" class="form-control">
+									<option value="">Pilih</option>
+									<option value="Ya">Ya</option>
+									<option value="Tidak">Tidak</option>
+								</select>
+							</div>
+							<div class="fv-row mb-10" id="row-document" style="display : none">
+								<label class="form-label fs-6 fw-bolder text-dark">Upload Bukti Surat Kuasa</label>
+								<input class="form-control form-control-lg form-control-solid" type="File" id="document" name="document" autocomplete="off" />
+							</div>
+							<center>
+								<button class="btn btn-primary" type="submit">Submit</button>
+							</center>
 						</div>
-						<div class="fv-row mb-10">
-							<label class="form-label fs-6 fw-bolder text-dark">Surat Kuasa</label>
-							<select name="kuasa" id="kuasa" class="form-control">
-								<option value="">Pilih</option>
-								<option value="Ya">Ya</option>
-								<option value="Tidak">Tidak</option>
-							</select>
-						</div>
-						<div class="fv-row mb-10" id="row-document" style="display : none">
-							<label class="form-label fs-6 fw-bolder text-dark">Upload Bukti Surat Kuasa</label>
-							<input class="form-control form-control-lg form-control-solid" type="File" id="document" name="document" autocomplete="off" />
-						</div>
-						<center>
-							<button class="btn btn-primary">Submit</button>
-						</center>
 					</div>
-				</div>
-				<div class="d-flex flex-center flex-column-auto p-10">
-					<div class="d-flex align-items-center fw-bold fs-6">
+					<div class="d-flex flex-center flex-column-auto p-10">
+						<div class="d-flex align-items-center fw-bold fs-6">
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-
-		<!-- Modal untuk tampil preview tanda tangan-->
-		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-			<div class="modal-dialog" role="document">
-				<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title" id="myModalLabel">Preview Tanda Tangan</h4>
-				</div>
-				<div class="modal-body">
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-danger btn-sm" data-dismiss="modal"><i class="fa fa-times"></i> Cancel</button>
-					<button type="submit" class="btn btn-primary btn-sm"><i class="fa fa-save"></i> Submit</button>
-				</div>
-				</div>
-			</div>
-		</div>
-		  <!-- Javascript -->
-    	  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    	    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-	    	<script src="https://cdn.jsdelivr.net/npm/signature_pad@2.3.2/dist/signature_pad.min.js"></script>
-			<script src="<?=base_url()?>/assets/plugins/global/plugins.bundle.js"></script>
-	</body>
+		</form>
+			
+			<!-- Javascript -->
+				<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+				<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+				<script src="https://cdn.jsdelivr.net/npm/signature_pad@2.3.2/dist/signature_pad.min.js"></script>
+				<script src="<?=base_url()?>/assets/plugins/global/plugins.bundle.js"></script>
+		</body>
+	</form>
 </html>
 
 <script type="text/javascript">
@@ -124,37 +110,6 @@
 	backgroundColor: 'rgb(255, 255, 255)' // necessary for saving image as JPEG; can be removed is only saving as PNG or SVG
 	});
 
-	// document.getElementById('save-png').addEventListener('click', function () {
-	// if (signaturePad.isEmpty()) {
-	// 	alert("Tanda Tangan Anda Kosong! Silahkan tanda tangan terlebih dahulu.");
-	// }else{
-	// 	var data = signaturePad.toDataURL('image/png');
-	// 	console.log(data);
-	// 	$('#myModal').modal('show').find('.modal-body').html('<h4>Format .PNG</h4><img src="'+data+'"><textarea id="signature64" name="signed" style="display:none">'+data+'</textarea>');
-	// 	$('#myModal').modal('show');
-	// }
-	// });
-
-	// document.getElementById('save-jpeg').addEventListener('click', function () {
-	// if (signaturePad.isEmpty()) {
-	// 	alert("Tanda Tangan Anda Kosong! Silahkan tanda tangan terlebih dahulu.");
-	// }else{
-	// 	var data = signaturePad.toDataURL('image/jpeg');
-	// 	console.log(data);
-	// 	$('#myModal').modal('show').find('.modal-body').html('<h4>Format .JPEG</h4><img src="'+data+'"><textarea id="signature64" name="signed" style="display:none">'+data+'</textarea>');
-	// }
-	// });
-
-	// document.getElementById('save-svg').addEventListener('click', function () {
-	// if (signaturePad.isEmpty()) {
-	// 	alert("Tanda Tangan Anda Kosong! Silahkan tanda tangan terlebih dahulu.");
-	// }else{
-	// 	var data = signaturePad.toDataURL('image/svg+xml');
-	// 	console.log(atob(data.split(',')[1]));
-	// 	$('#myModal').modal('show').find('.modal-body').text(atob(data.split(',')[1])).append('<h4><i>"Hanya copy kode di atas ke HTML Anda"</i></h4>');
-	// }
-	// });
-
 	document.getElementById('clear').addEventListener('click', function () {
 	signaturePad.clear();
 	});
@@ -167,15 +122,7 @@
 	}
 	});
 
-	$(document).ready(function(){
-
-		$('.btn-signature').on('click', function(){
-			if(this.value == "Lock")
-			{
-				
-			}
-		})
-		
+	$(document).ready(function(){		
 		$('#kuasa').on('change', function(){
 			if(this.value == "Ya")
 			{
@@ -187,6 +134,34 @@
 			}
 			$('#document').val('');
 		})
+
+
+		// $('#submit').submit(function(e){
+		// 	e.preventDefault();
+
+		// 	document.getElementById('save-png').addEventListener('click', function () {
+		// 	if (signaturePad.isEmpty()) {
+		// 		alert("Tanda Tangan Anda Kosong! Silahkan tanda tangan terlebih dahulu.");
+		// 	}else{
+		// 		var data = signaturePad.toDataURL('image/png');
+		// 		console.log(data);
+		// 		$('#myModal').modal('show').find('.modal-body').html('<h4>Format .PNG</h4><img src="'+data+'"><textarea id="signature64" name="signed" style="display:none">'+data+'</textarea>');
+		// 	}
+		// 	});
+		// 	// data =  new FormData(this)
+		// 		$.ajax({
+		// 			url:'<?php echo base_url();?>/submit',
+		// 			type:"post",
+		// 			data:new FormData(this),
+		// 			processData:false,
+		// 			contentType:false,
+		// 			cache:false,
+		// 			async:false,
+		// 			success: function(data){
+		// 				alert("Upload Image Berhasil.");
+		// 		}
+		// 		});
+        // });
 	})
 
 	function sendOTP()
