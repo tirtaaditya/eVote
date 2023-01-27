@@ -6,6 +6,7 @@ use App\Helpers\AuditHelper;
 use App\Models\AuthModel;
 use App\Models\AuditModel;
 use App\Models\UservoteModel;
+use App\Models\WhatsappModel;
 
 class Main extends BaseController
 {
@@ -14,6 +15,7 @@ class Main extends BaseController
         $this->models = new AuthModel();
 		$this->auditModels = new AuditModel();
 		$this->uservoteModels = new UservoteModel();
+		$this->whatsappModels = new WhatsappModel();
  
 		$this->auditHelper = new AuditHelper();		
     }
@@ -60,7 +62,7 @@ class Main extends BaseController
 					)
 				);
 				$context  = stream_context_create( $options );
-				$result = file_get_contents( $url, false, $context );
+				$result = file_get_contents( $url, false, $context );				
 
 				$otpUpdate['identity_code'] = $nik;
 				$otpUpdate['otp'] = $otp;
@@ -75,6 +77,13 @@ class Main extends BaseController
 				{
 					$successMessage = 'OTP Berhasil Dikirim';
 				}
+
+				$logWhatsapp['module'] = 'OTP';
+				$logWhatsapp['phone_number'] = $nomorWhatsapp;
+				$logWhatsapp['message'] = $message;
+				$logWhatsapp['response'] = $result;
+				
+				$this->whatsappModels->insertLogWA($otpUpdate);
 			}
 		}
 		catch (\Exception $e)
