@@ -109,7 +109,7 @@ class Main extends BaseController
 			}
 			else
 			{
-				$successMessage = "Absensi Berhasil";
+				$successMessage = "OTP Sesuai";
 
 				$session['nik'] = $nik;
 				$session['name'] = $userValidate['name'];
