@@ -112,6 +112,8 @@ class Main extends BaseController
 				$successMessage = "Absensi Berhasil";
 
 				$session['nik'] = $nik;
+				$session['name'] = $userValidate['name'];
+				$session['phoneNumber'] = $userValidate['phone_number'];
 				$this->session->set('user', $session);
 			}
 		}
