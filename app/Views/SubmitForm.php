@@ -64,10 +64,16 @@
 							</div>
 							<div class="fv-row mb-10" id="row-document" style="display : none">
 								<label class="form-label fs-6 fw-bolder text-dark">Upload Bukti Surat Kuasa</label>
-								<input class="form-control form-control-lg form-control-solid" type="File" id="document" name="document" autocomplete="off" />
+								<textarea name="pemberiKuasa" id="pemberiKuasa" cols="30" rows="5" class="form-control" placeholder="input nik pisahkan dengan tanda ,"></textarea>
+								<p class="text-danger">*example : 20001,2009,2008</p>
 							</div>
 							<center>
-								<button class="btn btn-primary" type="submit">Submit</button>
+							<button type="button" class="btn btn-primary" data-toggle="modal" id="modal-submit" data-target="#myModal">
+								Submit
+							</button>
+							<!-- <button type="button" class="btn btn-primary" id="modal-submit" data-toggle="modal" onclick="handleSubmit()">
+								Submit
+							</button> -->
 							</center>
 						</div>
 					</div>
@@ -77,10 +83,37 @@
 					</div>
 				</div>
 			</div>
+
+			<!-- The Modal -->
+				<div class="modal fade" id="myModal">
+					<div class="modal-dialog">
+						<div class="modal-content">
+
+						<!-- Modal Header -->
+						<div class="modal-header">
+							<h4 class="modal-title">Modal Heading</h4>
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+						</div>
+
+						<!-- Modal body -->
+						<div class="modal-body">
+							
+						</div>
+
+						<!-- Modal footer -->
+						<div class="modal-footer">
+							<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+							<button type="submit" class="btn btn-primary">Submit</button>
+						</div>
+
+						</div>
+					</div>
+				</div>
 		</form>
 			
 			<!-- Javascript -->
 				<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+				<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
 				<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 				<script src="https://cdn.jsdelivr.net/npm/signature_pad@2.3.2/dist/signature_pad.min.js"></script>
 				<script src="<?=base_url()?>/assets/plugins/global/plugins.bundle.js"></script>
@@ -135,33 +168,60 @@
 			$('#document').val('');
 		})
 
+		$('#modal-submit').on('click', function(){
+			if (signaturePad.isEmpty()) {
+			Swal.fire({
+				text: "Tanda Tangan Anda Kosong! Silahkan tanda tangan terlebih dahulu.",
+				icon: "error",
+				buttonsStyling: !1,
+				confirmButtonText: "Ok",
+				customClass: {
+					confirmButton: "btn btn-primary"
+				}
+			}).then((function(e) {
+				$('#myModal').modal('hide')
+				return false;
+			}))
 
-		// $('#submit').submit(function(e){
-		// 	e.preventDefault();
+		}
+		
+		let pemberiKuasa = $('#pemberiKuasa').val()
+		let kuasa = $('#kuasa').val()
+		if(kuasa == "")
+		{
+			Swal.fire({
+				text: "Surat Kuasa Wajib Di Isi",
+				icon: "error",
+				buttonsStyling: !1,
+				confirmButtonText: "Ok",
+				customClass: {
+					confirmButton: "btn btn-primary"
+				}
+			}).then((function(e) {
+				$('#myModal').modal('hide')
+				return false;
+			}))
+		}
 
-		// 	document.getElementById('save-png').addEventListener('click', function () {
-		// 	if (signaturePad.isEmpty()) {
-		// 		alert("Tanda Tangan Anda Kosong! Silahkan tanda tangan terlebih dahulu.");
-		// 	}else{
-		// 		var data = signaturePad.toDataURL('image/png');
-		// 		console.log(data);
-		// 		$('#myModal').modal('show').find('.modal-body').html('<h4>Format .PNG</h4><img src="'+data+'"><textarea id="signature64" name="signed" style="display:none">'+data+'</textarea>');
-		// 	}
-		// 	});
-		// 	// data =  new FormData(this)
-		// 		$.ajax({
-		// 			url:'<?php echo base_url();?>/submit',
-		// 			type:"post",
-		// 			data:new FormData(this),
-		// 			processData:false,
-		// 			contentType:false,
-		// 			cache:false,
-		// 			async:false,
-		// 			success: function(data){
-		// 				alert("Upload Image Berhasil.");
-		// 		}
-		// 		});
-        // });
+		if(kuasa == "Ya" && pemberiKuasa == "")
+		{
+			Swal.fire({
+				text: "Pemberi Kuasa Tidak Boleh Kosong !",
+				icon: "error",
+				buttonsStyling: !1,
+				confirmButtonText: "Ok",
+				customClass: {
+					confirmButton: "btn btn-primary"
+				}
+			}).then((function(e) {
+				$('#myModal').modal('hide')
+				return false;
+			}))
+		}
+
+		var data = signaturePad.toDataURL('image/jpeg');
+		$('#myModal').modal('show').find('.modal-body').html('<h4>Apakah Anda Yakin ?</h4>	<textarea id="signature64" name="signed" style="display:none">'+data+'</textarea>');
+	})
 	})
 
 	function sendOTP()
@@ -221,5 +281,58 @@
 				}
 			});
 		}		
+	}
+
+    let handleSubmit = () => {
+		if (signaturePad.isEmpty()) {
+			Swal.fire({
+				text: "Tanda Tangan Anda Kosong! Silahkan tanda tangan terlebih dahulu.",
+				icon: "error",
+				buttonsStyling: !1,
+				confirmButtonText: "Ok",
+				customClass: {
+					confirmButton: "btn btn-primary"
+				}
+			}).then((function(e) {
+				return false;
+			}))
+
+		}
+		
+		let pemberiKuasa = $('#pemberiKuasa').val()
+		let kuasa = $('#kuasa').val()
+		if(kuasa == "")
+		{
+			Swal.fire({
+				text: "Surat Kuasa Wajib Di Isi",
+				icon: "error",
+				buttonsStyling: !1,
+				confirmButtonText: "Ok",
+				customClass: {
+					confirmButton: "btn btn-primary"
+				}
+			}).then((function(e) {
+				return false;
+			}))
+		}
+
+		if(kuasa == "Ya" && pemberiKuasa == "")
+		{
+			Swal.fire({
+				text: "Pemberi Kuasa Tidak Boleh Kosong !",
+				icon: "error",
+				buttonsStyling: !1,
+				confirmButtonText: "Ok",
+				customClass: {
+					confirmButton: "btn btn-primary"
+				}
+			}).then((function(e) {
+				return false;
+			}))
+		}
+
+		var data = signaturePad.toDataURL('image/jpeg');
+		alert("oke");
+		$('#myModal').modal('show').find('.modal-body').html('<h4>Apakah Anda Yakin ?</h4>	<textarea id="signature64" name="signed" style="display:none">'+data+'</textarea>');
 	}
 </script>
