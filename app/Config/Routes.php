@@ -33,39 +33,11 @@ $routes->setAutoRoute(true);
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
 
-//Dashboard
-$routes->add('dashboard/banknotes','Dashboard\Banknotes::index');
-$routes->add('dashboard/banknotes/detail','Dashboard\Banknotes::detail');
-
-// Kurs
-$routes->add('kurs/nilai', 'Kurs\Inquiry::index');
-$routes->add('kurs/range', 'Kurs\Range::index');
-
-// Manejemen
-$routes->add('manajemen/registrasiia', 'Manajemen\Registrasiia::index');
-$routes->add('manajemen/registrasiia/(:num)', 'Manajemen\Registrasiia::show/$1');
-$routes->add('manajemen/registrasiia/create', 'Manajemen\Registrasiia::create');
-
-$routes->add('manajemen/role', 'Manajemen\Role::index');
-
-// Geser Terima
-$routes->add('kas/geserterima', 'Kas\GeserTerima::index');
-$routes->add('kas/geserterima/detail/(:num)', 'Kas\GeserTerima::show/$1');
-$routes->add('kas/geserterima/terima/(:num)', 'Kas\GeserTerima::show/$1');
-
-// Purpose
-$routes->add('manajemen/purpose', 'Manajemen\Purpose::index');
-$routes->add('manajemen/purpose/(:num)', 'Manajemen\Purpose::show/$1');
-$routes->add('manajemen/purpose/create', 'Manajemen\Purpose::create');
-
-// Underlying
-$routes->add('manajemen/underlying', 'Manajemen\Underlying::index');
-$routes->add('manajemen/underlying/(:num)', 'Manajemen\Underlying::show/$1');
-$routes->add('manajemen/underlying/create', 'Manajemen\Underlying::create');
-
 // Evote
-$routes->add('submitform', 'Main::SubmitForm');
+$routes->add('submitform', 'Main::submitForm');
 $routes->add('submit', 'Main::submit');
+
+$routes->add('vote/(:any)', 'Main::vote/$1');
 
 /*
  * --------------------------------------------------------------------

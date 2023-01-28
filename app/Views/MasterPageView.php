@@ -10,45 +10,6 @@ $user = session('user');
 		<link href="<?=base_url()?>/assets/plugins/custom/fullcalendar/fullcalendar.bundle.css" rel="stylesheet" type="text/css" />
 		<link href="<?=base_url()?>/assets/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css" />
 		<link href="<?=base_url()?>/assets/css/style.bundle.css" rel="stylesheet" type="text/css" />
-		<script>var KTAppSettings = { "breakpoints": { "sm": 576, "md": 768, "lg": 992, "xl": 1200, "xxl": 1200 }, "colors": { "theme": { "base": { "white": "#ffffff", "primary": "#8950FC", "secondary": "#E5EAEE", "success": "#1BC5BD", "info": "#8950FC", "warning": "#FFA800", "danger": "#F64E60", "light": "#F3F6F9", "dark": "#212121" }, "light": { "white": "#ffffff", "primary": "#E1E9FF", "secondary": "#ECF0F3", "success": "#C9F7F5", "info": "#EEE5FF", "warning": "#FFF4DE", "danger": "#FFE2E5", "light": "#F3F6F9", "dark": "#D6D6E0" }, "inverse": { "white": "#ffffff", "primary": "#ffffff", "secondary": "#212121", "success": "#ffffff", "info": "#ffffff", "warning": "#ffffff", "danger": "#ffffff", "light": "#464E5F", "dark": "#ffffff" } }, "gray": { "gray-100": "#F3F6F9", "gray-200": "#ECF0F3", "gray-300": "#E5EAEE", "gray-400": "#D6D6E0", "gray-500": "#B5B5C3", "gray-600": "#80808F", "gray-700": "#464E5F", "gray-800": "#1B283F", "gray-900": "#212121" } }, "font-family": "Poppins" };</script>
-		<script>
-			$(document).ready(function () 
-			{
-				const loadingEl = document.createElement("div");
-				document.body.prepend(loadingEl);
-				loadingEl.classList.add("page-loader");
-				loadingEl.classList.add("flex-column");
-				loadingEl.classList.add("bg-dark");
-				loadingEl.classList.add("bg-opacity-25");
-				loadingEl.innerHTML = `
-					<span class="spinner-border text-primary" role="status"></span>
-					<span class="text-gray-800 fs-6 fw-semibold mt-5">Loading...</span>
-				`;
-
-				// Show page loading
-				KTApp.showPageLoading();
-
-				// Hide after 3 seconds
-				setTimeout(function() {
-					KTApp.hidePageLoading();
-					loadingEl.remove();
-				}, 3000);
-				
-				$(document).ajaxStart(function()
-				{
-					KTApp.blockPage({
-							overlayColor: '#000000',
-							state: 'danger',
-							message: 'Please wait...'
-						});
-				});
-
-				$(document).ajaxStop(function()
-				{
-					KTApp.unblockPage();
-				});
-			})
-		</script>
 	</head>
 	<!--end::Head-->
 	<!--begin::Body-->
@@ -67,7 +28,7 @@ $user = session('user');
 					<!--begin::Brand-->
 					<div class="aside-logo flex-column-auto" id="kt_aside_logo">
 						<!--begin::Logo-->
-						<a href="<?=base_url()?>">
+						<a href="#">
 							<b><span class="menu-section text-muted text-uppercase fs-12 ls-1"><?=getenv('applicationName')?></span></b>
 						</a>
 						<!--end::Logo-->
@@ -97,7 +58,19 @@ $user = session('user');
 									</div>
 								</div>
 								<div class="menu-item">
-									<a class="menu-link <?php echo ($title == "Beranda") ? "active" : ""; ?>" href="<?=base_url()?>">
+									<?php
+										$urlBeranda = "";
+										if($user['role'] !== 'Voters')
+										{
+											$urlBeranda = base_url();
+										}
+										else
+										{
+											$urlBeranda = base_url()."/vote/".base64_encode($user['nik']);
+										}
+										
+									?>
+									<a class="menu-link <?php echo ($title == "Beranda") ? "active" : ""; ?>" href="<?=$urlBeranda?>">
 										<span class="menu-icon">
 											<!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
 											<span class="svg-icon svg-icon-2">
@@ -118,6 +91,7 @@ $user = session('user');
 										<span class="menu-section text-muted text-uppercase fs-8 ls-1">Manajemen</span>
 									</div>
 								</div>
+								<?php if($user['role'] !== 'Voters') { ?>
 								<div data-kt-menu-trigger="click" class="menu-item menu-accordion <?php echo ($title == "Administrator" || $title == "Voters") ? "here show" : ""; ?>" href="<?=base_url()?>">
 									<span class="menu-link">
 										<span class="menu-icon">
@@ -154,6 +128,7 @@ $user = session('user');
 										</div>
 									</div>
 								</div>
+								<?php } ?>
 								<div data-kt-menu-trigger="click" class="menu-item menu-accordion <?php echo ($title == "Hasil Pemilihan" || $title == "Daftar Pemilihan") ? "here show" : ""; ?>">
 									<span class="menu-link">
 										<span class="menu-icon">
@@ -176,6 +151,7 @@ $user = session('user');
 												<span class="menu-title">Hasil Pemilihan</span>
 											</a>
 										</div>
+										<?php if($user['role'] !== 'Voters') { ?>
 										<div class="menu-item">
 											<a class="menu-link <?php echo ($title == "Daftar Pemilihan") ? "active" : ""; ?>" href="<?=base_url();?>/votes/daftar">
 												<span class="menu-bullet">
@@ -184,8 +160,10 @@ $user = session('user');
 												<span class="menu-title">Daftar Pemilihan</span>
 											</a>
 										</div>
+										<?php } ?>
 									</div>
 								</div>
+								<?php if($user['role'] !== 'Voters') { ?>
 								<div class="menu-item">
 									<div class="menu-content pt-8 pb-2">
 										<span class="menu-section text-muted text-uppercase fs-8 ls-1">Audit Sistem</span>
@@ -230,6 +208,7 @@ $user = session('user');
 										<span class="menu-title">Audit Kesalahan Sistem</span>
 									</a>
 								</div>
+								<?php } ?>
 							</div>
 							<!--end::Menu-->
 						</div>
@@ -238,7 +217,7 @@ $user = session('user');
 					<!--end::Aside menu-->
 					<!--begin::Footer-->
 					<div class="aside-footer flex-column-auto pt-5 pb-7 px-5" id="kt_aside_footer">
-						<a href="#" class="btn btn-custom btn-primary w-100" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss-="click" title="Aplikasi eVote Apartement Kebagusan City">
+						<a href="#" class="btn btn-custom btn-primary w-100" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss-="click" title="Aplikasi eVote">
 							<span class="btn-label">eVote V.1.0</span>
 							<!--begin::Svg Icon | path: icons/duotune/general/gen005.svg-->
 							<span class="svg-icon btn-icon svg-icon-2">
@@ -285,7 +264,7 @@ $user = session('user');
 								<div class="d-flex align-items-stretch flex-shrink-0">
 									<!--begin::Toolbar wrapper-->
 									<div class="d-flex align-items-stretch flex-shrink-0">
-
+										<?php if($user['role'] !== 'Voters') { ?>
 										<!--begin::Notifications-->
 										<div class="d-flex align-items-center ms-1 ms-lg-3">
 											<!--begin::Menu- wrapper-->
@@ -323,6 +302,7 @@ $user = session('user');
 											<!--end::Menu wrapper-->
 										</div>
 										<!--end::Notifications-->
+										<?php } ?>
 										<!--begin::User-->
 										<div class="d-flex align-items-center ms-1 ms-lg-3" id="kt_header_user_menu_toggle">
 											<!--begin::Menu wrapper-->
@@ -343,7 +323,7 @@ $user = session('user');
 														<div class="d-flex flex-column">
 															<div class="fw-bolder d-flex align-items-center fs-5"><?=$user['name'];?>
 															<span class="badge badge-light-success fw-bolder fs-8 px-2 py-1 ms-2">Online</span></div>
-															<a href="#" class="fw-bold text-muted text-hover-primary fs-7"><?=$user['security_users_id'];?></a>
+															<a href="#" class="fw-bold text-muted text-hover-primary fs-7"></a>
 														</div>
 														<!--end::Username-->
 													</div>
@@ -352,11 +332,6 @@ $user = session('user');
 												<!--begin::Menu separator-->
 												<div class="separator my-2"></div>
 												<!--end::Menu separator-->
-												<!--begin::Menu item-->
-												<div class="menu-item px-5">
-													<a href="<?=base_url();?>/users" class="menu-link px-5">Profil Akun</a>
-												</div>
-												<!--end::Menu item-->
 												<!--begin::Menu item-->
 												<div class="menu-item px-5">
 													<a href="<?=base_url();?>/main/logout" class="menu-link px-5">Keluar</a>
@@ -390,14 +365,14 @@ $user = session('user');
 						<div class="container-fluid d-flex flex-column flex-md-row align-items-center justify-content-between">
 							<!--begin::Copyright-->
 							<div class="text-dark order-2 order-md-1">
-								<span class="text-muted fw-bold me-1">©2022</span>
-								<a href="<?=base_url();?>" class="text-gray-800 text-hover-primary">InTS</a>
+								<span class="text-muted fw-bold me-1">©2023</span>
+								<a href="#" class="text-gray-800 text-hover-primary">InTS</a>
 							</div>
 							<!--end::Copyright-->
 							<!--begin::Menu-->
 							<ul class="menu menu-gray-600 menu-hover-primary fw-bold order-1">
 								<li class="menu-item">
-									<a href="#" class="menu-link px-2">eVote Apartement Kebagusan City</a>
+									<a href="#" class="menu-link px-2">Kopegtel Mediatron</a>
 								</li>
 							</ul>
 							<!--end::Menu-->

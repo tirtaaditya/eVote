@@ -20,7 +20,7 @@
 	<form method="post" action="<?= $postbackURL  ?>" enctype="multipart/form-data">
 		<body id="kt_body" class="bg-body">
 			<div class="d-flex flex-column flex-root">
-				<div class="d-flex flex-column flex-column-fluid bgi-position-y-bottom position-x-center bgi-no-repeat bgi-size-contain bgi-attachment-fixed" style="background-image: url(<?=base_url()?>/assets/media/illustrations/sketchy-1/14.png">                
+				<div class="d-flex flex-column flex-column-fluid bgi-position-y-bottom position-x-center bgi-no-repeat bgi-size-contain bgi-attachment-fixed" style="background-image: url(<?=base_url()?>/assets/media/illustrations/dozzy-1/14.png">                
 					<div class="d-flex flex-center flex-column flex-column-fluid p-10 pb-lg-20">
 						<a href="<?=base_url()?>" class="mb-12">
 							<img alt="Logo" src="<?=base_url()?>/assets/media/logos/LogoHeader-1.png" class="h-150px" />
