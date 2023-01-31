@@ -26,6 +26,16 @@
 				align-items: center;
 				border-radius:20px;
 			}
+			
+			.autocompletenik {
+				position: relative;
+			}
+			
+			.autocompletenik-items div {
+				padding: 10px;
+				cursor: pointer;
+			}
+
 		</style>
 	</head>
 	<body id="kt_body" class="bg-body">
@@ -51,9 +61,9 @@
 							<div class="text-gray-400 fw-bold fs-4">Selamat Datang
 							<a href="<?=base_url()?>" class="link-primary fw-bolder">di Aplikasi eVote</a></div>
 						</div>
-						<div class="fv-row mb-10">
+						<div class="fv-row mb-10 autocompletenik">
 							<label class="form-label fs-6 fw-bolder text-dark">NIK</label>
-							<input class="form-control form-control-lg form-control-solid" type="text" name="nik" autocomplete="off" />
+							<input class="form-control form-control-lg form-control-solid" type="text" name="nik" id="nik" />
 						</div>
 						<div class="fv-row mb-10">
 							<div class="d-flex flex-stack mb-2">
@@ -429,4 +439,47 @@
 			$(".screen").hide();
 		});
 	});
+</script>
+<script>
+	function autocomplete(inp, arr) {
+	  var currentFocus;
+	  inp.addEventListener("input", function(e) {
+	      var a, b, i, val = this.value, countValue = this.value.length;
+		  if(countValue > 5)
+	      {
+		  closeAllLists();
+		      if (!val) { return false;}
+		  currentFocus = -1;
+			  a = document.createElement("DIV");
+		  a.setAttribute("id", this.id + "autocomplete-list");
+		  a.setAttribute("class", "autocomplete-items");
+		  this.parentNode.appendChild(a);
+		  for (i = 0; i < arr.length; i++) {
+			if (arr[i]['nik'].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+				b = document.createElement("DIV");
+				b.innerHTML = "<strong>" + arr[i]['nik'].substr(0, val.length) + "</strong>";
+				b.innerHTML += arr[i]['nik'].substr(val.length) + " - " + arr[i]['name'];
+				b.innerHTML += "<input type='hidden' value='" + arr[i]['nik'] + "'>";
+				b.addEventListener("click", function(e) {
+				inp.value = this.getElementsByTagName("input")[0].value;
+				closeAllLists();
+				});
+				a.appendChild(b);
+			}
+			}
+	     }
+	  });
+	  function closeAllLists(elmnt) {
+	    var x = document.getElementsByClassName("autocomplete-items");
+	    for (var i = 0; i < x.length; i++) {
+	      if (elmnt != x[i] && elmnt != inp) {
+		x[i].parentNode.removeChild(x[i]);
+	      }
+	    }
+	  }
+	}
+
+	var arrayPilihan = [{"nik":"123456", "name":"Test 1"}, {"654321":"EUR", "name":"Test 2"}];
+
+	autocomplete(document.getElementById("nik"), arrayPilihan);
 </script>
