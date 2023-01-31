@@ -454,8 +454,10 @@
 		  a.setAttribute("id", this.id + "autocomplete-list");
 		  a.setAttribute("class", "autocomplete-items");
 		  this.parentNode.appendChild(a);
+	          var inInput = "";   
 		  for (i = 0; i < arr.length; i++) {
-			if (arr[i]['nik'].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+			inInput = (!arr[i]['nik']) ? "" : arr[i]['nik'];
+			if (inInput.substr(0, val.length).toUpperCase() == val.toUpperCase()) {
 				b = document.createElement("DIV");
 				b.innerHTML = "<strong>" + arr[i]['nik'].substr(0, val.length) + "</strong>";
 				b.innerHTML += arr[i]['nik'].substr(val.length) + " - " + arr[i]['name'];
