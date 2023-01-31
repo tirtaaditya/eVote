@@ -300,6 +300,38 @@
 			</div>
 		</div>
 		<script src="<?=base_url()?>/assets/plugins/global/plugins.bundle.js"></script>
+
+		<?php if (!empty(session()->getFlashdata('errorMessage')) ) : ?>
+			<script>
+				pesan = "<?= session()->getFlashdata('errorMessage'); ?>";
+				
+				Swal.fire({
+					text: pesan,
+					icon: "error",
+					buttonsStyling: !1,
+					confirmButtonText: "Ok",
+					customClass: {
+						confirmButton: "btn btn-primary"
+					}
+				})
+			</script>
+		<?php endif; ?>
+		
+		<?php if (!empty(session()->getFlashdata('successMessage')) ) : ?>
+			<script>
+				pesan = "<?= session()->getFlashdata('successMessage'); ?>";
+				
+				Swal.fire({
+					text: pesan,
+					icon: "success",
+					buttonsStyling: !1,
+					confirmButtonText: "Ok",
+					customClass: {
+						confirmButton: "btn btn-primary"
+					}
+				})
+			</script>
+		<?php endif; ?>
 	</body>
 </html>
 

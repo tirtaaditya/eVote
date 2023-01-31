@@ -144,10 +144,13 @@ class Main extends BaseController
 
 	public function submitForm()
 	{
-		// if(empty($this->session->user))
-		// {
-		// 	return redirect()->to(base_url());	
-		// }
+		if(empty($this->session->user))
+		{
+			$this->session->set('errorMessage', "Kamu Belum Login, Silahkan Login Terlebih Dahulu");
+			$this->session->markAsFlashdata('errorMessage');
+
+			return redirect()->to(base_url());	
+		}
 
 		$data['sendOTPUrl'] = base_url()."/main/sendOTP";
 		$data['dataSession'] = $this->session->user;
@@ -159,7 +162,7 @@ class Main extends BaseController
 	{
 		$postData = $this->request->getPost();
 
-		$folderPath = "assets/media/signature";
+		$folderPath = "assets/media/signature/";
 	
 		$image_parts = explode(";base64,", $postData['signed']);
 		$image_type_aux = explode("image/", $image_parts[0]);
@@ -171,13 +174,17 @@ class Main extends BaseController
 		$file = $folderPath . uniqid() . '.'.$image_type;
 
 		$fix = file_put_contents($file, $image_base64);
+
 		if(!$fix)
 		{
-			echo "error";
-			die;
+			$this->session->set('errorMessage', "Gagal Memproses Signature");
+			$this->session->markAsFlashdata('errorMessage');
+
+        	return redirect()->to(base_url()."/submitform");
 		}
-		// $pemberiKuasa = $postData['pemberiKuasa'];
-		$pemberiKuasa = '002122,002123,002123,002122';
+
+		$pemberiKuasa = $postData['pemberiKuasa'];
+
 		if(!empty($pemberiKuasa))
 		{
 			$pemberiKuasaNik = explode(",", $pemberiKuasa );
@@ -185,10 +192,14 @@ class Main extends BaseController
 
 			foreach ($pemberiKuasaNik as $key => $value) {
 				
-				if(strlen($value) > 6 || strlen($value) < 6)
+				if($value == $postData['nik'] || strlen($value) > 6 || strlen($value) < 6)
 				{
-					echo "error";
-					die;
+					$this->session->set('errorMessage', "NIK Pemberi Kuasa Harus 6 Karakter dan Berbeda Dengan NIK Pemegang Kuasa");
+					$this->session->markAsFlashdata('errorMessage');
+
+					chmod($folderPath, 0777);
+					unlink($file);
+					return redirect()->to(base_url()."/submitform");
 				}
 			}
 		}
@@ -203,19 +214,23 @@ class Main extends BaseController
 			'signature' => $file,
 		);
 
-		$save = $this->$this->submitFormModel->insertForm($data);
+		$save = $this->submitFormModel->insertForm($data);
 
 		if(!$save)
 		{
-			echo "error";
-			die;
+			$this->session->set('errorMessage', "Gagal Save Data Silahkan Ulang Kembali");
+			$this->session->markAsFlashdata('errorMessage');
+
+			chmod($folderPath, 0777);
+			unlink($file);
+			return redirect()->to(base_url()."/submitform");
 		}
 		
 		$nik = $postData['nik'];
-		$paths = 'coba/'.base64_encode($nik);
+		$paths = 'vote/'.base64_encode($nik);
 		$link = base_url($paths);
-		$message = "Silahkan Klik Link Berikut : ". $link;
-		$nomorWhatsapp = "089643666840";
+		$message = "Silahkan Klik Link Berikut untuk melakukan Vote: <a href='".$link."'></a>";
+		$nomorWhatsapp = $postData['phoneNumber'];
 		
 		$urlWa =  "https://api.kirimwa.id/v1/messages";
 		$dataWa = array("phone_number" => $nomorWhatsapp, "message" => $message, "device_id" => "samsungmod", "message_type" => "text");
@@ -231,28 +246,30 @@ class Main extends BaseController
 		$context  = stream_context_create( $options );
 		$result = file_get_contents( $urlWa, false, $context );
 
-		$otpUpdate['identity_code'] = $nik;
-		$otpUpdate['otp'] = $otp;
-		$otpUpdate['phone_number'] = $nomorWhatsapp;
-		$updateUserOTP = $this->uservoteModels->updateUserVote($otpUpdate);
-		
-		if(!$updateUserOTP)
-		{
-			$errorMessage = "Gagal Sinkronisasi OTP dengan Sistem";
-		}
-		else
-		{
-			$successMessage = 'OTP Berhasil Dikirim';
-		}
-
 		$logWhatsapp['module'] = 'OTP';
 		$logWhatsapp['phone_number'] = $nomorWhatsapp;
 		$logWhatsapp['message'] = $message;
 		$logWhatsapp['response'] = $result;
 		
-		$this->whatsappModels->insertLogWA($logWhatsapp);
+		$logWa = $this->whatsappModels->insertLogWA($logWhatsapp);
 
-		echo "disitu";die;
+		if($logWa)
+		{
+			$this->session->set('successMessage', "Data Berhaasil Di Submit Silahkan Cek Whatsapp anda !");
+			$this->session->markAsFlashdata('successMessage');
+			
+			$this->session->destroy();
+			return redirect()->to(base_url());
+		}
+		else
+		{
+			$this->session->set('errorMessage', "Submit Gagal Di Proses Silahkan Coba Lagi");
+			$this->session->markAsFlashdata('errorMessage');
+
+			chmod($folderPath, 0777);
+			unlink($file);
+			return redirect()->to(base_url()."/submitform");
+		}
 	}
 	//END STEP 2
 

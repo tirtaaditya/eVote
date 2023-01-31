@@ -8,6 +8,13 @@
 		
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
+
+		<!-- Javascript -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/signature_pad@2.3.2/dist/signature_pad.min.js"></script>
+		<script src="<?=base_url()?>/assets/plugins/global/plugins.bundle.js"></script>
         <style type="text/css">
         	.signature-pad{
         		border: 1px solid #ccc;
@@ -110,13 +117,21 @@
 					</div>
 				</div>
 		</form>
-			
-			<!-- Javascript -->
-				<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-				<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
-				<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-				<script src="https://cdn.jsdelivr.net/npm/signature_pad@2.3.2/dist/signature_pad.min.js"></script>
-				<script src="<?=base_url()?>/assets/plugins/global/plugins.bundle.js"></script>
+		<?php if (!empty(session()->getFlashdata('errorMessage')) ) : ?>
+			<script>
+				pesan = "<?= session()->getFlashdata('errorMessage'); ?>";
+				
+				Swal.fire({
+					text: pesan,
+					icon: "error",
+					buttonsStyling: !1,
+					confirmButtonText: "Ok",
+					customClass: {
+						confirmButton: "btn btn-primary"
+					}
+				})
+			</script>
+		<?php endif; ?>
 		</body>
 	</form>
 </html>
