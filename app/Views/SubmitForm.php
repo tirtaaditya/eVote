@@ -184,7 +184,10 @@
 		})
 
 		$('#modal-submit').on('click', function(){
-			if (signaturePad.isEmpty()) {				
+			if (signaturePad.isEmpty()) {	
+				$('#myModal').modal('hide');
+				$('.modal-backdrop').hide();
+				$("body").removeClass("modal-open");					
 			Swal.fire({
 				text: "Tanda Tangan Anda Kosong! Silahkan tanda tangan terlebih dahulu.",
 				icon: "error",
