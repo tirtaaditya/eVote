@@ -184,6 +184,7 @@ class Main extends BaseController
 		}
 
 		$pemberiKuasa = $postData['pemberiKuasa'];
+		$kuasa = array();
 
 		if(!empty($pemberiKuasa))
 		{
@@ -201,20 +202,22 @@ class Main extends BaseController
 					unlink($file);
 					return redirect()->to(base_url()."/submitform");
 				}
+
+				$kuasa['identity_code'] = $postData['nik']; 
+				$kuasa['identity_code_kuasa'] = $value; 
 			}
 		}
 
-		$data = array(
+		$dataMaster = array(
+			'identity_code' => $postData['nik'],
+			'phone_number' => $postData['phoneNumber'],
+			'name' => $postData['nama'],
 			'nik' => $postData['nik'],
-			'phoneNumber' => $postData['phoneNumber'],
-			'nama' => $postData['nama'],
-			'nik' => $postData['nik'],
-			'kuasa' => $postData['kuasa'],
-			'pemberiKuasa' => $pemberiKuasa ?? "",
 			'signature' => $file,
-		);
+			'is_present' => 1
+		);	
 
-		$save = $this->submitFormModel->insertForm($data);
+		$save = $this->submitFormModel->insertForm($dataMaster, $kuasa);
 
 		if(!$save)
 		{
