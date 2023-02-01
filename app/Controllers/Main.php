@@ -277,7 +277,7 @@ class Main extends BaseController
 			}
 		} catch (\Exception $e) {
 			$errorMessage = $e->getMessage();
-			$this->auditHelper->writeAuditErrorSystem(get_class(), $errorMessage, $this->session->user['security_users_id']);
+			$this->auditHelper->writeAuditErrorSystem(get_class(), $errorMessage, $postData['nik']);
 
 			return redirect()->to(base_url()."/submitform");
 		}
