@@ -54,7 +54,7 @@ class Main extends BaseController
 			$userVotePresent = $this->uservoteModels->getUserPresentAndKuasa($nik);
 			
 			$errorMessage = (empty($userVote)) ? "NIK salah/tidak ditemukan" : "";
-			$errorMessage = (empty($userVotePresent)) ? "" : "Anda telah "+$userVotePresent['isPresent'];
+			$errorMessage = (empty($userVotePresent)) ? "" : "Anda telah ".$userVotePresent['isPresent'];
 			
 			if(empty($errorMessage))
 			{
