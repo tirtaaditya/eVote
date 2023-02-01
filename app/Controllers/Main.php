@@ -160,118 +160,125 @@ class Main extends BaseController
 
 	public function submit()
 	{
-		$postData = $this->request->getPost();
+		try {
+			$postData = $this->request->getPost();
 
-		$folderPath = "assets/media/signature/";
-	
-		$image_parts = explode(";base64,", $postData['signed']);
-		$image_type_aux = explode("image/", $image_parts[0]);
+			$folderPath = "assets/media/signature/";
 		
-		$image_type = $image_type_aux[1];
-		
-		$image_base64 = base64_decode($image_parts[1]);
-		
-		$file = $folderPath . uniqid() . '.'.$image_type;
-
-		$fix = file_put_contents($file, $image_base64);
-
-		if(!$fix)
-		{
-			$this->session->set('errorMessage', "Gagal Memproses Signature");
-			$this->session->markAsFlashdata('errorMessage');
-
-        	return redirect()->to(base_url()."/submitform");
-		}
-
-		$pemberiKuasa = $postData['pemberiKuasa'];
-		$kuasa = array();
-
-		if(!empty($pemberiKuasa))
-		{
-			$pemberiKuasaNik = explode(",", $pemberiKuasa );
-			$pemberiKuasaNik =	array_unique($pemberiKuasaNik);
-
-			foreach ($pemberiKuasaNik as $key => $value) {
-				
-				if($value == $postData['nik'] || strlen($value) > 6 || strlen($value) < 6)
-				{
-					$this->session->set('errorMessage', "NIK Pemberi Kuasa Harus 6 Karakter dan Berbeda Dengan NIK Pemegang Kuasa");
-					$this->session->markAsFlashdata('errorMessage');
-
-					chmod($folderPath, 0777);
-					unlink($file);
-					return redirect()->to(base_url()."/submitform");
-				}
-
-				$listkuasa['identity_code'] = $postData['nik']; 
-				$listkuasa['identity_code_kuasa'] = $value; 
-
-				array_push($kuasa, $listkuasa);
-			}
-		}
-
-		$dataMaster = array(
-			'identity_code' => $postData['nik'],
-			'phone_number' => $postData['phoneNumber'],
-			'name' => $postData['nama'],
-			'signature' => $file,
-			'isPresent' => 1
-		);	
-
-		$save = $this->submitFormModel->insertForm($dataMaster, $kuasa);
-
-		if(!$save)
-		{
-			$this->session->set('errorMessage', "Gagal Save Data Silahkan Ulang Kembali");
-			$this->session->markAsFlashdata('errorMessage');
-
-			chmod($folderPath, 0777);
-			unlink($file);
-			return redirect()->to(base_url()."/submitform");
-		}
-		
-		$nik = $postData['nik'];
-		$paths = 'vote/'.base64_encode($nik);
-		$link = base_url($paths);
-		$message = "Silahkan Klik Link Berikut untuk melakukan Vote: ".$link;
-		$nomorWhatsapp = $postData['phoneNumber'];
-		
-		$urlWa =  "https://api.kirimwa.id/v1/messages";
-		$dataWa = array("phone_number" => $nomorWhatsapp, "message" => $message, "device_id" => "samsungmod", "message_type" => "text");
-		$options = array(
-		'http' => array(
-			'method'  => 'POST',
-			'content' => json_encode( $dataWa ),
-			'header'=>  "Content-Type: application/json\r\n" .
-						"Accept: application/json\r\n" .
-				"Authorization: Bearer qtkl44hm/c2FdwgDzxBDKx5NYbs+GUgkVdr55Hd6UJwIJIANexmUTSBByiugRMAg-tirta\r\n"
-			)
-		);
-		$context  = stream_context_create( $options );
-		$result = file_get_contents( $urlWa, false, $context );
-
-		$logWhatsapp['module'] = 'OTP';
-		$logWhatsapp['phone_number'] = $nomorWhatsapp;
-		$logWhatsapp['message'] = $message;
-		$logWhatsapp['response'] = $result;
-		
-		$logWa = $this->whatsappModels->insertLogWA($logWhatsapp);
-
-		if($logWa)
-		{
-			$this->session->set('successMessage', "Data Berhaasil Di Submit Silahkan Cek Whatsapp anda !");
-			$this->session->markAsFlashdata('successMessage');
+			$image_parts = explode(";base64,", $postData['signed']);
+			$image_type_aux = explode("image/", $image_parts[0]);
 			
-			$this->session->destroy();
-			return redirect()->to(base_url());
-		}
-		else
-		{
-			$this->session->set('errorMessage', "Submit Gagal Di Proses Silahkan Coba Lagi");
-			$this->session->markAsFlashdata('errorMessage');
+			$image_type = $image_type_aux[1];
+			
+			$image_base64 = base64_decode($image_parts[1]);
+			
+			$file = $folderPath . uniqid() . '.'.$image_type;
+	
+			$fix = file_put_contents($file, $image_base64);
+	
+			if(!$fix)
+			{
+				$this->session->set('errorMessage', "Gagal Memproses Signature");
+				$this->session->markAsFlashdata('errorMessage');
+	
+				return redirect()->to(base_url()."/submitform");
+			}
+	
+			$pemberiKuasa = $postData['pemberiKuasa'];
+			$kuasa = array();
+	
+			if(!empty($pemberiKuasa))
+			{
+				$pemberiKuasaNik = explode(",", $pemberiKuasa );
+				$pemberiKuasaNik =	array_unique($pemberiKuasaNik);
+	
+				foreach ($pemberiKuasaNik as $key => $value) {
+					
+					if($value == $postData['nik'] || strlen($value) > 6 || strlen($value) < 6)
+					{
+						$this->session->set('errorMessage', "NIK Pemberi Kuasa Harus 6 Karakter dan Berbeda Dengan NIK Pemegang Kuasa");
+						$this->session->markAsFlashdata('errorMessage');
+	
+						chmod($folderPath, 0777);
+						unlink($file);
+						return redirect()->to(base_url()."/submitform");
+					}
+	
+					$listkuasa['identity_code'] = $postData['nik']; 
+					$listkuasa['identity_code_kuasa'] = $value; 
+	
+					array_push($kuasa, $listkuasa);
+				}
+			}
+	
+			$dataMaster = array(
+				'identity_code' => $postData['nik'],
+				'phone_number' => $postData['phoneNumber'],
+				'name' => $postData['nama'],
+				'signature' => $file,
+				'isPresent' => 1
+			);	
+	
+			$save = $this->submitFormModel->insertForm($dataMaster, $kuasa);
+	
+			if(!$save)
+			{
+				$this->session->set('errorMessage', "Gagal Save Data Silahkan Ulang Kembali");
+				$this->session->markAsFlashdata('errorMessage');
+	
+				chmod($folderPath, 0777);
+				unlink($file);
+				return redirect()->to(base_url()."/submitform");
+			}
+			
+			$nik = $postData['nik'];
+			$paths = 'vote/'.base64_encode($nik);
+			$link = base_url($paths);
+			$message = "Silahkan Klik Link Berikut untuk melakukan Vote: ".$link;
+			$nomorWhatsapp = $postData['phoneNumber'];
+			
+			$urlWa =  "https://api.kirimwa.id/v1/messages";
+			$dataWa = array("phone_number" => $nomorWhatsapp, "message" => $message, "device_id" => "samsungmod", "message_type" => "text");
+			$options = array(
+			'http' => array(
+				'method'  => 'POST',
+				'content' => json_encode( $dataWa ),
+				'header'=>  "Content-Type: application/json\r\n" .
+							"Accept: application/json\r\n" .
+					"Authorization: Bearer qtkl44hm/c2FdwgDzxBDKx5NYbs+GUgkVdr55Hd6UJwIJIANexmUTSBByiugRMAg-tirta\r\n"
+				)
+			);
+			$context  = stream_context_create( $options );
+			$result = file_get_contents( $urlWa, false, $context );
+	
+			$logWhatsapp['module'] = 'OTP';
+			$logWhatsapp['phone_number'] = $nomorWhatsapp;
+			$logWhatsapp['message'] = $message;
+			$logWhatsapp['response'] = $result;
+			
+			$logWa = $this->whatsappModels->insertLogWA($logWhatsapp);
+	
+			if($logWa)
+			{
+				$this->session->set('successMessage', "Data Berhaasil Di Submit Silahkan Cek Whatsapp anda !");
+				$this->session->markAsFlashdata('successMessage');
+				
+				$this->session->destroy();
+				return redirect()->to(base_url());
+			}
+			else
+			{
+				$this->session->set('errorMessage', "Submit Gagal Di Proses Silahkan Coba Lagi");
+				$this->session->markAsFlashdata('errorMessage');
+	
+				chmod($folderPath, 0777);
+				unlink($file);
+				return redirect()->to(base_url()."/submitform");
+			}
+		} catch (\Throwable $e) {
+			$errorMessage = $e->getMessage();
+			$this->auditHelper->writeAuditErrorSystem(get_class(), $errorMessage, $this->session->user['security_users_id']);
 
-			chmod($folderPath, 0777);
-			unlink($file);
 			return redirect()->to(base_url()."/submitform");
 		}
 	}
