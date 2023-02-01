@@ -12,6 +12,28 @@ class UservoteModel extends Model
         
         return $result->getFirstRow('array');           
     }
+	
+    function getUserPresentAndKuasa($identityCode)
+    {
+        $query = "SELECT 
+			identity_code, 
+			'Hadir' AS isPresent 
+		   FROM `master_users_vote` 
+		   	WHERE isPresent=1
+		   	  AND identity_code=?
+		   UNION
+		   SELECT 
+			a.identity_code_kuasa, 
+			CONCAT('dikuasakan ', a.identity_code, ' ', b.name) AS isPresent 
+		   FROM `transaction_users_kuasa` a 
+			LEFT JOIN master_users_vote b ON a.identity_code_kuasa=b.identity_code
+			WHERE identity_code_kuasa=?
+		 ";
+       
+        $result = $this->db->query($query, [$identityCode]);
+        
+        return $result->getFirstRow('array');           
+    }
 
     function getUserValidateOTP($nik, $otp)
     {
