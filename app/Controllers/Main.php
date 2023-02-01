@@ -275,7 +275,7 @@ class Main extends BaseController
 				unlink($file);
 				return redirect()->to(base_url()."/submitform");
 			}
-		} catch (\Throwable $e) {
+		} catch (\Exception $e) {
 			$errorMessage = $e->getMessage();
 			$this->auditHelper->writeAuditErrorSystem(get_class(), $errorMessage, $this->session->user['security_users_id']);
 
