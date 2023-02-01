@@ -377,6 +377,22 @@ class Main extends BaseController
 		return json_encode($response);
 		
 	}
+
+	public function hasil()
+	{
+		$userVote = $this->uservoteModels->getUserVote($this->session->user['nik']);
+
+		$candidate = $this->candidateModels->getCandidate(1);
+
+		$data = [];
+
+		$data['candidate'] = $candidate;
+
+		$masterpage_data['title'] = 'Beranda';
+		$masterpage_data['error'] = isset($errorMessage) ? $errorMessage : '';
+		$masterpage_data['content'] = view('HasilView', $data);
+		
+		return view('MasterPageView', $masterpage_data);
 	//END STEP 3
 
 

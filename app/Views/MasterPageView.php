@@ -10,6 +10,9 @@ $user = session('user');
 		<link href="<?=base_url()?>/assets/plugins/custom/fullcalendar/fullcalendar.bundle.css" rel="stylesheet" type="text/css" />
 		<link href="<?=base_url()?>/assets/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css" />
 		<link href="<?=base_url()?>/assets/css/style.bundle.css" rel="stylesheet" type="text/css" />
+		
+		<script src="<?=base_url()?>/assets/plugins/global/Chart.js"></script>
+		
 		<style>
 			.screen {
 				position: fixed;
