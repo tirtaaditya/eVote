@@ -12,7 +12,7 @@ class SubmitFormModel extends Model
 
         if(!empty($kuasa))
         {
-            $this->db->table('master_users_vote')->insertBatch($kuasa);
+            $this->db->table('transaction_users_kuasa')->insertBatch($kuasa);
         }
         
         if ($this->db->transStatus() === FALSE)

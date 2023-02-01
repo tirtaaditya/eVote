@@ -203,8 +203,10 @@ class Main extends BaseController
 					return redirect()->to(base_url()."/submitform");
 				}
 
-				$kuasa['identity_code'] = $postData['nik']; 
-				$kuasa['identity_code_kuasa'] = $value; 
+				$listkuasa['identity_code'] = $postData['nik']; 
+				$listkuasa['identity_code_kuasa'] = $value; 
+
+				array_push($kuasa, $listkuasa);
 			}
 		}
 
@@ -212,9 +214,8 @@ class Main extends BaseController
 			'identity_code' => $postData['nik'],
 			'phone_number' => $postData['phoneNumber'],
 			'name' => $postData['nama'],
-			'nik' => $postData['nik'],
 			'signature' => $file,
-			'is_present' => 1
+			'isPresent' => 1
 		);	
 
 		$save = $this->submitFormModel->insertForm($dataMaster, $kuasa);
@@ -232,7 +233,7 @@ class Main extends BaseController
 		$nik = $postData['nik'];
 		$paths = 'vote/'.base64_encode($nik);
 		$link = base_url($paths);
-		$message = "Silahkan Klik Link Berikut untuk melakukan Vote: <a href='".$link."'></a>";
+		$message = "Silahkan Klik Link Berikut untuk melakukan Vote: ".$link;
 		$nomorWhatsapp = $postData['phoneNumber'];
 		
 		$urlWa =  "https://api.kirimwa.id/v1/messages";
