@@ -185,6 +185,9 @@
 
 		$('#modal-submit').on('click', function(){
 			if (signaturePad.isEmpty()) {
+			$('#myModal').modal('hide')
+			$('.modal-backdrop').hide();
+			$("body").removeClass("modal-open");				
 			Swal.fire({
 				text: "Tanda Tangan Anda Kosong! Silahkan tanda tangan terlebih dahulu.",
 				icon: "error",
@@ -194,9 +197,6 @@
 					confirmButton: "btn btn-primary"
 				}
 			}).then((function(e) {
-				$('#myModal').modal('hide')
-				$('.modal-backdrop').hide();
-				$("body").removeClass("modal-open");
 				return false;
 			}))
 
@@ -206,6 +206,9 @@
 		let kuasa = $('#kuasa').val()
 		if(kuasa == "")
 		{
+			$('#myModal').modal('hide')
+			$('.modal-backdrop').hide();
+			$("body").removeClass("modal-open");
 			Swal.fire({
 				text: "Surat Kuasa Wajib Di Isi",
 				icon: "error",
@@ -222,6 +225,9 @@
 
 		if(kuasa == "Ya" && pemberiKuasa == "")
 		{
+			$('#myModal').modal('hide')
+			$('.modal-backdrop').hide();
+			$("body").removeClass("modal-open");
 			Swal.fire({
 				text: "Pemberi Kuasa Tidak Boleh Kosong !",
 				icon: "error",
