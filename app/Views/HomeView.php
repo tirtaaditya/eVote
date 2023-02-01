@@ -176,49 +176,67 @@ if($user['role'] !== 'Voters') { ?>
             </div>
         </div>
     </div>
-<?php }else { ?>
-    <div class="row gy-5 g-xl-8">
     <?php 
-        foreach($candidate as $key => $value)
-        {
-            $idCalon = $value['master_candidate_vote_id'];
+        }else { 
     ?>
-        <div class="col-xxl-6">
-            <div class="card card-xxl-stretch">
-                <div class="card-header border-0">
-                    <h3 class="card-title fw-bolder text-dark"><?=$value['name'];?></h3>
-                </div>
-                <div class="card-body pt-2">
-                    <div class="d-flex align-items-center mb-8">
-                        <img class='img-fluid w-100' src="<?=base_url()?>/<?=$value['picture']?>" alt="" />
+    <?php
+
+    $now = new DateTime();
+    $startdate = new DateTime($startVote);
+    $enddate = new DateTime($endVote);
+    
+    if($startdate <= $now && $now <= $enddate) { ?>
+        <div class="row gy-5 g-xl-8">
+            <?php 
+                foreach($candidate as $key => $value)
+                {
+                    $idCalon = $value['master_candidate_vote_id'];
+            ?>
+            <div class="col-xxl-6">
+                <div class="card card-xxl-stretch">
+                    <div class="card-header border-0">
+                        <h3 class="card-title fw-bolder text-dark"><?=$value['name'];?></h3>
                     </div>
-                </div>
-                <div class="card-body pt-2">
-                    <div class="d-flex align-items-center mb-8">
-                        <span class="bullet bullet-vertical h-40px bg-success"></span>
-                        <div class="form-check form-check-custom form-check-solid mx-5">
-                            &nbsp;
-                        </div>
-                        <div class="flex-grow-1">
-                            <a href="#" class="text-gray-800 text-hover-primary fw-bolder fs-6">Tentang Calon :</a>
-                            <span class="text-muted fw-bold d-block"><?=$value['description'];?></span>
+                    <div class="card-body pt-2">
+                        <div class="d-flex align-items-center mb-8">
+                            <img class='img-fluid w-100' src="<?=base_url()?>/<?=$value['picture']?>" alt="" />
                         </div>
                     </div>
-                </div>
-                <div class="card-body pt-2">
-                    <div class="d-flex align-items-center mb-8">
-                        <button type="submit" id="kt_sign_in_submit" onclick="processVote('<?=$idCalon;?>')" class="btn btn-lg btn-primary w-100 mb-5">
-                            <span class="indicator-label">Pilih</span>
-                        </button>
+                    <div class="card-body pt-2">
+                        <div class="d-flex align-items-center mb-8">
+                            <span class="bullet bullet-vertical h-40px bg-success"></span>
+                            <div class="form-check form-check-custom form-check-solid mx-5">
+                                &nbsp;
+                            </div>
+                            <div class="flex-grow-1">
+                                <a href="#" class="text-gray-800 text-hover-primary fw-bolder fs-6">Tentang Calon :</a>
+                                <span class="text-muted fw-bold d-block"><?=$value['description'];?></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body pt-2">
+                        <div class="d-flex align-items-center mb-8">
+                            <button type="submit" id="kt_sign_in_submit" onclick="processVote('<?=$idCalon;?>')" class="btn btn-lg btn-primary w-100 mb-5">
+                                <span class="indicator-label">Pilih</span>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
+            <?php
+                }
+            ?>
         </div>
     <?php
-        }
+        }else{
     ?>
-    </div>
-<?php }?>
+        <div class="alert alert-custom alert-danger" role="alert">
+            <div class="alert-icon"><i class="flaticon-warning"></i></div>
+            <div class="alert-text">Vote dimulai pada <strong><?=date_format($startdate,"d-m-Y H:i:s");?></strong> s.d <strong><?=date_format($enddate,"d-m-Y H:i:s");?></strong></div>
+        </div>
+    <?php
+    }}  
+    ?>
 
 <script>
     function processVote(idCalon)
@@ -233,8 +251,51 @@ if($user['role'] !== 'Voters') { ?>
                         cancelButtonText: 'Tidak'
                   }).then((result) => {
                         if (result['isConfirmed']){
-                            alert(idCalon);
+                            saveVote(idCalon);
                         }
                     });
+
+    }
+
+    function saveVote(idCalon)
+    {
+        var processVoteUrl = "<?=$processVoteUrl?>";
+        
+        $.ajax({
+				type: "POST",
+				url: processVoteUrl,
+				data: {
+					idCalon: idCalon
+				},
+				dataType: 'JSON',
+				success: function (result) {
+					if(result.code == "00")
+					{
+						Swal.fire({
+							text: result.message,
+							icon: "success",
+							buttonsStyling: !1,
+							confirmButtonText: "Ok",
+							customClass: {
+								confirmButton: "btn btn-primary"
+							}
+						}).then((function(e) {
+								window.location.href = submitFormUrl;
+                            }));
+					}
+					else
+					{
+						Swal.fire({
+								text: result.message,
+								icon: "error",
+								buttonsStyling: !1,
+								confirmButtonText: "Ok",
+								customClass: {
+									confirmButton: "btn btn-primary"
+								}
+							});
+					}
+				}
+			});
     }
 </script>

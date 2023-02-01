@@ -296,17 +296,86 @@ class Main extends BaseController
 		$session['role'] = 'Voters';
 		$this->session->set('user', $session);
 
+		$setVote = $this->candidateModels->getVoteStart();
+
 		$candidate = $this->candidateModels->getCandidate(1);
 
 		$data = [];
 
 		$data['candidate'] = $candidate;
+		$data['startVote'] = $setVote['start_date'];
+		$data['endVote'] = $setVote['end_date'];
+		$data['processVoteUrl'] = base_url()."/main/processVote";
 
 		$masterpage_data['title'] = 'Beranda';
 		$masterpage_data['error'] = isset($errorMessage) ? $errorMessage : '';
 		$masterpage_data['content'] = view('HomeView', $data);
 		
 		return view('MasterPageView', $masterpage_data);
+	}
+
+	public function processVote()
+	{
+		$errorMessage = "";
+		$successMessage = "";
+		$dataVote = [];
+
+		try
+		{
+			$postData = $this->request->getPost();
+
+			$idCalon = $postData['idCalon'];
+			$nik = $this->session->user['nik'];
+			
+			$validateUserNotVote = $this->uservoteModels->getUserValidateVote($nik);
+
+			if(!empty($validateUserNotVote))
+			{
+				$errorMessage = "NIK sudah melakukan voting"; 
+			}
+
+			if(empty($errorMessage))
+			{
+				$dataSession['master_candidate_vote_id'] = $idCalon;
+				$dataSession['identity_code'] = $nik;
+				array_push($dataVote, $dataSession);
+
+				$getKuasa = $this->uservoteModels->getDataKuasa($nik);
+
+				if(!empty($getKuasa))
+				{
+					foreach ($getKuasa as $key => $value) {
+							
+						$listkuasa['master_candidate_vote_id'] = $idCalon; 
+						$listkuasa['identity_code'] = $value['identity_code_kuasa']; 
+		
+						array_push($dataVote, $listkuasa);
+					}
+				}
+
+				$processVoting = $this->uservoteModels->saveUserVote($dataVote);
+				
+				if(!$processVoting)
+				{
+					$errorMessage = "Gagal Melakukan Sync Voting";
+				}
+				else
+				{
+					$successMessage = 'Voting Berhasil';
+				}
+			}
+		}
+		catch (\Exception $e)
+        {
+        	$errorMessage = $e->getMessage();
+			$this->auditHelper->writeAuditErrorSystem(get_class(), $e, 0);
+        }
+
+		$response['code'] = $errorMessage == '' ? '00' : '04';
+        $response['message'] = $errorMessage == '' ? $successMessage : $errorMessage;
+
+		return json_encode($response);
+		
 	}
 	//END STEP 3
 
@@ -358,12 +427,12 @@ class Main extends BaseController
 
 		try
 		{
-			$dataActivity = $this->auditModels->getListAuditActivity($this->session->user['security_users_id']);			
+			$dataActivity = $this->auditModels->getListAuditActivity($this->session->user['nik']);			
 		}
 		catch (\Exception $e)
         {
         	$errorMessage = $e->getMessage();
-			$this->auditHelper->writeAuditErrorSystem(get_class(), $e, $this->session->user['security_users_id']);
+			$this->auditHelper->writeAuditErrorSystem(get_class(), $e, $this->session->user['nik']);
         }
 
 		$response['code'] = $errorMessage == '' ? '00' : '04';

@@ -44,12 +44,47 @@ class UservoteModel extends Model
         return $result->getFirstRow('array');           
     }
 
+    function getUserValidateVote($nik)
+    {
+        $query = "SELECT * FROM transaction_voting where identity_code = ?";
+       
+        $result = $this->db->query($query, [$nik]);
+
+        return $result->getFirstRow('array');           
+    }
+
+    function getDataKuasa($id)
+    {
+        $query = "SELECT * FROM `transaction_users_kuasa` WHERE identity_code=?";
+       
+        $result = $this->db->query($query, [$id]);
+        
+        return $result->getResultArray();           
+    }
 
     function updateUserVote($data)
 	{
 		$this->db->transBegin();
 
         $this->db->table('master_users_vote')->where('identity_code', $data['identity_code'])->update($data);;
+        
+        if ($this->db->transStatus() === FALSE)
+        {
+            $this->db->transRollback();
+            return FALSE;
+        }
+        else
+        {
+            $this->db->transCommit();
+            return TRUE;
+        } 
+	}
+
+    function saveUserVote($data)
+	{
+		$this->db->transBegin();
+
+        $this->db->table('transaction_voting')->insertbatch($data);;
         
         if ($this->db->transStatus() === FALSE)
         {

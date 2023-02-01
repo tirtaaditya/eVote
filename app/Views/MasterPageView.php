@@ -10,15 +10,52 @@ $user = session('user');
 		<link href="<?=base_url()?>/assets/plugins/custom/fullcalendar/fullcalendar.bundle.css" rel="stylesheet" type="text/css" />
 		<link href="<?=base_url()?>/assets/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css" />
 		<link href="<?=base_url()?>/assets/css/style.bundle.css" rel="stylesheet" type="text/css" />
+		<style>
+			.screen {
+				position: fixed;
+				transition: all .5s;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				z-index: 10;
+				background-color: rgba(16, 16, 16, 0.5);
+			}
+
+			.loader {
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				display: flex;
+				align-items: center;
+				border-radius:20px;
+			}
+			
+			.autocompletenik {
+				position: relative;
+			}
+			
+			.autocompletenik-items div {
+				padding: 10px;
+				cursor: pointer;
+			}
+
+		</style>
 	</head>
 	<!--end::Head-->
 	<!--begin::Body-->
 	<body id="kt_body" class="header-fixed header-tablet-and-mobile-fixed toolbar-enabled toolbar-fixed aside-enabled aside-fixed" style="--kt-toolbar-height:55px;--kt-toolbar-height-tablet-and-mobile:55px">
-		<div class="page-loader flex-column bg-dark bg-opacity-25">
-			<span class="spinner-border text-primary" role="status"></span>
-			<span class="text-gray-800 fs-6 fw-semibold mt-5">Loading...</span>
+		<div class="screen">
+			<div class="box">
+				<div class="loader">
+					<div class="spinner-grow text-danger"></div>&nbsp;&nbsp;
+					<div class="spinner-grow text-muted"></div>&nbsp;&nbsp;
+					<div class="spinner-grow text-primary"></div>&nbsp;&nbsp;
+					<div class="spinner-grow text-success"></div>&nbsp;&nbsp;
+				</div>
+			</div>
 		</div>
-		<!--begin::Main-->
 		<!--begin::Root-->
 		<div class="d-flex flex-column flex-root">
 			<!--begin::Page-->
@@ -479,6 +516,21 @@ $user = session('user');
 			}
 		</script>
 		<!--end::Page Custom Javascript-->
+		<script>
+			$(document).ready(function () 
+			{
+				$(".screen").hide();
+				$(document).ajaxStart(function()
+				{
+					$(".screen").show();
+				});
+
+				$(document).ajaxStop(function()
+				{
+					$(".screen").hide();
+				});
+			});
+		</script>
 		<!--end::Javascript-->
 	</body>
 	<!--end::Body-->

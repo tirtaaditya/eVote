@@ -13,4 +13,13 @@ class CandidateModel extends Model
         return $result->getResultArray();           
     }
 
+    function getVoteStart()
+    {
+        $query = "SELECT * FROM `master_vote`";
+       
+        $result = $this->db->query($query);
+        
+        return $result->getFirstRow('array');        
+    }
+
 }
