@@ -46,17 +46,17 @@ class Main extends BaseController
 			$postData = $this->request->getPost();
 
 			$nomorWhatsapp = $postData['nomorWhatsapp'];
-	       	$nik = $postData['nik'];
+		       	$nik = $postData['nik'];
 			$otp = rand(100000, 999999);
 			$message = $otp." adalah kode OTP anda untuk Form Absensi";
 			
 			$userVote = $this->uservoteModels->getUserVote($nik);
+			$userVotePresent = $this->uservoteModels->getUserPresentAndKuasa($nik);
 			
-			if(empty($userVote))
-			{
-				$errorMessage = "NIK salah/tidak ditemukan";
-			}
-			else
+			$errorMessage = (empty($userVote)) ? "NIK salah/tidak ditemukan" : "";
+			$errorMessage = (empty($userVotePresent)) ? "" : "Anda telah "+$userVotePresent['isPresent'];
+			
+			if(empty($errorMessage))
 			{
 				$this->whatsappHelper->sendWhatsapp('OTP', $nomorWhatsapp, $message);
 
