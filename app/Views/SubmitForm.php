@@ -138,13 +138,7 @@
 
 <script type="text/javascript">
 	var canvas = document.getElementById('signature-pad');
-	// Adjust canvas coordinate space taking into account pixel ratio,
-	// to make it look crisp on mobile devices.
-	// This also causes canvas to be cleared.
 	function resizeCanvas() {
-		// When zoomed out to less than 100%, for some very strange reason,
-		// some browsers report devicePixelRatio as less than 1
-		// and only part of the canvas is cleared then.
 		var ratio =  Math.max(window.devicePixelRatio || 1, 1);
 		canvas.width = canvas.offsetWidth * ratio;
 		canvas.height = canvas.offsetHeight * ratio;
@@ -155,19 +149,19 @@
 	resizeCanvas();
 
 	var signaturePad = new SignaturePad(canvas, {
-	backgroundColor: 'rgb(255, 255, 255)' // necessary for saving image as JPEG; can be removed is only saving as PNG or SVG
+		backgroundColor: 'rgb(255, 255, 255)' // necessary for saving image as JPEG; can be removed is only saving as PNG or SVG
 	});
 
 	document.getElementById('clear').addEventListener('click', function () {
-	signaturePad.clear();
+		signaturePad.clear();
 	});
 
 	document.getElementById('undo').addEventListener('click', function () {
 		var data = signaturePad.toData();
-	if (data) {
-		data.pop(); // remove the last dot or line
-		signaturePad.fromData(data);
-	}
+		if (data) {
+			data.pop(); // remove the last dot or line
+			signaturePad.fromData(data);
+		}
 	});
 
 	$(document).ready(function(){		
@@ -185,9 +179,6 @@
 
 		$('#modal-submit').on('click', function(){
 			if (signaturePad.isEmpty()) {	
-				$('#myModal').modal('hide');
-				$('.modal-backdrop').hide();
-				$("body").removeClass("modal-open");					
 			Swal.fire({
 				text: "Tanda Tangan Anda Kosong! Silahkan tanda tangan terlebih dahulu.",
 				icon: "error",
@@ -247,66 +238,6 @@
 		$('#myModal').modal('show').find('.modal-body').html('<h4>Apakah Anda Yakin ?</h4>	<textarea id="signature64" name="signed" style="display:none">'+data+'</textarea>');
 	})
 	})
-
-	function sendOTP()
-	{
-		var sendOTPURL = "<?=$sendOTPUrl;?>";
-
-		var nomorWhatsapp = document.querySelector("[name='kodeNegaraTelp']").value + document.querySelector("[name='nomorWhatsapp']").value;
-		var nik = document.querySelector("[name='nik']").value;
-
-		if(nomorWhatsapp == "" || nik == "")
-		{
-			Swal.fire({
-						text: "NIK dan Nomor Whatsapp Tidak Boleh Kosong",
-						icon: "error",
-						buttonsStyling: !1,
-						confirmButtonText: "Ok",
-						customClass: {
-							confirmButton: "btn btn-primary"
-						}
-					});
-		}
-		else
-		{
-			$.ajax({
-				type: "POST",
-				url: sendOTPURL,
-				data: {
-					nomorWhatsapp: nomorWhatsapp,
-					nik: nik
-				},
-				dataType: 'JSON',
-				success: function (result) {
-					if(result.code == "00")
-					{
-						Swal.fire({
-							text: result.message,
-							icon: "success",
-							buttonsStyling: !1,
-							confirmButtonText: "Ok",
-							customClass: {
-								confirmButton: "btn btn-primary"
-							}
-						});
-					}
-					else
-					{
-						Swal.fire({
-								text: result.message,
-								icon: "error",
-								buttonsStyling: !1,
-								confirmButtonText: "Ok",
-								customClass: {
-									confirmButton: "btn btn-primary"
-								}
-							});
-					}
-				}
-			});
-		}		
-	}
-
     let handleSubmit = () => {
 		if (signaturePad.isEmpty()) {
 			Swal.fire({
