@@ -20,14 +20,14 @@ class UservoteModel extends Model
 			'Hadir' AS isPresent 
 		   FROM `master_users_vote` 
 		   	WHERE isPresent=1
-		   	  AND identity_code=?
+		   	  AND identity_code='".$identityCode."'
 		   UNION
 		   SELECT 
 			a.identity_code_kuasa, 
 			CONCAT('dikuasakan ', a.identity_code, ' ', b.name) AS isPresent 
 		   FROM `transaction_users_kuasa` a 
 			LEFT JOIN master_users_vote b ON a.identity_code_kuasa=b.identity_code
-			WHERE identity_code_kuasa=?
+			WHERE identity_code_kuasa='".$identityCode."'
 		 ";
        
         $result = $this->db->query($query, [$identityCode]);
