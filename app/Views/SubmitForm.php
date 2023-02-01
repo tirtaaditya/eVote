@@ -109,7 +109,7 @@
 
 						<!-- Modal footer -->
 						<div class="modal-footer">
-							<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+							<button type="button" class="btn btn-danger closeModal" data-dismiss="modal">Close</button>
 							<button type="submit" class="btn btn-primary">Submit</button>
 						</div>
 
@@ -185,6 +185,7 @@
 
 		$('#modal-submit').on('click', function(){
 			if (signaturePad.isEmpty()) {
+			$('#closeModal').click(); 
 			Swal.fire({
 				text: "Tanda Tangan Anda Kosong! Silahkan tanda tangan terlebih dahulu.",
 				icon: "error",
