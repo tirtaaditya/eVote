@@ -322,6 +322,7 @@
 	{
 		document.getElementById("SaveButton").disabled = true;
 		$(".screen").show();
+		$('#myModal').modal('hide');
 	}
 </script>
 <script>
