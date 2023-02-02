@@ -99,20 +99,29 @@ class Main extends BaseController
 			$nik = $postData['nik'];
 			$otp = $postData['otp'];
 			
-			$userValidate = $this->uservoteModels->getUserValidateOTP($nik, $otp);
-
-			if(empty($userValidate))
+			$userVote = $this->uservoteModels->getUserVote($nik);
+			$userVotePresent = $this->uservoteModels->getUserPresentAndKuasa($nik);
+			
+			$errorMessage = (empty($userVote)) ? "NIK salah/tidak ditemukan" : "";
+			$errorMessage = (empty($userVotePresent)) ? "" : "Anda telah ".$userVotePresent['isPresent'];
+			
+			if(empty($errorMessage))
 			{
-				$errorMessage = "OTP Tidak Sesuai";
-			}
-			else
-			{
-				$successMessage = "OTP Sesuai";
+				$userValidate = $this->uservoteModels->getUserValidateOTP($nik, $otp);
 
-				$session['nik'] = $nik;
-				$session['name'] = $userValidate['name'];
-				$session['phoneNumber'] = $userValidate['phone_number'];
-				$this->session->set('user', $session);
+				if(empty($userValidate))
+				{
+					$errorMessage = "OTP Tidak Sesuai";
+				}
+				else
+				{
+					$successMessage = "OTP Sesuai";
+
+					$session['nik'] = $nik;
+					$session['name'] = $userValidate['name'];
+					$session['phoneNumber'] = $userValidate['phone_number'];
+					$this->session->set('user', $session);
+				}				
 			}
 		}
 		catch (\Exception $e)
@@ -122,25 +131,12 @@ class Main extends BaseController
         }
 
 		$response['code'] = $errorMessage == '' ? '00' : '04';
-        $response['message'] = $errorMessage == '' ? $successMessage : $errorMessage;
+	        $response['message'] = $errorMessage == '' ? $successMessage : $errorMessage;
 
 		return json_encode($response);
 	}
 	//END STEP 1
 
-	public function admin()
-	{
-		if($this->session->has('user'))
-		{
-			return redirect()->to(base_url().'/home');
-		}
-		else
-		{
-			$data['postback_url'] = base_url()."/main/login";
-
-			return view('LoginView', $data);
-		}
-	}
 
 	public function submitForm()
 	{
