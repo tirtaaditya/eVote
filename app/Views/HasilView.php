@@ -12,6 +12,10 @@
     </div>
 
 <script>
+	window.setTimeout( function() {
+		window.location.reload();
+	}, 15000);	
+	
 	var dataCalon = <?php echo json_encode($dataCalon); ?>;
 	var dataHasil = <?php echo json_encode($dataHasil); ?>;
 
