@@ -395,13 +395,20 @@ class Main extends BaseController
 
 	public function hasil()
 	{
+		$data = [];
+		$dataCalon = [];
+		$dataHasil = [];
 		$userVote = $this->uservoteModels->getUserVote($this->session->user['nik']);
 
-		$candidate = $this->candidateModels->getCandidate(1);
+		$hasilVote = $this->candidateModels->getHasilVote();
+		foreach ($hasilVote as $key => $value) 
+		{			
+			array_push($dataCalon, $value['name']);
+			array_push($dataHasil, $value['total_suara']);
+		}
 
-		$data = [];
-
-		$data['candidate'] = $candidate;
+		$data['dataCalon'] = $dataCalon;
+		$data['dataHasil'] = $dataHasil;		
 
 		$masterpage_data['title'] = 'Hasil Pemilihan';
 		$masterpage_data['error'] = isset($errorMessage) ? $errorMessage : '';
