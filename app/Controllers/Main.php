@@ -162,7 +162,7 @@ class Main extends BaseController
 	{
 		try {	
 			$postData = $this->request->getPost();
-			if(empty($postData['signature']) || empty($postData['kuasa']))
+			if(empty($postData['signed']) || empty($postData['kuasa']))
 			{
 				$this->session->set('errorMessage', "Input Semua Field");
 				$this->session->markAsFlashdata('errorMessage');
@@ -253,14 +253,16 @@ class Main extends BaseController
 			$nomorWhatsapp = $postData['phoneNumber'];
 			
 			$logWa = $this->whatsappHelper->sendWhatsapp('Send URL Vote', $nomorWhatsapp, $message);
-				
+			/*	
 			if($logWa)
 			{
+			*/
 				$this->session->set('successMessage', "Data Berhaasil Di Submit Silahkan Cek Whatsapp anda !");
 				$this->session->markAsFlashdata('successMessage');
 				
 				$this->session->destroy();
 				return redirect()->to(base_url());
+			/*
 			}
 			else
 			{
@@ -271,6 +273,7 @@ class Main extends BaseController
 				unlink($file);
 				return redirect()->to(base_url()."/submitform");
 			}
+			*/
 		} catch (\Exception $e) {
 			$this->auditHelper->writeAuditErrorSystem(get_class(), $e, $postData['nik']);
 
