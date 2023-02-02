@@ -403,7 +403,7 @@ class Main extends BaseController
 
 		$data['candidate'] = $candidate;
 
-		$masterpage_data['title'] = 'Beranda';
+		$masterpage_data['title'] = 'Hasil Pemilihan';
 		$masterpage_data['error'] = isset($errorMessage) ? $errorMessage : '';
 		$masterpage_data['content'] = view('HasilView', $data);
 		
