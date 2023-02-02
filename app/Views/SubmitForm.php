@@ -324,3 +324,9 @@
 		$(".screen").show();
 	}
 </script>
+<script>
+	$(document).ready(function () 
+	{
+		$(".screen").hide();
+	});
+</script>
