@@ -76,7 +76,7 @@
 							</div>
 							<center>
 							<button type="button" class="btn btn-primary" data-toggle="modal" id="modal-submit" data-target="#myModal">
-								Submit
+								Simpan
 							</button>
 							<!-- <button type="button" class="btn btn-primary" id="modal-submit" data-toggle="modal" onclick="handleSubmit()">
 								Submit
@@ -103,8 +103,8 @@
 
 						<!-- Modal footer -->
 						<div class="modal-footer">
-							<button type="button" class="btn btn-danger closeModal" data-dismiss="modal">Close</button>
-							<button type="submit" class="btn btn-primary">Submit</button>
+							<button type="button" class="btn btn-danger closeModal" data-dismiss="modal">Tidak</button>
+							<button type="submit" id="SaveButton" onclick="disabledButton()" class="btn btn-primary">Ya</button>
 						</div>
 
 						</div>
@@ -283,5 +283,11 @@
 		var data = signaturePad.toDataURL('image/jpeg');
 		alert("oke");
 		$('#myModal').modal('show').find('.modal-body').html('<h4>Apakah Anda Yakin ?</h4>	<textarea id="signature64" name="signed" style="display:none">'+data+'</textarea>');
+	}
+</script>
+<script>
+	function disabledButton()
+	{
+		document.getElementById("SaveButton").disabled = true;
 	}
 </script>
