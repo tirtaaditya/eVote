@@ -252,27 +252,8 @@ class Main extends BaseController
 			$message = "Silahkan Klik Link Berikut untuk melakukan Vote: ".$link;
 			$nomorWhatsapp = $postData['phoneNumber'];
 			
-			$urlWa =  "https://api.kirimwa.id/v1/messages";
-			$dataWa = array("phone_number" => $nomorWhatsapp, "message" => $message, "device_id" => "samsungmod", "message_type" => "text");
-			$options = array(
-			'http' => array(
-				'method'  => 'POST',
-				'content' => json_encode( $dataWa ),
-				'header'=>  "Content-Type: application/json\r\n" .
-							"Accept: application/json\r\n" .
-					"Authorization: Bearer qtkl44hm/c2FdwgDzxBDKx5NYbs+GUgkVdr55Hd6UJwIJIANexmUTSBByiugRMAg-tirta\r\n"
-				)
-			);
-			$context  = stream_context_create( $options );
-			$result = file_get_contents( $urlWa, false, $context );
-	
-			$logWhatsapp['module'] = 'OTP';
-			$logWhatsapp['phone_number'] = $nomorWhatsapp;
-			$logWhatsapp['message'] = $message;
-			$logWhatsapp['response'] = $result;
-			
-			$logWa = $this->whatsappModels->insertLogWA($logWhatsapp);
-	
+			$logWa = $this->whatsappHelper->sendWhatsapp('Send URL Vote', $nomorWhatsapp, $message);
+				
 			if($logWa)
 			{
 				$this->session->set('successMessage', "Data Berhaasil Di Submit Silahkan Cek Whatsapp anda !");
