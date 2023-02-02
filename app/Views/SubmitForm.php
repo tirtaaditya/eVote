@@ -23,7 +23,39 @@
         		height: 260px;
         	}
         </style>
+	<style>
+			.screen {
+				position: fixed;
+				transition: all .5s;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				z-index: 10;
+				background-color: rgba(16, 16, 16, 0.5);
+			}
+
+			.loader {
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				display: flex;
+				align-items: center;
+				border-radius:20px;
+			}
+		</style>		
 	</head>
+		<div class="screen">
+			<div class="box">
+				<div class="loader">
+					<div class="spinner-grow text-danger"></div>&nbsp;&nbsp;
+					<div class="spinner-grow text-muted"></div>&nbsp;&nbsp;
+					<div class="spinner-grow text-primary"></div>&nbsp;&nbsp;
+					<div class="spinner-grow text-success"></div>&nbsp;&nbsp;
+				</div>
+			</div>
+		</div>
 	<form method="post" action="<?= $postbackURL  ?>" enctype="multipart/form-data">
 		<body id="kt_body" class="bg-body">
 			<div class="d-flex flex-column flex-root">
@@ -289,5 +321,6 @@
 	function disabledButton()
 	{
 		document.getElementById("SaveButton").disabled = true;
+		$(".screen").show();
 	}
 </script>
