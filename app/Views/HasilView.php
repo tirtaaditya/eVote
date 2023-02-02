@@ -1,5 +1,4 @@
-
-    <div class="row gy-5 g-xl-8">
+	<div class="row gy-5 g-xl-8">
         <div class="col-xxl-12">
             <div class="card card-xxl-stretch">
                 <div class="card-header border-0">
@@ -13,14 +12,17 @@
     </div>
 
 <script>
-    var ctx = document.getElementById("myChart").getContext('2d');
+	var dataCalon = <?php echo json_encode($dataCalon); ?>;
+	var dataHasil = <?php echo json_encode($dataHasil); ?>;
+
+	var ctx = document.getElementById("myChart").getContext('2d');
 		var myChart = new Chart(ctx, {
 			type: 'bar',
 			data: {
-				labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+				labels: dataCalon,
 				datasets: [{
-					label: '# of Votes',
-					data: [12, 19, 3, 23, 2, 3],
+					label: 'Hasil Voting',
+					data: dataHasil,
 					backgroundColor: [
 					'rgba(255, 99, 132, 0.2)',
 					'rgba(54, 162, 235, 0.2)',
