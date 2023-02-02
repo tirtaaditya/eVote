@@ -160,8 +160,23 @@ class Main extends BaseController
 
 	public function submit()
 	{
-		try {
+		try {	
 			$postData = $this->request->getPost();
+			if(empty($postData['signature']) || empty($postData['kuasa']))
+			{
+				$this->session->set('errorMessage', "Input Semua Field");
+				$this->session->markAsFlashdata('errorMessage');
+	
+				return redirect()->to(base_url()."/submitform");
+			}
+
+			if($postData['kuasa'] == "Ya" && empty($postData['pemberiKuasa']))
+			{
+				$this->session->set('errorMessage', "Input Semua Field");
+				$this->session->markAsFlashdata('errorMessage');
+	
+				return redirect()->to(base_url()."/submitform");
+			}
 
 			$folderPath = "assets/media/signature/";
 		
@@ -393,6 +408,7 @@ class Main extends BaseController
 		$masterpage_data['content'] = view('HasilView', $data);
 		
 		return view('MasterPageView', $masterpage_data);
+	}
 	//END STEP 3
 
 
