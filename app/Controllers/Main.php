@@ -9,6 +9,7 @@ use App\Models\AuditModel;
 use App\Models\UservoteModel;
 use App\Models\CandidateModel;
 use App\Models\SubmitFormModel;
+use App\Models\ModelPaslon;
 use App\Models\WhatsappModel;
 
 class Main extends BaseController
@@ -21,6 +22,7 @@ class Main extends BaseController
 		$this->candidateModels = new CandidateModel();
 		$this->submitFormModel = new SubmitFormModel();
 		$this->whatsappModels = new WhatsappModel();
+		$this->modelPaslon = new ModelPaslon();
 		$this->whatsappHelper = new WhatsappHelper();
  
 		$this->auditHelper = new AuditHelper();		
@@ -396,6 +398,237 @@ class Main extends BaseController
 		
 		return view('MasterPageView', $masterpage_data);
 	}
+
+	public function daftar()
+	{
+		$pager = \Config\Services::pager();
+        $model = new ModelPaslon();
+        $data['paslon'] = $model->paginate(10);
+        $data['pager'] = $model->pager;
+        $data['page'] = $this->request->getVar('page') ? $this->request->getVar('page') : 1;
+
+		$masterpage_data['title'] = 'List Paslon';
+		$masterpage_data['error'] = isset($errorMessage) ? $errorMessage : '';
+		$masterpage_data['content'] = view('PaslonView', $data);
+		
+		return view('MasterPageView', $masterpage_data);
+	}
+
+	public function getPaslon()
+	{
+		$errorMessage = "";
+		$successMessage = "";
+
+		try {
+			helper(['form', 'url']);
+			$postData = $this->request->getPost();			
+			if($postData['action'] == "Create")
+			{
+				$imageFile = $this->request->getFile('file');
+
+				$process = $this->insertPaslon($imageFile, $postData);
+				if($process)
+				{
+					$successMessage = "Data Berhasil Di Simpan";
+				}
+			}
+			else
+			{
+				if(empty($postData['upload']))
+				{
+					$imageFile = $this->request->getFile('file');
+					$process = $this->editPaslon($imageFile, $postData);
+				}
+				else
+				{
+					$imageFile = "";
+					$process = $this->editPaslon($imageFile, $postData);
+				}
+				
+				if($process)
+				{
+					$successMessage = "Data Berhasil Di Edit";
+				}
+			}
+			
+		} catch (\Exception $e) {
+			$errorMessage = $e->getMessage();
+			$this->auditHelper->writeAuditErrorSystem(get_class(), $e, 0);
+		}
+
+		$response['code'] = $errorMessage == '' ? '00' : '04';
+		$response['message'] = $errorMessage == '' ? $successMessage : $errorMessage;
+
+		return json_encode($response);
+	}
+
+	public function insertPaslon($imageFile, $postData)
+	{
+		$pathDestination = "assets/media/candidate/";
+
+		if(!is_dir($pathDestination))
+		{
+			if(mkdir($pathDestination, 0777, TRUE))
+			{
+				chmod($pathDestination, 0777);
+			}
+			else
+			{
+				throw new \Exception("Error while create directory!", 1);
+			}
+		}
+		else
+		{
+			chmod($pathDestination, 0777);
+		}
+		$imageFile->move($pathDestination);
+
+		$fullPathDestination = $pathDestination.'/'.$imageFile->getClientName();
+
+		$data = [
+			'picture' => $pathDestination.'/'.$imageFile->getClientName(),
+			'name' => $postData['name'],
+			'description' => $postData['description'],
+			'master_vote_id' => $postData['master_vote'],
+		];
+
+		$save = $this->modelPaslon->insertPaslon($data);
+
+		if($save)
+		{
+			return TRUE;
+		}
+		else
+		{
+			throw new \Exception("Error Processing Request", 1);
+			
+		}
+	}
+
+	public function editPaslon($imageFile, $postData)
+	{
+		if(!empty($imageFile))
+		{
+			$pathDestination = "assets/media/candidate/";
+
+			if(!is_dir($pathDestination))
+			{
+				if(mkdir($pathDestination, 0777, TRUE))
+				{
+					chmod($pathDestination, 0777);
+				}
+				else
+				{
+					throw new \Exception("Error while create directory!", 1);
+				}
+			}
+			else
+			{
+				chmod($pathDestination, 0777);
+			}
+			
+			$imageFile->move($pathDestination);
+
+
+			$fullPathDestination = $pathDestination.'/'.$imageFile->getClientName();
+		}
+		else
+		{
+			$fullPathDestination = $postData['upload'];
+		}
+
+		$data = [
+			'picture' => $fullPathDestination,
+			'name' => $postData['name'],
+			'description' => $postData['description'],
+			'master_vote_id' => $postData['master_vote'],
+		];
+
+		$save = $this->modelPaslon->updatePaslon($data, $postData['id']);
+
+		if($save)
+		{
+			return TRUE;
+		}
+		else
+		{
+			throw new \Exception("Error Processing Request", 1);
+			
+		}
+
+	}
+
+	public function getData()
+	{
+		$postData = $this->request->getPost();
+		
+		$data = $this->modelPaslon->list($postData['id']);
+
+		return json_encode($data);
+	}
+
+	public function detailPaslon()
+	{
+		$data = [];
+		$dataCalon = [];
+		$dataHasil = [];
+		$userVote = $this->uservoteModels->getUserVote($this->session->user['nik']);
+
+		$hasilVote = $this->candidateModels->getHasilVote();
+		foreach ($hasilVote as $key => $value) 
+		{			
+			array_push($dataCalon, $value['name']);
+			array_push($dataHasil, $value['total_suara']);
+		}
+
+		$data['dataCalon'] = $dataCalon;
+		$data['dataHasil'] = $dataHasil;		
+
+		$masterpage_data['title'] = 'Hasil Pemilihan';
+		$masterpage_data['error'] = isset($errorMessage) ? $errorMessage : '';
+		$masterpage_data['content'] = view('HasilView', $data);
+		
+		return view('MasterPageView', $masterpage_data);
+	}
+
+	// public function procesDaftar()
+	// {
+	// 	helper(['form', 'url']);
+
+	// 	$postData = $this->request->getPost();
+         
+    //     $validateImage = $this->validate([
+    //         'file' => [
+    //             'uploaded[file]',
+    //             'mime_in[file, image/png, image/jpg,image/jpeg, image/gif]',
+    //             'max_size[file, 4096]',
+    //         ],
+	// 		'name' => ['required'],
+	// 		'master_vote_id' => ['required']
+    //     ]);
+    
+    //     $response = [
+    //         'success' => false,
+    //         'data' => '',
+    //         'msg' => "Image could not upload"
+    //     ];
+    //     if ($validateImage) {
+    //         $imageFile = $this->request->getFile('file');
+    //         $imageFile->move(WRITEPATH . 'uploads');
+    //         $data = [
+    //             'img_name' => $imageFile->getClientName(),
+    //             'file'  => $imageFile->getClientMimeType(),
+	// 			'name' => $
+    //         ];
+    //         // $save = $builder->insert($data);
+    //         $response = [
+    //             'success' => true,
+    //             'data' => $save,
+    //             'msg' => "Image successfully uploaded"
+    //         ];
+    //     }
+    //     return $this->response->setJSON($response);
+	// }
 	//END STEP 3
 
 

@@ -39,6 +39,7 @@ $routes->add('submit', 'Main::submit');
 
 $routes->add('vote/(:alphanum)', 'Main::vote/$1');
 $routes->add('votes/hasil', 'Main::hasil/$1');
+$routes->add('votes/daftar', 'Main::daftar');
 
 /*
  * --------------------------------------------------------------------
