@@ -225,17 +225,15 @@
                                 $('#btn-upload').val('Create')
                                 $('#btn-upload').text('Create')
                                 $('#btn-upload').attr("disabled", false)
-    
-                                location.reload();
+                                
+                                setTimeout(function() { 
+                                    location.reload();
+                                }, 1000);
                             } else {
                                 Swal.fire({
                                     text: res.message,
                                     icon: "error",
                                     buttonsStyling: !1,
-                                    confirmButtonText: "Ok",
-                                    customClass: {
-                                        confirmButton: "btn btn-primary"
-                                    }
                                 })
                                 $('.uploadBtn').html('Upload');
                                 $('.uploadBtn').prop('Enabled');
@@ -277,10 +275,7 @@
                                     text: res.message,
                                     icon: "success",
                                     buttonsStyling: !1,
-                                    confirmButtonText: "Ok",
-                                    customClass: {
-                                        confirmButton: "btn btn-primary"
-                                    }
+                                    
                                 })
     
                                 $('.uploadBtn').html('Upload');
@@ -293,17 +288,15 @@
                                 $('#btn-upload').val('Create')
                                 $('#btn-upload').text('Create')
                                 $('#btn-upload').attr("disabled", false)
-    
-                                location.reload();
+                                
+                                setTimeout(function() { 
+                                    location.reload();
+                                }, 1000);
                             } else {
                                 Swal.fire({
                                     text: res.message,
                                     icon: "error",
                                     buttonsStyling: !1,
-                                    confirmButtonText: "Ok",
-                                    customClass: {
-                                        confirmButton: "btn btn-primary"
-                                    }
                                 })
                                 $('.uploadBtn').html('Upload');
                                 $('.uploadBtn').prop('Enabled');
