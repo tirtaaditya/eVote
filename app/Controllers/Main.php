@@ -167,7 +167,7 @@ class Main extends BaseController
 	
 				return redirect()->to(base_url()."/submitform");
 			}
-
+			
 			if($postData['kuasa'] == "Ya" && empty($postData['pemberiKuasa']))
 			{
 				$this->session->set('errorMessage', "Input Semua Field");
@@ -176,6 +176,17 @@ class Main extends BaseController
 				return redirect()->to(base_url()."/submitform");
 			}
 
+			$cekNik = $this->uservoteModels->getUserPresentAndKuasa($postData['nik']);
+			if(!empty($cekNik))
+			{
+				$message = "NIK ".$postData['nik']." Sudah Di Gunakan";
+				$this->session->set('errorMessage', $message);
+				$this->session->markAsFlashdata('errorMessage');
+
+				return redirect()->to(base_url()."/submitform");
+			}			
+			
+			
 			$folderPath = "assets/media/signature/";
 		
 			$image_parts = explode(";base64,", $postData['signed']);
@@ -231,7 +242,7 @@ class Main extends BaseController
 					$cek =$this->uservoteModels->getUserPresentAndKuasa($value);
 					if(!empty($cek))
 					{
-						$message = "NIK ".$value." Kuasa Sudah Di Gunakan"
+						$message = "NIK ".$value." Kuasa Sudah Di Gunakan";
 						$this->session->set('errorMessage', $message);
 						$this->session->markAsFlashdata('errorMessage');
 	
