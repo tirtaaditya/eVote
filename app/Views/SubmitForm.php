@@ -164,6 +164,7 @@
 
 <script type="text/javascript">
 	var canvas = document.getElementById('signature-pad');
+	$('#modal-submit').attr("disabled", false);
 	function resizeCanvas() {
 		var ratio =  Math.max(window.devicePixelRatio || 1, 1);
 		canvas.width = canvas.offsetWidth * ratio;
@@ -313,16 +314,15 @@
 		}
 
 		var data = signaturePad.toDataURL('image/jpeg');
-		alert("oke");
 		$('#myModal').modal('show').find('.modal-body').html('<h4>Apakah Anda Yakin ?</h4>	<textarea id="signature64" name="signed" style="display:none">'+data+'</textarea>');
 	}
-</script>
-<script>
 	function disabledButton()
 	{
-		document.getElementById("SaveButton").disabled = true;
-		$(".screen").show();
+		$('.modal-backdrop').hide();
+		$("body").removeClass("modal-open");
 		$('#myModal').modal('hide');
+		$('#modal-submit').attr("disabled", true);
+		$(".screen").show();
 	}
 </script>
 <script>

@@ -698,13 +698,13 @@ class Main extends BaseController
 	{
 		try
 		{
-			$this->auditHelper->writeAuditActivity("Logout", "Logout", $this->session->user['security_users_id']);
+			$this->auditHelper->writeAuditActivity("Logout", "Logout", $this->session->user['nik']);
 			$this->session->destroy();	
 		}
 		catch (\Exception $e)
         {
         	$errorMessage = $e->getMessage();
-			$this->auditHelper->writeAuditErrorSystem(get_class(), $e, $this->session->user['security_users_id']);
+			$this->auditHelper->writeAuditErrorSystem(get_class(), $e, $this->session->user['nik']);
         }
 
 		return redirect()->to(base_url().'/main');
