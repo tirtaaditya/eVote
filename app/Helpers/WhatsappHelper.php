@@ -41,7 +41,25 @@ class WhatsappHelper
 		curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
 
 		$result = curl_exec($curl);
+		$httpcode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
 		curl_close($curl);
+		
+		if($httpcode == "503")
+		{
+			$url =  "https://api.kirimwa.id/v1/messages";
+			$data = array("phone_number" => $nomorWhatsapp, "message" => $message, "device_id" => "samsungmod", "message_type" => "text");
+			$options = array(
+			'http' => array(
+				'method'  => 'POST',
+				'content' => json_encode( $data ),
+				'header'=>  "Content-Type: application/json\r\n" .
+							"Accept: application/json\r\n" .
+					"Authorization: Bearer qtkl44hm/c2FdwgDzxBDKx5NYbs+GUgkVdr55Hd6UJwIJIANexmUTSBByiugRMAg-tirta\r\n"
+				)
+			);
+			$context  = stream_context_create( $options );
+			$result = file_get_contents( $url, false, $context );
+		}
 				
 		$logWhatsapp['module'] = $module;
 		$logWhatsapp['phone_number'] = $nomorWhatsapp;
