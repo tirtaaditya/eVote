@@ -13,7 +13,7 @@ class WhatsappHelper
 
 	function sendWhatsapp($module, $nomorWhatsapp, $message)
 	{
-		$url = "https://server.wa-bisnis.com/send-message";
+		$url = "https://api.watsap.id/send-message";
 
 		$curl = curl_init($url);
 		curl_setopt($curl, CURLOPT_URL, $url);
@@ -27,10 +27,11 @@ class WhatsappHelper
 
 		$data = <<<DATA
 		{
-			"api_key" : "EmnGeVLVlVrmWlWZYN7ttXmtvSAaRP",
+			"id_device" : "4837",
+			"api-key" : "f915c170b6ed54a006a1353a27cd1c3240716f94",
 			"sender" : "6287867551080",
-			"number" : "$nomorWhatsapp",
-			"message" : "$message"
+			"no_hp" : "$nomorWhatsapp",
+			"pesan" : "$message"
 		}
 		DATA;
 
