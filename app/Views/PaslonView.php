@@ -3,7 +3,7 @@
         <div class="col-xxl-12">
             <div class="card card-xxl-stretch">
                 <div class="card-header border-0">
-                    <h3 class="card-title fw-bolder text-dark">Form Action</h3>
+                    <h3 class="card-title fw-bolder text-dark">Form Paslon</h3>
                     <div style="float: right; margin-top :20px;" >
                         <button type="button" class="btn btn-danger btn-sm" id="reset">Reset</button>
                     </div>
@@ -12,16 +12,15 @@
                     <div class="row">
                         <div class="col-md-6">
                              <div class="form-group">
-                                 <label for="name">Name</label>
+                                 <label for="name">Nama Paslon</label>
                                  <input type="text" name="name" id="name" class="form-control readonly">
                              </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-6" style="visibility: hidden;"   >
                              <div class="form-group">
                                 <label for="master_vote">Master Vote</label>
                                 <select name="master_vote" id="master_vote" class="form-control disabled">
-                                    <option value="">Pilih Satu</option>
-                                    <option value="1">TEST DULU</option>
+                                    <option value="1" selected>Satu</option>
                                 </select> 
                              </div>
                         </div>
@@ -30,13 +29,13 @@
                     <div class="row">
                         <div class="col-md-6">
                              <div class="form-group">
-                                 <label for="description">Description</label>
+                                 <label for="description">Deskripsi</label>
                                  <textarea name="description" id="description" class="form-control readonly" cols="30" rows="10"></textarea>
                              </div>
                         </div>
                         <div class="col-md-6">
                              <div class="form-group">
-                                <label for="file">Image</label>
+                                <label for="file">Foto </label>
                                 <input type="file" name="file" multiple="true" id="file" onchange="onFileUpload(this);"
                                     class="form-control form-control-lg readonly"  accept="image/*">
                              </div>
@@ -66,10 +65,9 @@
                     <table class="table table-striped table-bordered" id="tablePaslon">
                         <thead>
                             <tr>
-                                <th> No. </th>
-                                <th> Name </th>
-                                <th> Master Id </th>
-                                <th> Aksi </th>
+                                <th style='text-align:center; vertical-align:middle'> No. </th>
+                                <th style='text-align:center; vertical-align:middle'> Name </th>
+                                <th style='text-align:center; vertical-align:middle'> Aksi </th>
                             </tr>
                         </thead>
                         <tbody>
@@ -77,9 +75,8 @@
                             $no =1;
                             foreach($paslon as $key => $value): ?>
                                 <tr>
-                                    <td><?= $no++ ?></td>
+                                    <td style='text-align:center; vertical-align:middle'><?= $no++ ?></td>
                                     <td><?= $value['name'] ?></td>
-                                    <td><?= $value['master_vote_id'] ?></td>
                                     <td>
                                         <button type="button" class="btn  btn-primary btn-action" id="detailBtn<?=$value['master_candidate_vote_id']?>" data-id="<?= $value['master_candidate_vote_id'] ?>" value="Detail">Detail</button>
                                         <button type="button" class="btn  btn-warning btn-action" id="detailEdit<?=$value['master_candidate_vote_id']?>" data-id="<?= $value['master_candidate_vote_id'] ?>" value="Edit">Edit</button>

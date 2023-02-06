@@ -441,7 +441,7 @@ class Main extends BaseController
         $data['pager'] = $model->pager;
         $data['page'] = $this->request->getVar('page') ? $this->request->getVar('page') : 1;
 
-		$masterpage_data['title'] = 'List Paslon';
+		$masterpage_data['title'] = 'Daftar Pemilihan';
 		$masterpage_data['error'] = isset($errorMessage) ? $errorMessage : '';
 		$masterpage_data['content'] = view('PaslonView', $data);
 		
