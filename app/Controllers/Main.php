@@ -199,7 +199,18 @@ class Main extends BaseController
 	
 			$pemberiKuasa = $postData['pemberiKuasa'];
 			$kuasa = array();
-	
+
+			$readyPresent =$this->uservoteModels->getUserPresentAndKuasa($postData['nik']);
+			if(!empty($readyPresent))
+			{
+				$this->session->set('errorMessage', "NIK Kuasa Sudah Di Gunakan");
+				$this->session->markAsFlashdata('errorMessage');
+
+				chmod($folderPath, 0777);
+				unlink($file);
+				return redirect()->to(base_url()."/submitform");
+			}	
+			
 			if(!empty($pemberiKuasa))
 			{
 				$pemberiKuasaNik = explode(",", $pemberiKuasa );
@@ -216,7 +227,19 @@ class Main extends BaseController
 						unlink($file);
 						return redirect()->to(base_url()."/submitform");
 					}
+					
+					$cek =$this->uservoteModels->getUserPresentAndKuasa($value);
+					if(!empty($cek))
+					{
+						$message = "NIK ".$value." Kuasa Sudah Di Gunakan"
+						$this->session->set('errorMessage', $message);
+						$this->session->markAsFlashdata('errorMessage');
 	
+						chmod($folderPath, 0777);
+						unlink($file);
+						return redirect()->to(base_url()."/submitform");
+					}	
+
 					$listkuasa['identity_code'] = $postData['nik']; 
 					$listkuasa['identity_code_kuasa'] = $value; 
 	
