@@ -60,5 +60,25 @@ class ModelPaslon extends Model
             return TRUE;
         } 
 	}
+    
+    function deletePaslon($id)
+	{
+        $this->db = \Config\Database::connect();
+        // echo json_encode($data);die;
+		$this->db->transBegin();
+
+        $this->db->table('master_candidate_vote')->where('master_candidate_vote_id', $id)->delete();
+        
+        if ($this->db->transStatus() === FALSE)
+        {
+            $this->db->transRollback();
+            return FALSE;
+        }
+        else
+        {
+            $this->db->transCommit();
+            return TRUE;
+        } 
+	}
 	
 }

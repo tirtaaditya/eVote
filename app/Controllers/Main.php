@@ -320,7 +320,6 @@ class Main extends BaseController
 		$nik = base64_decode($key);
 
 		$userVote = $this->uservoteModels->getUserVote($nik);
-
 		$session['nik'] = $userVote['identity_code'];
 		$session['name'] = $userVote['name'];
 		$session['phoneNumber'] = $userVote['phone_number'];
@@ -625,44 +624,16 @@ class Main extends BaseController
 		return view('MasterPageView', $masterpage_data);
 	}
 
-	// public function procesDaftar()
-	// {
-	// 	helper(['form', 'url']);
+	public function deletePaslon()
+	{
+		$postData = $this->request->getPost();
+	
+		$data = $this->modelPaslon->deletePaslon($postData['id']);
 
-	// 	$postData = $this->request->getPost();
-         
-    //     $validateImage = $this->validate([
-    //         'file' => [
-    //             'uploaded[file]',
-    //             'mime_in[file, image/png, image/jpg,image/jpeg, image/gif]',
-    //             'max_size[file, 4096]',
-    //         ],
-	// 		'name' => ['required'],
-	// 		'master_vote_id' => ['required']
-    //     ]);
-    
-    //     $response = [
-    //         'success' => false,
-    //         'data' => '',
-    //         'msg' => "Image could not upload"
-    //     ];
-    //     if ($validateImage) {
-    //         $imageFile = $this->request->getFile('file');
-    //         $imageFile->move(WRITEPATH . 'uploads');
-    //         $data = [
-    //             'img_name' => $imageFile->getClientName(),
-    //             'file'  => $imageFile->getClientMimeType(),
-	// 			'name' => $
-    //         ];
-    //         // $save = $builder->insert($data);
-    //         $response = [
-    //             'success' => true,
-    //             'data' => $save,
-    //             'msg' => "Image successfully uploaded"
-    //         ];
-    //     }
-    //     return $this->response->setJSON($response);
-	// }
+		return json_encode($data);
+	}
+
+	
 	//END STEP 3
 
 
