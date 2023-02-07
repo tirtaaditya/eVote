@@ -93,11 +93,9 @@
 									<canvas id="signature-pad" name="signature" class="signature-pad"></canvas>
 								</div>
 							</div>
-							<div class="fv-row mb-10">
+							<div class="fv-row mb-10" style="display: none;">
 								<label class="form-label fs-6 fw-bolder text-dark">Surat Kuasa</label>
 								<select name="kuasa" id="kuasa" class="form-control">
-									<option value="">Pilih</option>
-									<option value="Ya">Ya</option>
 									<option value="Tidak">Tidak</option>
 								</select>
 							</div>
