@@ -281,10 +281,7 @@ class Main extends BaseController
 			$nik = $postData['nik'];
 			$paths = 'vote/'.base64_encode($nik);
 			$link = base_url($paths);
-			$message = "Gunakan link berikut untuk melakukan pemilihan : ".$link."
-			
-			_Balas OK untuk mengaktifkan link vote_
-			";
+			$message = "Gunakan link berikut untuk melakukan pemilihan : ".$link." (Balas OK untuk mengaktifkan link vote)";
 			$nomorWhatsapp = $postData['phoneNumber'];
 			
 			$logWa = $this->whatsappHelper->sendWhatsapp('Send URL Vote', $nomorWhatsapp, $message);
