@@ -100,12 +100,15 @@ class Main extends BaseController
 
 			$nik = $postData['nik'];
 			$otp = $postData['otp'];
+			$kodeKehadiran = $postData['kodeKehadiran'];
 			
 			$userVote = $this->uservoteModels->getUserVote($nik);
 			$userVotePresent = $this->uservoteModels->getUserPresentAndKuasa($nik);
+			$getkodeKehadiran = $this->uservoteModels->getKodeKehadiran($kodeKehadiran);
 			
 			$errorMessage = (empty($userVote)) ? "NIK salah/tidak ditemukan" : "";
 			$errorMessage = (empty($userVotePresent)) ? "" : "Anda telah ".$userVotePresent['isPresent'];
+			$errorMessage = (empty($kodeKehadiran)) ? "" : (empty($getkodeKehadiran) ? "Kode kehadiran tidak sesuai" : "");
 			
 			if(empty($errorMessage))
 			{
