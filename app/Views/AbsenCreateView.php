@@ -282,11 +282,11 @@
 						</div>
 						<div class="fv-row mb-10">
 							<label class="form-label fs-6 fw-bolder text-dark">Kode OTP</label>
-							<input class="form-control form-control-lg form-control-solid" type="text" name="otp"/>
+							<input class="form-control form-control-lg form-control-solid" maxlength="6" type="text" name="otp"/>
 						</div>
 						<div class="fv-row mb-10">
 							<label class="form-label fs-6 fw-bolder text-dark">Kode Kehadiran</label>
-							<input class="form-control form-control-lg form-control-solid" type="text" name="kodeKehadiran"/>
+							<input class="form-control form-control-lg form-control-solid" type="text" maxlength="6" name="kodeKehadiran"/>
 							<span class="form-text text-muted">Kosongkan Apabila Anggota Hadir Secara Online</span>
 						</div>
 						<div class="text-center">
