@@ -107,4 +107,22 @@ class UservoteModel extends Model
         return $result->getFirstRow('array');           
     }
 	
+    function updateKodeKehadiran($data)
+    {
+	$this->db->transBegin();
+
+        $this->db->table('transaction_kode_kehadiran')->where('kode_kehadiran', $data['kode_kehadiran'])->update($data);;
+        
+        if ($this->db->transStatus() === FALSE)
+        {
+            $this->db->transRollback();
+            return FALSE;
+        }
+        else
+        {
+            $this->db->transCommit();
+            return TRUE;
+        } 
+    }
+	
 }
