@@ -110,6 +110,11 @@ class Main extends BaseController
 			$errorMessage = (empty($userVotePresent)) ? "" : "Anda telah ".$userVotePresent['isPresent'];
 			$errorMessage = (empty($kodeKehadiran)) ? "" : (empty($getkodeKehadiran) ? "Kode kehadiran tidak sesuai" : "");
 			
+			if(!empty($getkodeKehadiran)
+			{
+				$errorMessage = (empty($getkodeKehadiran['identity_code'])) ? "Kode kehadiran telah digunakan user lain" : "";
+			}			
+			
 			if(empty($errorMessage))
 			{
 				$userValidate = $this->uservoteModels->getUserValidateOTP($nik, $otp);
@@ -120,12 +125,29 @@ class Main extends BaseController
 				}
 				else
 				{
-					$successMessage = "OTP Sesuai";
+					if(!empty($kodeKehadiran))
+					{
+						$dataKehadiran['kode_kehadiran'] = $kodeKehadiran;
+						$dataKehadiran['identity_code'] = $nik;
+						$dataKehadiran['use_on'] = date("Y-m-d H:i:s");
 
-					$session['nik'] = $nik;
-					$session['name'] = $userValidate['name'];
-					$session['phoneNumber'] = $userValidate['phone_number'];
-					$this->session->set('user', $session);
+						$useKodeKehadiran = $this->uservoteModels->updateKodeKehadiran($dataKehadiran);
+						
+						if(!$useKodeKehadiran)
+						{
+							$errorMessage = "Gagal menggunakan kode kehadiran";
+						}
+					}
+					
+					if(empty($errorMessage))
+					{
+						$successMessage = "OTP Sesuai";
+
+						$session['nik'] = $nik;
+						$session['name'] = $userValidate['name'];
+						$session['phoneNumber'] = $userValidate['phone_number'];
+						$this->session->set('user', $session);						
+					}					
 				}				
 			}
 		}
