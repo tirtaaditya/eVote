@@ -110,7 +110,7 @@ class Main extends BaseController
 			$errorMessage = (empty($userVotePresent)) ? "" : "Anda telah ".$userVotePresent['isPresent'];
 			$errorMessage = (empty($kodeKehadiran)) ? "" : (empty($getkodeKehadiran) ? "Kode kehadiran tidak sesuai" : "");
 			
-			if(!empty($getkodeKehadiran)
+			if(!empty($getkodeKehadiran))
 			{
 				$errorMessage = (empty($getkodeKehadiran['identity_code'])) ? "Kode kehadiran telah digunakan user lain" : "";
 			}			
