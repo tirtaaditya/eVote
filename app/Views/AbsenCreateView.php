@@ -287,6 +287,7 @@
 						<div class="fv-row mb-10">
 							<label class="form-label fs-6 fw-bolder text-dark">Kode Kehadiran</label>
 							<input class="form-control form-control-lg form-control-solid" type="text" name="kodeKehadiran"/>
+							<span class="form-text text-muted">Kosongkan Apabila Anggota Hadir Secara Online</span>
 						</div>
 						<div class="text-center">
 							<button type="submit" id="kt_sign_in_submit" onclick="validateAbsen()" class="btn btn-lg btn-primary w-100 mb-5">
