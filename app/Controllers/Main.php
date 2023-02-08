@@ -112,7 +112,7 @@ class Main extends BaseController
 			
 			if(!empty($getkodeKehadiran))
 			{
-				$errorMessage = (empty($getkodeKehadiran['identity_code'])) ? "Kode kehadiran telah digunakan user lain" : "";
+				$errorMessage = (!empty($getkodeKehadiran['identity_code'])) ? "Kode kehadiran telah digunakan user lain" : "";
 			}			
 			
 			if(empty($errorMessage))
