@@ -102,7 +102,7 @@ class UservoteModel extends Model
     {
         $query = "SELECT * FROM transaction_kode_kehadiran where kode_kehadiran = ?";
        
-        $result = $this->db->query($query, [$identityCode]);
+        $result = $this->db->query($query, [$kodeKehadiran]);
         
         return $result->getFirstRow('array');           
     }
