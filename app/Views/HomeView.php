@@ -192,7 +192,7 @@ if($user['role'] !== 'Voters') { ?>
                 {
                     $idCalon = $value['master_candidate_vote_id'];
             ?>
-            <div class="col-xxl-6">
+            <div class="col-sm-4">
                 <div class="card card-xxl-stretch">
                     <div class="card-header border-0">
                         <h3 class="card-title fw-bolder text-dark"><?=$value['name'];?></h3>
