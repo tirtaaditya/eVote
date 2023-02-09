@@ -60,31 +60,34 @@ class Main extends BaseController
 			
 			if(empty($errorMessage))
 			{
-				$this->whatsappHelper->sendWhatsapp('OTP', $nomorWhatsapp, $message);
-
-				$otpUpdate['identity_code'] = $nik;
-				$otpUpdate['otp'] = $otp;
-				$otpUpdate['phone_number'] = $nomorWhatsapp;
-				$updateUserOTP = $this->uservoteModels->updateUserVote($otpUpdate);
+				$errorMessage = $this->whatsappHelper->sendWhatsapp('OTP', $nomorWhatsapp, $message);
 				
-				if(!$updateUserOTP)
+				if(empty($errorMessage))
 				{
-					$errorMessage = "Gagal Sinkronisasi OTP dengan Sistem";
-				}
-				else
-				{
-					$successMessage = 'OTP Berhasil Dikirim';
+					$otpUpdate['identity_code'] = $nik;
+					$otpUpdate['otp'] = $otp;
+					$otpUpdate['phone_number'] = $nomorWhatsapp;
+					$updateUserOTP = $this->uservoteModels->updateUserVote($otpUpdate);
+
+					if(!$updateUserOTP)
+					{
+						$errorMessage = "Gagal Sinkronisasi OTP dengan Sistem";
+					}
+					else
+					{
+						$successMessage = 'OTP Berhasil Dikirim';
+					}					
 				}
 			}
 		}
 		catch (\Exception $e)
-        {
-        	$errorMessage = $e->getMessage();
-			$this->auditHelper->writeAuditErrorSystem(get_class(), $e, 0);
-        }
+		{
+			$errorMessage = $e->getMessage();
+				$this->auditHelper->writeAuditErrorSystem(get_class(), $e, 0);
+		}
 
 		$response['code'] = $errorMessage == '' ? '00' : '04';
-        $response['message'] = $errorMessage == '' ? $successMessage : $errorMessage;
+	        $response['message'] = $errorMessage == '' ? $successMessage : $errorMessage;
 
 		return json_encode($response);
 	}
@@ -309,17 +312,14 @@ class Main extends BaseController
 			$message = "Gunakan link berikut untuk melakukan pemilihan : ".$link." (Balas OK untuk mengaktifkan link vote)";
 			$nomorWhatsapp = $postData['phoneNumber'];
 			
-			$logWa = $this->whatsappHelper->sendWhatsapp('Send URL Vote', $nomorWhatsapp, $message);
-			/*	
-			if($logWa)
+			$errorMessage = $this->whatsappHelper->sendWhatsapp('Send URL Vote', $nomorWhatsapp, $message);				
+			if(empty($errorMessage))
 			{
-			*/
 				$this->session->set('successMessage', "Data Berhaasil Di Submit Silahkan Cek Whatsapp anda !");
 				$this->session->markAsFlashdata('successMessage');
 				
 				$this->session->destroy();
 				return redirect()->to(base_url());
-			/*
 			}
 			else
 			{
@@ -330,7 +330,6 @@ class Main extends BaseController
 				unlink($file);
 				return redirect()->to(base_url()."/submitform");
 			}
-			*/
 		} catch (\Exception $e) {
 			$this->auditHelper->writeAuditErrorSystem(get_class(), $e, $postData['nik']);
 
