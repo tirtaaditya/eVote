@@ -80,6 +80,7 @@
                                     <td>
                                         <button type="button" class="btn  btn-primary btn-action" id="detailBtn<?=$value['master_candidate_vote_id']?>" data-id="<?= $value['master_candidate_vote_id'] ?>" value="Detail">Detail</button>
                                         <button type="button" class="btn  btn-warning btn-action" id="detailEdit<?=$value['master_candidate_vote_id']?>" data-id="<?= $value['master_candidate_vote_id'] ?>" value="Edit">Edit</button>
+                                        <button type="button" class="btn  btn-danger btn-action" id="detailDelete<?=$value['master_candidate_vote_id']?>" data-id="<?= $value['master_candidate_vote_id'] ?>" value="Delete">Delete</button>
                                     </td>
                                 </tr>
                             <?php endforeach ?>
@@ -130,40 +131,14 @@
             id = $(this).data("id");
             action = this.value;
 
-            $.ajax({
-                    url: "<?php echo base_url(); ?>/main/getData",
-                    method: "POST",
-                    data: {id:id},
-                    dataType: "json",
-                    success: function (res) {
-                        $('#name').val(res.name)
-                        $('#description').val(res.description)
-                        $('#master_vote').val(res.master_vote_id)
-                        $('#ajaxImgUpload').attr('src', base_url+'/'+res.picture).width(300);
-                        $('#btn-upload').val(action)
-                        $('#btn-upload').text(action)
-                        $('#action').val(action)
-                        
-                        if(action == "Detail")
-                        {
-                            $('#btn-upload').attr("disabled", true)
-                            $('.readonly').attr('readonly', true)
-                            $('.disabled').attr('disabled', true)
-                        }
-                        else
-                        {
-                            $("#id").val(res.master_candidate_vote_id);
-                            $("#upload").val(res.picture);
-                            $('#btn-upload').attr("disabled", false)
-                            $('.readonly').attr('readonly', false)
-                            $('.disabled').attr('disabled', false)
-                        }
-
-                        $('html, body').animate({
-                            scrollTop: $("#rowForm").offset().top
-                        }, 500);
-                    }
-                });
+            if(action == "Delete")
+            {
+                deleteData(id, action);
+            }
+            else
+            {
+                getData(id, action)
+            }
         })
 
         $('#upload_image_form').on('submit', function (e) {
@@ -305,4 +280,111 @@
             }
         });
     });
+
+    function getData(id, action)
+    {
+        $.ajax({
+            url: "<?php echo base_url(); ?>/main/getData",
+            method: "POST",
+            data: {id:id},
+            dataType: "json",
+            success: function (res) {
+                $('#name').val(res.name)
+                $('#description').val(res.description)
+                $('#master_vote').val(res.master_vote_id)
+                $('#ajaxImgUpload').attr('src', base_url+'/'+res.picture).width(300);
+                $('#btn-upload').val(action)
+                $('#btn-upload').text(action)
+                $('#action').val(action)
+                
+                if(action == "Detail")
+                {
+                    $('#btn-upload').attr("disabled", true)
+                    $('.readonly').attr('readonly', true)
+                    $('.disabled').attr('disabled', true)
+                }
+                else
+                {
+                    $("#id").val(res.master_candidate_vote_id);
+                    $("#upload").val(res.picture);
+                    $('#btn-upload').attr("disabled", false)
+                    $('.readonly').attr('readonly', false)
+                    $('.disabled').attr('disabled', false)
+                }
+
+                $('html, body').animate({
+                    scrollTop: $("#rowForm").offset().top
+                }, 500);
+            }
+        });
+    }
+
+    function deleteData(id, action)
+    {
+        $('.btn-action').attr('disabled', true)
+
+    //     swal({
+    //         title: "Are you sure?",
+    //         text: "You will not be able to recover this imaginary file!",
+    //         type: "warning",
+    //         showCancelButton: true,
+    //         confirmButtonColor: "#DD6B55",
+    //         confirmButtonText: "Yes, delete it!",
+    //         closeOnConfirm: false
+    //     },
+    //     function(isConfirm){
+    //        if (isConfirm) {
+    //         $.ajax({
+    //             url: "scriptDelete.php",
+    //             type: "POST",
+    //             data: {id: 5},
+    //             dataType: "html",
+    //             success: function () {
+    //                 swal("Done!","It was succesfully deleted!","success");
+    //             }
+    //         });
+    //       }else{
+    //             swal("Cancelled", "Your imaginary file is safe :)", "error");
+    //       } 
+    //    })
+
+        $.ajax({
+            url: "<?php echo base_url(); ?>/main/deletePaslon",
+            method: "POST",
+            data: {id:id},
+            dataType: "json",
+            success: function (res) {
+                if(res)
+                {
+                    Swal.fire({
+                        text: "Data Berhasil Di Hapus",
+                        icon: "success",
+                        buttonsStyling: !1,
+                        confirmButtonText: "Ok",
+                        customClass: {
+                            confirmButton: "btn btn-primary"
+                        }
+                    });
+
+                    setTimeout(function() { 
+                        location.reload();
+                    }, 1000);
+                }
+                else
+                {
+                    Swal.fire({
+                        text: "Data Gagal Di Hapus",
+                        icon: "success",
+                        buttonsStyling: !1,
+                        confirmButtonText: "Ok",
+                        customClass: {
+                            confirmButton: "btn btn-primary"
+                        }
+                    });
+                }
+
+                $('.btn-action').attr('disabled', false)
+            }
+        });
+    }
 </script>

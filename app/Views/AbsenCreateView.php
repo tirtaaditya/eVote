@@ -282,7 +282,12 @@
 						</div>
 						<div class="fv-row mb-10">
 							<label class="form-label fs-6 fw-bolder text-dark">Kode OTP</label>
-							<input class="form-control form-control-lg form-control-solid" type="text" name="otp"/>
+							<input class="form-control form-control-lg form-control-solid" maxlength="6" type="text" name="otp"/>
+						</div>
+						<div class="fv-row mb-10">
+							<label class="form-label fs-6 fw-bolder text-dark">Kode Kehadiran</label>
+							<input class="form-control form-control-lg form-control-solid" type="text" maxlength="6" name="kodeKehadiran"/>
+							<span class="form-text text-muted">Kosongkan Apabila Anggota Hadir Secara Online</span>
 						</div>
 						<div class="text-center">
 							<button type="submit" id="kt_sign_in_submit" onclick="validateAbsen()" class="btn btn-lg btn-primary w-100 mb-5">
@@ -402,6 +407,7 @@
 
 		var paramNik = document.querySelector("[name='nik']").value;
 		var paramOtp = document.querySelector("[name='otp']").value;
+		var paramkodeKehadiran = document.querySelector("[name='kodeKehadiran']").value;
 
 		if(paramNik == "" || paramOtp == "")
 		{
@@ -422,7 +428,8 @@
 				url: validateAbsenUrl,
 				data: {
 					otp: paramOtp,
-					nik: paramNik
+					nik: paramNik,
+					kodeKehadiran: paramkodeKehadiran
 				},
 				dataType: 'JSON',
 				success: function (result) {

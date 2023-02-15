@@ -60,31 +60,34 @@ class Main extends BaseController
 			
 			if(empty($errorMessage))
 			{
-				$this->whatsappHelper->sendWhatsapp('OTP', $nomorWhatsapp, $message);
-
-				$otpUpdate['identity_code'] = $nik;
-				$otpUpdate['otp'] = $otp;
-				$otpUpdate['phone_number'] = $nomorWhatsapp;
-				$updateUserOTP = $this->uservoteModels->updateUserVote($otpUpdate);
+				$errorMessage = $this->whatsappHelper->sendWhatsapp('OTP', $nomorWhatsapp, $message);
 				
-				if(!$updateUserOTP)
+				if(empty($errorMessage))
 				{
-					$errorMessage = "Gagal Sinkronisasi OTP dengan Sistem";
-				}
-				else
-				{
-					$successMessage = 'OTP Berhasil Dikirim';
+					$otpUpdate['identity_code'] = $nik;
+					$otpUpdate['otp'] = $otp;
+					$otpUpdate['phone_number'] = $nomorWhatsapp;
+					$updateUserOTP = $this->uservoteModels->updateUserVote($otpUpdate);
+
+					if(!$updateUserOTP)
+					{
+						$errorMessage = "Gagal Sinkronisasi OTP dengan Sistem";
+					}
+					else
+					{
+						$successMessage = 'OTP Berhasil Dikirim';
+					}					
 				}
 			}
 		}
 		catch (\Exception $e)
-        {
-        	$errorMessage = $e->getMessage();
-			$this->auditHelper->writeAuditErrorSystem(get_class(), $e, 0);
-        }
+		{
+			$errorMessage = $e->getMessage();
+				$this->auditHelper->writeAuditErrorSystem(get_class(), $e, 0);
+		}
 
 		$response['code'] = $errorMessage == '' ? '00' : '04';
-        $response['message'] = $errorMessage == '' ? $successMessage : $errorMessage;
+	        $response['message'] = $errorMessage == '' ? $successMessage : $errorMessage;
 
 		return json_encode($response);
 	}
@@ -100,12 +103,20 @@ class Main extends BaseController
 
 			$nik = $postData['nik'];
 			$otp = $postData['otp'];
+			$kodeKehadiran = $postData['kodeKehadiran'];
 			
 			$userVote = $this->uservoteModels->getUserVote($nik);
 			$userVotePresent = $this->uservoteModels->getUserPresentAndKuasa($nik);
+			$getkodeKehadiran = $this->uservoteModels->getKodeKehadiran($kodeKehadiran);
 			
 			$errorMessage = (empty($userVote)) ? "NIK salah/tidak ditemukan" : "";
 			$errorMessage = (empty($userVotePresent)) ? "" : "Anda telah ".$userVotePresent['isPresent'];
+			$errorMessage = (empty($kodeKehadiran)) ? "" : (empty($getkodeKehadiran) ? "Kode kehadiran tidak sesuai" : "");
+			
+			if(!empty($getkodeKehadiran))
+			{
+				$errorMessage = (!empty($getkodeKehadiran['identity_code'])) ? "Kode kehadiran telah digunakan user lain" : "";
+			}			
 			
 			if(empty($errorMessage))
 			{
@@ -117,12 +128,29 @@ class Main extends BaseController
 				}
 				else
 				{
-					$successMessage = "OTP Sesuai";
+					if(!empty($kodeKehadiran))
+					{
+						$dataKehadiran['kode_kehadiran'] = $kodeKehadiran;
+						$dataKehadiran['identity_code'] = $nik;
+						$dataKehadiran['use_on'] = date("Y-m-d H:i:s");
 
-					$session['nik'] = $nik;
-					$session['name'] = $userValidate['name'];
-					$session['phoneNumber'] = $userValidate['phone_number'];
-					$this->session->set('user', $session);
+						$useKodeKehadiran = $this->uservoteModels->updateKodeKehadiran($dataKehadiran);
+						
+						if(!$useKodeKehadiran)
+						{
+							$errorMessage = "Gagal menggunakan kode kehadiran";
+						}
+					}
+					
+					if(empty($errorMessage))
+					{
+						$successMessage = "OTP Sesuai";
+
+						$session['nik'] = $nik;
+						$session['name'] = $userValidate['name'];
+						$session['phoneNumber'] = $userValidate['phone_number'];
+						$this->session->set('user', $session);						
+					}					
 				}				
 			}
 		}
@@ -281,20 +309,17 @@ class Main extends BaseController
 			$nik = $postData['nik'];
 			$paths = 'vote/'.base64_encode($nik);
 			$link = base_url($paths);
-			$message = "Silahkan Klik Link Berikut untuk melakukan Vote: ".$link;
+			$message = "Gunakan link berikut untuk melakukan pemilihan : ".$link." (Balas OK untuk mengaktifkan link vote)";
 			$nomorWhatsapp = $postData['phoneNumber'];
 			
-			$logWa = $this->whatsappHelper->sendWhatsapp('Send URL Vote', $nomorWhatsapp, $message);
-			/*	
-			if($logWa)
+			$errorMessage = $this->whatsappHelper->sendWhatsapp('Send URL Vote', $nomorWhatsapp, $message);				
+			if(empty($errorMessage))
 			{
-			*/
 				$this->session->set('successMessage', "Data Berhaasil Di Submit Silahkan Cek Whatsapp anda !");
 				$this->session->markAsFlashdata('successMessage');
 				
 				$this->session->destroy();
 				return redirect()->to(base_url());
-			/*
 			}
 			else
 			{
@@ -305,7 +330,6 @@ class Main extends BaseController
 				unlink($file);
 				return redirect()->to(base_url()."/submitform");
 			}
-			*/
 		} catch (\Exception $e) {
 			$this->auditHelper->writeAuditErrorSystem(get_class(), $e, $postData['nik']);
 
@@ -320,7 +344,6 @@ class Main extends BaseController
 		$nik = base64_decode($key);
 
 		$userVote = $this->uservoteModels->getUserVote($nik);
-
 		$session['nik'] = $userVote['identity_code'];
 		$session['name'] = $userVote['name'];
 		$session['phoneNumber'] = $userVote['phone_number'];
@@ -657,44 +680,16 @@ class Main extends BaseController
 		return view('MasterPageView', $masterpage_data);
 	}
 
-	// public function procesDaftar()
-	// {
-	// 	helper(['form', 'url']);
+	public function deletePaslon()
+	{
+		$postData = $this->request->getPost();
+	
+		$data = $this->modelPaslon->deletePaslon($postData['id']);
 
-	// 	$postData = $this->request->getPost();
-         
-    //     $validateImage = $this->validate([
-    //         'file' => [
-    //             'uploaded[file]',
-    //             'mime_in[file, image/png, image/jpg,image/jpeg, image/gif]',
-    //             'max_size[file, 4096]',
-    //         ],
-	// 		'name' => ['required'],
-	// 		'master_vote_id' => ['required']
-    //     ]);
-    
-    //     $response = [
-    //         'success' => false,
-    //         'data' => '',
-    //         'msg' => "Image could not upload"
-    //     ];
-    //     if ($validateImage) {
-    //         $imageFile = $this->request->getFile('file');
-    //         $imageFile->move(WRITEPATH . 'uploads');
-    //         $data = [
-    //             'img_name' => $imageFile->getClientName(),
-    //             'file'  => $imageFile->getClientMimeType(),
-	// 			'name' => $
-    //         ];
-    //         // $save = $builder->insert($data);
-    //         $response = [
-    //             'success' => true,
-    //             'data' => $save,
-    //             'msg' => "Image successfully uploaded"
-    //         ];
-    //     }
-    //     return $this->response->setJSON($response);
-	// }
+		return json_encode($data);
+	}
+
+	
 	//END STEP 3
 
 
