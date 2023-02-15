@@ -36,6 +36,8 @@ $routes->setAutoRoute(true);
 // Evote
 $routes->add('submitform', 'Main::submitForm');
 $routes->add('submit', 'Main::submit');
+$routes->add('login', 'Main::login');
+$routes->add('auth', 'Main::loginAuth');
 
 $routes->add('vote/(:alphanum)', 'Main::vote/$1');
 $routes->add('pemilihan/hasil', 'Main::hasil');

@@ -17,12 +17,12 @@
 		<!--begin::Main-->
 		<div class="d-flex flex-column flex-root">
 			<!--begin::Authentication - Sign-in -->
-			<div class="d-flex flex-column flex-column-fluid bgi-position-y-bottom position-x-center bgi-no-repeat bgi-size-contain bgi-attachment-fixed" style="background-image: url(<?=base_url()?>/assets/media/illustrations/sketchy-1/14.png">
+			<div class="d-flex flex-column flex-column-fluid bgi-position-y-bottom position-x-center bgi-no-repeat bgi-size-contain bgi-attachment-fixed" style="background-image: url(<?=base_url()?>/assets/media/illustrations/dozzy-1/14.png">
 				<!--begin::Content-->
 				<div class="d-flex flex-center flex-column flex-column-fluid p-10 pb-lg-20">
 					<!--begin::Logo-->
 					<a href="<?=base_url()?>" class="mb-12">
-						<img alt="Logo" src="<?=base_url()?>/assets/media/logos/logo.jpg" class="h-150px" />
+						<img alt="Logo" src="<?=base_url()?>/assets/media/logos/LogoHeader-1.png" class="h-150px" />
 					</a>
 					<!--end::Logo-->
 					<!--begin::Wrapper-->
@@ -32,7 +32,7 @@
 							<!--begin::Heading-->
 							<div class="text-center mb-10">
 								<!--begin::Title-->
-								<h1 class="text-dark mb-3">Login eVote</h1>
+								<h1 class="text-dark mb-3">Login eVote Admin</h1>
 								<!--end::Title-->
 								<!--begin::Link-->
 								<div class="text-gray-400 fw-bold fs-4">Selamat Datang
@@ -58,7 +58,6 @@
 									<label class="form-label fw-bolder text-dark fs-6 mb-0">Kata Sandi</label>
 									<!--end::Label-->
 									<!--begin::Link-->					
-				                    <a href="../../demo1/dist/authentication/flows/basic/password-reset.html" class="link-primary fs-6 fw-bolder">Lupa Kata Sandi ?</a>
 									<!--end::Link-->
 								</div>
 								<!--end::Wrapper-->
