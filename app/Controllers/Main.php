@@ -372,7 +372,7 @@ class Main extends BaseController
 				$this->session->markAsFlashdata('successMessage');
 				
 				$this->session->destroy();
-				return redirect()->to(base_url());
+				return redirect()->to(base_url('/sukses'));
 			}
 			else
 			{
@@ -850,5 +850,10 @@ class Main extends BaseController
         }
 
 		return redirect()->to(base_url().'/main');
+	}
+
+	public function messageSuccess()
+	{
+		return view('SuccessMessageView');
 	}
 }
