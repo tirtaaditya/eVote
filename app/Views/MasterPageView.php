@@ -96,7 +96,7 @@ $user = session('user');
 						<div class="hover-scroll-overlay-y my-5 my-lg-5" id="kt_aside_menu_wrapper" data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-height="auto" data-kt-scroll-dependencies="#kt_aside_logo, #kt_aside_footer" data-kt-scroll-wrappers="#kt_aside_menu" data-kt-scroll-offset="0">
 							<!--begin::Menu-->
 							<div class="menu menu-column menu-title-gray-800 menu-state-title-primary menu-state-icon-primary menu-state-bullet-primary menu-arrow-gray-500" id="#kt_aside_menu" data-kt-menu="true">
-							<?php if($user['role'] == 'Voters') { ?>
+								<?php if($user['role'] !== 'Voters') { ?>
 								<div class="menu-item">
 									<div class="menu-content pb-2">
 										<span class="menu-section text-muted text-uppercase fs-8 ls-1">Dashboard</span>
@@ -132,12 +132,12 @@ $user = session('user');
 									</a>
 								</div>
 								<?php } ?>
-								<div class="menu-item">
+ 								<div class="menu-item">
 									<div class="menu-content pt-8 pb-2">
 										<span class="menu-section text-muted text-uppercase fs-8 ls-1">Manajemen</span>
 									</div>
 								</div>
-								<div data-kt-menu-trigger="click" class="menu-item menu-accordion <?php echo ($title == "Hasil Pemilihan" || $title == "Daftar Pemilihan" || $title == "Waktu Pemilihan") ? "here show" : ""; ?>">
+								<div data-kt-menu-trigger="click" class="menu-item menu-accordion <?php echo ($title == "Hasil Pemilihan" || $title == "Daftar Peserta") ? "here show" : ""; ?>">
 									<span class="menu-link">
 										<span class="menu-icon">
 											<span class="svg-icon svg-icon-2">
@@ -152,34 +152,59 @@ $user = session('user');
 									</span>
 									<div class="menu-sub menu-sub-accordion menu-active-bg">
 										<div class="menu-item">
-											<a class="menu-link <?php echo ($title == "Hasil Pemilihan") ? "active" : ""; ?>" href="<?=base_url();?>/votes/hasil">
+											<a class="menu-link <?php echo ($title == "Hasil Pemilihan") ? "active" : ""; ?>" href="<?=base_url();?>/pemilihan/hasil">
 												<span class="menu-bullet">
 													<span class="bullet bullet-dot"></span>
 												</span>
-												<span class="menu-title">Hasil Pemilihan</span>
+												<span class="menu-title">Hasil</span>
 											</a>
 										</div>
 										<?php if($user['role'] !== 'Voters') { ?>
 										<div class="menu-item">
-											<a class="menu-link <?php echo ($title == "Daftar Pemilihan") ? "active" : ""; ?>" href="<?=base_url();?>/votes/daftar">
+											<a class="menu-link <?php echo ($title == "Daftar Peserta") ? "active" : ""; ?>" href="<?=base_url();?>/pemilihan/peserta">
 												<span class="menu-bullet">
 													<span class="bullet bullet-dot"></span>
 												</span>
-												<span class="menu-title">Daftar Pemilihan</span>
-											</a>
-										</div>
-										<div class="menu-item">
-											<a class="menu-link <?php echo ($title == "Waktu Pemilihan") ? "active" : ""; ?>" href="<?=base_url();?>/votes/daftar">
-												<span class="menu-bullet">
-													<span class="bullet bullet-dot"></span>
-												</span>
-												<span class="menu-title">Waktu Pemilihan</span>
+												<span class="menu-title">Daftar Peserta</span>
 											</a>
 										</div>
 										<?php } ?>
 									</div>
 								</div>
-
+								<?php if($user['role'] !== 'Voters') { ?>
+								<div data-kt-menu-trigger="click" class="menu-item menu-accordion <?php echo ($title == "Daftar Paslon" || $title == "Waktu Voting") ? "here show" : ""; ?>">
+									<span class="menu-link">
+										<span class="menu-icon">
+											<span class="svg-icon svg-icon-2">
+												<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+													<path d="M18 21.6C16.6 20.4 9.1 20.3 6.3 21.2C5.7 21.4 5.1 21.2 4.7 20.8L2 18C4.2 15.8 10.8 15.1 15.8 15.8C16.2 18.3 17 20.5 18 21.6ZM18.8 2.8C18.4 2.4 17.8 2.20001 17.2 2.40001C14.4 3.30001 6.9 3.2 5.5 2C6.8 3.3 7.4 5.5 7.7 7.7C9 7.9 10.3 8 11.7 8C15.8 8 19.8 7.2 21.5 5.5L18.8 2.8Z" fill="black" />
+													<path opacity="0.3" d="M21.2 17.3C21.4 17.9 21.2 18.5 20.8 18.9L18 21.6C15.8 19.4 15.1 12.8 15.8 7.8C18.3 7.4 20.4 6.70001 21.5 5.60001C20.4 7.00001 20.2 14.5 21.2 17.3ZM8 11.7C8 9 7.7 4.2 5.5 2L2.8 4.8C2.4 5.2 2.2 5.80001 2.4 6.40001C2.7 7.40001 3.00001 9.2 3.10001 11.7C3.10001 15.5 2.40001 17.6 2.10001 18C3.20001 16.9 5.3 16.2 7.8 15.8C8 14.2 8 12.7 8 11.7Z" fill="black" />
+												</svg>
+											</span>
+										</span>
+										<span class="menu-title">Master Data</span>
+										<span class="menu-arrow"></span>
+									</span>
+									<div class="menu-sub menu-sub-accordion menu-active-bg">
+										<div class="menu-item">
+											<a class="menu-link <?php echo ($title == "Daftar Paslon") ? "active" : ""; ?>" href="<?=base_url();?>/master/paslon">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">Daftar Paslon</span>
+											</a>
+										</div>
+										<div class="menu-item">
+											<a class="menu-link <?php echo ($title == "Waktu Voting") ? "active" : ""; ?>" href="<?=base_url();?>/master/waktu">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">Waktu Voting</span>
+											</a>
+										</div>
+									</div>
+								</div>
+								<?php } ?>
 							</div>
 							<!--end::Menu-->
 						</div>
@@ -465,6 +490,36 @@ $user = session('user');
 				});
 			});
 		</script>
+		<?php if (!empty(session()->getFlashdata('errorMessage')) ) : ?>
+			<script>
+				pesan = "<?= session()->getFlashdata('errorMessage'); ?>";
+				
+				Swal.fire({
+					text: pesan,
+					icon: "error",
+					buttonsStyling: !1,
+					confirmButtonText: "Ok",
+					customClass: {
+						confirmButton: "btn btn-primary"
+					}
+				})
+			</script>
+		<?php endif; ?>
+		<?php if (!empty(session()->getFlashdata('successMessage')) ) : ?>
+			<script>
+				pesan = "<?= session()->getFlashdata('successMessage'); ?>";
+				
+				Swal.fire({
+					text: pesan,
+					icon: "success",
+					buttonsStyling: !1,
+					confirmButtonText: "Ok",
+					customClass: {
+						confirmButton: "btn btn-primary"
+					}
+				})
+			</script>
+		<?php endif; ?>				
 		<!--end::Javascript-->
 	</body>
 	<!--end::Body-->

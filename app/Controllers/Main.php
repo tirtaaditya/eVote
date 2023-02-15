@@ -433,7 +433,7 @@ class Main extends BaseController
 		return view('MasterPageView', $masterpage_data);
 	}
 
-	public function daftar()
+	public function daftarPaslon()
 	{
 		$pager = \Config\Services::pager();
         $model = new ModelPaslon();
@@ -441,12 +441,44 @@ class Main extends BaseController
         $data['pager'] = $model->pager;
         $data['page'] = $this->request->getVar('page') ? $this->request->getVar('page') : 1;
 
-		$masterpage_data['title'] = 'Daftar Pemilihan';
+		$masterpage_data['title'] = 'Daftar Paslon';
 		$masterpage_data['error'] = isset($errorMessage) ? $errorMessage : '';
 		$masterpage_data['content'] = view('PaslonView', $data);
 		
 		return view('MasterPageView', $masterpage_data);
 	}
+
+	public function waktu()
+	{
+        $data['votingStart'] = $this->uservoteModels->getVoteStart();
+
+		$postData = $this->request->getPost();
+		if(!empty($postData))
+		{
+			$param['master_vote_id'] = 1;
+			$param['start_date'] = $postData['startVote'];
+			$param['end_date'] = $postData['endVote'];
+
+			$updateVoteDate = $this->candidateModels->updateVoteDate($param);
+				
+			if(!$updateVoteDate)
+			{
+				$this->session->set('errorMessage', "Gagal menyimpan data");
+				$this->session->markAsFlashdata('errorMessage');
+			}
+			else
+			{
+				$this->session->set('successMessage', "Waktu voting berhasil disimpan");
+				$this->session->markAsFlashdata('successMessage');
+			}
+		}
+
+		$masterpage_data['title'] = 'Waktu Voting';
+		$masterpage_data['content'] = view('VotingStartView', $data);
+		
+		return view('MasterPageView', $masterpage_data);
+	}
+
 
 	public function getPaslon()
 	{

@@ -31,5 +31,21 @@ class CandidateModel extends Model
         return $result->getResultArray();        
     }
 
+    function updateVoteDate($data)
+	{
+		$this->db->transBegin();
 
+        $this->db->table('master_vote')->where('master_vote_id', $data['master_vote_id'])->update($data);;
+        
+        if ($this->db->transStatus() === FALSE)
+        {
+            $this->db->transRollback();
+            return FALSE;
+        }
+        else
+        {
+            $this->db->transCommit();
+            return TRUE;
+        } 
+	}
 }

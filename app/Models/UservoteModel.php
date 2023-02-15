@@ -4,6 +4,15 @@ use CodeIgniter\Model;
 
 class UservoteModel extends Model
 {
+    function getVoteStart()
+    {
+        $query = "SELECT * FROM master_vote where master_vote_id = 1";
+       
+        $result = $this->db->query($query);
+        
+        return $result->getFirstRow('array');           
+    }
+
     function getUserVote($identityCode)
     {
         $query = "SELECT * FROM master_users_vote where identity_code = ?";
