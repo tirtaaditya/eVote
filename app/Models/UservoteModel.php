@@ -22,6 +22,16 @@ class UservoteModel extends Model
         return $result->getFirstRow('array');           
     }
 	
+    function getPhonenumber($phoneNumber)
+    {
+        $query = "SELECT * FROM master_users_vote where phone_number = ?";
+       
+        $result = $this->db->query($query, [$phoneNumber]);
+        
+        return $result->getFirstRow('array');           
+    }
+
+
     function getUserPresentAndKuasa($identityCode)
     {
         $query = "SELECT 
