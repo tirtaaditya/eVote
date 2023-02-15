@@ -137,7 +137,7 @@ class Main extends BaseController
 		}
 
 		$response['code'] = $errorMessage == '' ? '00' : '04';
-	        $response['message'] = $errorMessage == '' ? $successMessage : $errorMessage;
+	    $response['message'] = $errorMessage == '' ? $successMessage : $errorMessage;
 
 		return json_encode($response);
 	}
@@ -487,6 +487,14 @@ class Main extends BaseController
 
 	public function hasil()
 	{
+		if(empty($this->session->user))
+		{
+			$this->session->set('errorMessage', "Kamu Belum Login, Silahkan Login Terlebih Dahulu");
+			$this->session->markAsFlashdata('errorMessage');
+
+			return redirect()->to(base_url());	
+		}
+
 		$data = [];
 		$dataCalon = [];
 		$dataHasil = [];
@@ -510,6 +518,22 @@ class Main extends BaseController
 
 	public function peserta()
 	{
+		if(empty($this->session->user))
+		{
+			$this->session->set('errorMessage', "Kamu Belum Login, Silahkan Login Terlebih Dahulu");
+			$this->session->markAsFlashdata('errorMessage');
+
+			return redirect()->to(base_url());	
+		}
+
+		if($this->session->user['role'] !== 'Admin')
+		{
+			$this->session->set('errorMessage', "Unauthorized!");
+			$this->session->markAsFlashdata('errorMessage');
+
+			return redirect()->to(base_url());	
+		}
+
 		$dataPeserta = $this->uservoteModels->getDataPeserta();
 		$data['dataPeserta'] = $dataPeserta;
 
@@ -522,6 +546,22 @@ class Main extends BaseController
 
 	public function daftarPaslon()
 	{
+		if(empty($this->session->user))
+		{
+			$this->session->set('errorMessage', "Kamu Belum Login, Silahkan Login Terlebih Dahulu");
+			$this->session->markAsFlashdata('errorMessage');
+
+			return redirect()->to(base_url());	
+		}
+
+		if($this->session->user['role'] !== 'Admin')
+		{
+			$this->session->set('errorMessage', "Unauthorized!");
+			$this->session->markAsFlashdata('errorMessage');
+
+			return redirect()->to(base_url());	
+		}
+
 		$pager = \Config\Services::pager();
         $model = new ModelPaslon();
         $data['paslon'] = $model->paginate(10);
@@ -537,6 +577,22 @@ class Main extends BaseController
 
 	public function waktu()
 	{
+		if(empty($this->session->user))
+		{
+			$this->session->set('errorMessage', "Kamu Belum Login, Silahkan Login Terlebih Dahulu");
+			$this->session->markAsFlashdata('errorMessage');
+
+			return redirect()->to(base_url());	
+		}
+
+		if($this->session->user['role'] !== 'Admin')
+		{
+			$this->session->set('errorMessage', "Unauthorized!");
+			$this->session->markAsFlashdata('errorMessage');
+
+			return redirect()->to(base_url());	
+		}
+
         $data['votingStart'] = $this->uservoteModels->getVoteStart();
 
 		$postData = $this->request->getPost();
