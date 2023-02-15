@@ -456,6 +456,18 @@ class Main extends BaseController
 		return view('MasterPageView', $masterpage_data);
 	}
 
+	public function peserta()
+	{
+		$dataPeserta = $this->uservoteModels->getDataPeserta();
+		$data['dataPeserta'] = $dataPeserta;
+
+		$masterpage_data['title'] = 'Daftar Peserta';
+		$masterpage_data['content'] = view('DaftarPesertaView', $data);
+		
+		return view('MasterPageView', $masterpage_data);
+	}
+
+
 	public function daftarPaslon()
 	{
 		$pager = \Config\Services::pager();
@@ -500,6 +512,32 @@ class Main extends BaseController
 		$masterpage_data['content'] = view('VotingStartView', $data);
 		
 		return view('MasterPageView', $masterpage_data);
+	}
+
+	public function resendLink($id)
+	{
+		$nik = $id;
+		$userVote = $this->uservoteModels->getUserVote($nik);	
+
+		$paths = 'vote/'.base64_encode($nik);
+		$link = base_url($paths);
+		$message = "Gunakan link berikut untuk melakukan pemilihan : ".$link." (Balas OK untuk mengaktifkan link vote)";
+		$nomorWhatsapp = $userVote['phone_number'];
+		
+		$errorMessage = $this->whatsappHelper->sendWhatsapp('Send URL Vote', $nomorWhatsapp, $message);	
+				
+		if(!empty($errorMessage))
+		{
+			$this->session->set('errorMessage', "Resend Link gagal");
+			$this->session->markAsFlashdata('errorMessage');
+		}
+		else
+		{
+			$this->session->set('successMessage', "Resend Link berhasil");
+			$this->session->markAsFlashdata('successMessage');
+		}
+
+		return redirect()->to(base_url().'/pemilihan/peserta');
 	}
 
 
@@ -661,7 +699,6 @@ class Main extends BaseController
 		$data = [];
 		$dataCalon = [];
 		$dataHasil = [];
-		$userVote = $this->uservoteModels->getUserVote($this->session->user['nik']);
 
 		$hasilVote = $this->candidateModels->getHasilVote();
 		foreach ($hasilVote as $key => $value) 

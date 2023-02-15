@@ -38,7 +38,10 @@ $routes->add('submitform', 'Main::submitForm');
 $routes->add('submit', 'Main::submit');
 
 $routes->add('vote/(:alphanum)', 'Main::vote/$1');
-$routes->add('pemilihan/hasil', 'Main::hasil/$1');
+$routes->add('pemilihan/hasil', 'Main::hasil');
+$routes->add('pemilihan/resendLink/(:alphanum)', 'Main::resendLink/$1');
+
+$routes->add('pemilihan/peserta', 'Main::peserta');
 $routes->add('master/paslon', 'Main::daftarPaslon');
 $routes->add('master/waktu', 'Main::waktu');
 

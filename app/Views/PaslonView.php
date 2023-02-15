@@ -65,9 +65,9 @@
                     <table class="table table-striped table-bordered" id="tablePaslon">
                         <thead>
                             <tr>
-                                <th style='text-align:center; vertical-align:middle'> No. </th>
-                                <th style='text-align:center; vertical-align:middle'> Name </th>
-                                <th style='text-align:center; vertical-align:middle'> Aksi </th>
+                                <th style='text-align:center; vertical-align:middle; font-weight: 900;'> No. </th>
+                                <th style='text-align:center; vertical-align:middle; font-weight: 900;'> Nama </th>
+                                <th style='text-align:center; vertical-align:middle; font-weight: 900;'> Aksi </th>
                             </tr>
                         </thead>
                         <tbody>

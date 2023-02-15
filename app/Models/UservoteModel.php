@@ -71,6 +71,19 @@ class UservoteModel extends Model
         return $result->getResultArray();           
     }
 
+    function getDataPeserta()
+    {
+        $query = "SELECT a.*, b.kode_kehadiran 
+                    FROM master_users_vote a
+                    LEFT JOIN transaction_kode_kehadiran b 
+                        ON a.identity_code= b.identity_code
+                        ORDER BY isPresent DESC";
+       
+        $result = $this->db->query($query);
+        
+        return $result->getResultArray();           
+    }
+
     function updateUserVote($data)
 	{
 		$this->db->transBegin();
