@@ -21,7 +21,7 @@
                         </div>
                     </div>
                     <hr>
-                    <button type="submit" class="btn btn-primary uploadBtn" id="btn-upload" name="btn-upload">Simpan</button>
+                    <button type="submit" class="btn btn-primary">Simpan</button>
                 </div>
             </div>
         </div>
