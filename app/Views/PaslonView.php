@@ -16,7 +16,7 @@
                                  <input type="text" name="name" id="name" class="form-control readonly">
                              </div>
                         </div>
-                        <div class="col-md-6" style="visibility: hidden;"   >
+                        <div class="col-md-6">
                              <div class="form-group">
                                 <label for="master_vote">Master Vote</label>
                                 <select name="master_vote" id="master_vote" class="form-control disabled">
