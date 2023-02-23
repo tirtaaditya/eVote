@@ -62,7 +62,7 @@ class ModelPaslon extends Model
 	}
     
     function deletePaslon($id)
-	{
+    {
         $this->db = \Config\Database::connect();
         // echo json_encode($data);die;
 		$this->db->transBegin();
@@ -79,6 +79,20 @@ class ModelPaslon extends Model
             $this->db->transCommit();
             return TRUE;
         } 
-	}
+    }
+	
+    function getMasterVote()
+    {
+        $date = date('Y-m-d');
+        $query = "
+        SELECT *
+        FROM master_vote
+        WHERE start_date >= $date
+        ";
+
+        $result = $this->db->query($query,[$date]);
+        
+        return $result->getResultArray();  
+    }
 	
 }
