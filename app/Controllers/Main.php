@@ -154,7 +154,13 @@ class Main extends BaseController
 			$nik = $postData['nik'];
 			$otp = $postData['otp'];
 			$kodeKehadiran = $postData['kodeKehadiran'];
-			$phoneNumber = $userValidate['phone_number'];
+			$phoneNumber = $postData['phone_number'];
+			
+			$sub_phoneNumber = substr($phoneNumber,0,2);
+			if($sub_phoneNumber == '08')
+			{
+				$phoneNumber = substr($phoneNumber,1,1000);
+			}				
 			
 			$userVote = $this->uservoteModels->getUserVote($nik);
 			$userVotePresent = $this->uservoteModels->getUserPresentAndKuasa($nik);
