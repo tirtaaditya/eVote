@@ -20,7 +20,10 @@
                              <div class="form-group">
                                 <label for="master_vote">Master Vote</label>
                                 <select name="master_vote" id="master_vote" class="form-control disabled">
-                                    <option value="1" selected>Satu</option>
+                                    <option value="">Pilih</option>
+                                    <?php foreach ($masterVote as $key => $value) { ?>
+                                        <option value="<?= $value['master_vote_id'] ?>"><?= $value->name ?></option>
+                                    <?php }  ?>
                                 </select> 
                              </div>
                         </div>
