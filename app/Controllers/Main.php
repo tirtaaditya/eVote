@@ -567,6 +567,7 @@ class Main extends BaseController
         $data['paslon'] = $model->paginate(10);
         $data['pager'] = $model->pager;
         $data['page'] = $this->request->getVar('page') ? $this->request->getVar('page') : 1;
+	$data['masterVote'] = $this->modelPaslon->getMasterVote();
 
 		$masterpage_data['title'] = 'Daftar Paslon';
 		$masterpage_data['error'] = isset($errorMessage) ? $errorMessage : '';
