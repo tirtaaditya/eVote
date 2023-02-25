@@ -150,12 +150,16 @@ class Main extends BaseController
 		try
 		{
 			$postData = $this->request->getPost();
-
+			$phoneNumber = "";
 			$nik = $postData['nik'];
 			$otp = $postData['otp'];
 			$kodeKehadiran = $postData['kodeKehadiran'];
-			$phoneNumber = $postData['phone_number'];
-			
+			$userValidate = $this->uservoteModels->getUserValidateOTP($nik, $otp);
+			if(!empty($userValidate))
+			{
+				$phoneNumber = $userValidate['phone_number'];
+			}
+						
 			$sub_phoneNumber = substr($phoneNumber,0,2);
 			if($sub_phoneNumber == '08')
 			{
