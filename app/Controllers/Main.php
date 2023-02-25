@@ -309,7 +309,7 @@ class Main extends BaseController
 				$this->session->set('errorMessage', "NIK Kuasa Sudah Di Gunakan");
 				$this->session->markAsFlashdata('errorMessage');
 
-				chmod($folderPath, 0777);
+				
 				unlink($file);
 				return redirect()->to(base_url()."/submitform");
 			}	
@@ -326,7 +326,7 @@ class Main extends BaseController
 						$this->session->set('errorMessage', "NIK Pemberi Kuasa Harus 6 Karakter dan Berbeda Dengan NIK Pemegang Kuasa");
 						$this->session->markAsFlashdata('errorMessage');
 	
-						chmod($folderPath, 0777);
+						
 						unlink($file);
 						return redirect()->to(base_url()."/submitform");
 					}
@@ -338,7 +338,7 @@ class Main extends BaseController
 						$this->session->set('errorMessage', $message);
 						$this->session->markAsFlashdata('errorMessage');
 	
-						chmod($folderPath, 0777);
+						
 						unlink($file);
 						return redirect()->to(base_url()."/submitform");
 					}	
@@ -365,7 +365,7 @@ class Main extends BaseController
 				$this->session->set('errorMessage', "Gagal Save Data Silahkan Ulang Kembali");
 				$this->session->markAsFlashdata('errorMessage');
 	
-				chmod($folderPath, 0777);
+				
 				unlink($file);
 				return redirect()->to(base_url()."/submitform");
 			}
@@ -389,7 +389,7 @@ class Main extends BaseController
 				$this->session->set('errorMessage', "Submit Gagal Di Proses Silahkan Coba Lagi");
 				$this->session->markAsFlashdata('errorMessage');
 	
-				chmod($folderPath, 0777);
+				
 				unlink($file);
 				return redirect()->to(base_url()."/submitform");
 			}
@@ -724,21 +724,6 @@ class Main extends BaseController
 	{
 		$pathDestination = "assets/media/candidate/";
 
-		if(!is_dir($pathDestination))
-		{
-			if(mkdir($pathDestination, 0777, TRUE))
-			{
-				chmod($pathDestination, 0777);
-			}
-			else
-			{
-				throw new \Exception("Error while create directory!", 1);
-			}
-		}
-		else
-		{
-			chmod($pathDestination, 0777);
-		}
 		$imageFile->move($pathDestination);
 
 		$fullPathDestination = $pathDestination.'/'.$imageFile->getClientName();
@@ -768,22 +753,6 @@ class Main extends BaseController
 		if(!empty($imageFile))
 		{
 			$pathDestination = "assets/media/candidate/";
-
-			if(!is_dir($pathDestination))
-			{
-				if(mkdir($pathDestination, 0777, TRUE))
-				{
-					chmod($pathDestination, 0777);
-				}
-				else
-				{
-					throw new \Exception("Error while create directory!", 1);
-				}
-			}
-			else
-			{
-				chmod($pathDestination, 0777);
-			}
 			
 			$imageFile->move($pathDestination);
 
