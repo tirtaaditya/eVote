@@ -32,9 +32,9 @@ class Database extends Config
 	 */
 	public $default = [
 		'DSN'      => '',
-		'hostname' => 'internpos.com',
+		'hostname' => 'localhost',
 		'username' => 'eVote',
-		'password' => 'kebagusan@2022',
+		'password' => 'P@ssw0rd12345',
 		'database' => 'eVote',
 		'DBDriver' => 'MySQLi',
 		'DBPrefix' => '',
