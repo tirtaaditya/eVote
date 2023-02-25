@@ -202,6 +202,14 @@ $user = session('user');
 												<span class="menu-title">Waktu Voting</span>
 											</a>
 										</div>
+										<div class="menu-item">
+											<a class="menu-link" href="<?=base_url();?>/master/reset" onclick='return confirm('Anda yakin reset data ?');'>
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">Reset Data</span>
+											</a>
+										</div>
 									</div>
 								</div>
 								<?php } ?>
