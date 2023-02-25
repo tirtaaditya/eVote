@@ -24,7 +24,7 @@ class UservoteModel extends Model
 	
     function getPhonenumber($phoneNumber)
     {
-        $query = "SELECT * FROM master_users_vote where phone_number = ?";
+        $query = "SELECT * FROM master_users_vote where phone_number = ? AND isPresent=1";
        
         $result = $this->db->query($query, [$phoneNumber]);
         
