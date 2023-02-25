@@ -371,7 +371,7 @@ class Main extends BaseController
 			}
 			
 			$nik = $postData['nik'];
-			$link = 'https://evote.internpos.com/?unicode='..base64_encode($nik);
+			$link = 'https://evote.internpos.com/?unicode='.base64_encode($nik);
 			$message = "Gunakan link berikut untuk melakukan pemilihan : ".$link." (Balas OK untuk mengaktifkan link vote)";
 			$nomorWhatsapp = $postData['phoneNumber'];
 			
