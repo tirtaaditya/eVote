@@ -160,10 +160,10 @@ class Main extends BaseController
 				$phoneNumber = $userValidate['phone_number'];
 			}
 						
-			$sub_phoneNumber = substr($phoneNumber,0,2);
-			if($sub_phoneNumber == '08')
+			$sub_phoneNumber = substr($phoneNumber,0,4);
+			if($sub_phoneNumber == '6208')
 			{
-				$phoneNumber = substr($phoneNumber,1,1000);
+				$phoneNumber = "62".substr($phoneNumber,4,1000);
 			}				
 			
 			$userVote = $this->uservoteModels->getUserVote($nik);
