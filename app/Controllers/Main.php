@@ -151,6 +151,7 @@ class Main extends BaseController
 		{
 			$postData = $this->request->getPost();
 			$phoneNumber = "";
+
 			$nik = $postData['nik'];
 			$otp = $postData['otp'];
 			$kodeKehadiran = $postData['kodeKehadiran'];
@@ -506,18 +507,30 @@ class Main extends BaseController
 		}
 
 		$data = [];
-		$dataCalon = [];
-		$dataHasil = [];
+		$dataCalon1 = [];
+		$dataHasil1 = [];
 
 		$hasilVote = $this->candidateModels->getHasilVote();
 		foreach ($hasilVote as $key => $value) 
 		{			
-			array_push($dataCalon, $value['name']);
-			array_push($dataHasil, $value['total_suara']);
+			array_push($dataCalon1, $value['name']);
+			array_push($dataHasil1, $value['total_suara']);
+		}
+		
+		$dataCalon2 = [];
+		$dataHasil2 = [];
+
+		$hasilVote2 = $this->candidateModels->getHasilVote2();
+		foreach ($hasilVote2 as $key => $value) 
+		{			
+			array_push($dataCalon2, $value['name']);
+			array_push($dataHasil2, $value['total_suara']);
 		}
 
-		$data['dataCalon'] = $dataCalon;
-		$data['dataHasil'] = $dataHasil;		
+		$data['dataCalon'] = $dataCalon1;
+		$data['dataHasil'] = $dataHasil1;
+		$data['dataCalon2'] = $dataCalon2;
+		$data['dataHasil2'] = $dataHasil2;		
 
 		$masterpage_data['title'] = 'Hasil Pemilihan';
 		$masterpage_data['error'] = isset($errorMessage) ? $errorMessage : '';
