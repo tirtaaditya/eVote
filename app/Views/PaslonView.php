@@ -22,7 +22,7 @@
                                 <select name="master_vote" id="master_vote" class="form-control disabled">
                                     <option value="">Pilih</option>
                                     <?php foreach ($masterVote as $key => $value) { ?>
-                                        <option value="<?= $value['master_vote_id'] ?>"><?= $value->name ?></option>
+                                        <option value="<?= $value['master_vote_id'] ?>"><?= $value['name'] ?></option>
                                     <?php }  ?>
                                 </select> 
                              </div>
