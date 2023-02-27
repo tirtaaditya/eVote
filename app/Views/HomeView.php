@@ -227,6 +227,47 @@ if($user['role'] !== 'Voters') { ?>
                 }
             ?>
         </div>
+        <div class="row gy-5 g-xl-8">
+            <?php 
+                foreach($candidateBawas as $key => $value)
+                {
+                    $idCalon = $value['master_candidate_vote_id'];
+            ?>
+            <div class="col-sm-4">
+                <div class="card card-xxl-stretch">
+                    <div class="card-header border-0">
+                        <h3 class="card-title fw-bolder text-dark"><?=$value['name'];?></h3>
+                    </div>
+                    <div class="card-body pt-2">
+                        <div class="d-flex align-items-center mb-8">
+                            <img class='img-fluid w-100' src="<?=base_url()?>/<?=$value['picture']?>" alt="" />
+                        </div>
+                    </div>
+                    <div class="card-body pt-2">
+                        <div class="d-flex align-items-center mb-8">
+                            <span class="bullet bullet-vertical h-40px bg-success"></span>
+                            <div class="form-check form-check-custom form-check-solid mx-5">
+                                &nbsp;
+                            </div>
+                            <div class="flex-grow-1">
+                                <a href="#" class="text-gray-800 text-hover-primary fw-bolder fs-6">Tentang Calon :</a>
+                                <span class="text-muted fw-bold d-block"><?=$value['description'];?></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body pt-2">
+                        <div class="d-flex align-items-center mb-8">
+                            <button type="submit" id="kt_sign_in_submit" onclick="processVote('<?=$idCalon;?>')" class="btn btn-lg btn-primary w-100 mb-5">
+                                <span class="indicator-label">Pilih</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <?php
+                }
+            ?>
+        </div>
     <?php
         }else{
     ?>
