@@ -579,6 +579,33 @@ class Main extends BaseController
 		
 		return view('MasterPageView', $masterpage_data);
 	}
+	
+	public function kodeKehadiran()
+	{
+		if(empty($this->session->user))
+		{
+			$this->session->set('errorMessage', "Kamu Belum Login, Silahkan Login Terlebih Dahulu");
+			$this->session->markAsFlashdata('errorMessage');
+
+			return redirect()->to(base_url());	
+		}
+
+		if($this->session->user['role'] !== 'Admin')
+		{
+			$this->session->set('errorMessage', "Unauthorized!");
+			$this->session->markAsFlashdata('errorMessage');
+
+			return redirect()->to(base_url());	
+		}
+
+		$dataKode = $this->uservoteModels->getKodeKehadiran();
+		$data['dataKode'] = $dataKode;
+
+		$masterpage_data['title'] = 'Kode Kehadiran';
+		$masterpage_data['content'] = view('DaftarKodeKehadiranView', $data);
+		
+		return view('MasterPageView', $masterpage_data);
+	}	
 
 	public function daftarPaslon()
 	{
