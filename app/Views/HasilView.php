@@ -11,7 +11,11 @@
                     <canvas id="myChart"></canvas>
                 </div>
             </div>
-        </div><br><br>
+        </div>
+        <div class="col-xxl-12">
+		    &nbsp;
+        </div>
+		
         <div class="col-xxl-12">
 	    <div class="alert alert-custom alert-primary" role="alert">
 		    <div class="alert-text">Hasil Pemilihan Badan Pengawas</div>
