@@ -102,7 +102,7 @@ class UservoteModel extends Model
         return $result->getResultArray();           
     }
 
-    function getKodeKehadiran()
+    function getListKodeKehadiran()
     {
         $query = "SELECT * FROM transaction_kode_kehadiran";
        
