@@ -219,7 +219,24 @@ if($user['role'] !== 'Voters') { ?>
                     </div>
                     <div class="card-body pt-2">
                         <div class="d-flex align-items-center mb-8">
-			    <p><input type='radio' name='pengurus' value='<?=$idCalon;?>'/>Pilih <?=$value['name'];?></p>
+				<label class="option">
+						<span class="option-control">
+							<span class="radio">
+								<input type="radio" name="pengurus" value="<?=$idCalon;?>"/>
+								<span></span>
+							</span>
+						</span>
+						<span class="option-label">
+							<span class="option-head">
+								<span class="option-title">
+									Pilih Pengurus
+								</span>
+							</span>
+							<span class="option-body">
+								<?=$value['name'];?>
+							</span>
+						</span>
+					</label>				
                         </div>
                     </div>
                 </div>
