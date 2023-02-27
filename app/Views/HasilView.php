@@ -38,7 +38,7 @@
 			data: {
 				labels: dataCalon,
 				datasets: [{
-					label: 'Hasil Voting',
+					label: 'Pengurus',
 					data: dataHasil,
 					backgroundColor: [
 					'rgba(255, 99, 132, 0.2)',
@@ -76,7 +76,7 @@
 			data: {
 				labels: dataCalon2,
 				datasets: [{
-					label: 'Hasil Voting 2',
+					label: 'Badan Pengawas',
 					data: dataHasil2,
 					backgroundColor: [
 					'rgba(255, 99, 132, 0.2)',
