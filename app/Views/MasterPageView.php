@@ -221,7 +221,7 @@ $user = session('user');
 										<?php } ?>
 									</div>
 								</div>
-								<?php if($user['role'] === 'Voters') { ?>
+								<?php if($user['role'] !== 'Voters') { ?>
 								<div data-kt-menu-trigger="click" class="menu-item menu-accordion <?php echo ($title == "Daftar Paslon" || $title == "Waktu Voting") ? "here show" : ""; ?>">
 									<span class="menu-link">
 										<span class="menu-icon">
