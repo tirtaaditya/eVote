@@ -37,7 +37,7 @@
                                 <td><?= $value['kode_kehadiran'] ?></td>
                                 <td>
                                     <?php if($value['isPresent'] == 1 && !empty($value['signature'])) { ?>
-                                        <a type="button" class="btn  btn-primary" href="<?= base_url('assets/media/signature/'.$value['signature']) ?>" target="_blank">Open</a>
+                                        <a type="button" class="btn  btn-primary" href="<?= base_url($value['signature']) ?>" target="_blank">Open</a>
                                     <?php } ?>
                                 </td>
                                 <td>
