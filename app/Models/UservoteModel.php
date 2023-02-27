@@ -31,6 +31,14 @@ class UservoteModel extends Model
         return $result->getFirstRow('array');           
     }
 
+    function getPesertaHadir($nik)
+    {
+        $query = "SELECT * FROM master_users_vote where identity_code = ? AND isPresent=1";
+       
+        $result = $this->db->query($query, [$nik]);
+        
+        return $result->getFirstRow('array');           
+    }	
 
     function getUserPresentAndKuasa($identityCode)
     {
