@@ -231,7 +231,7 @@ if($user['role'] !== 'Voters') { ?>
                 }
             ?>
         </div>
-        <div class="row gy-5 g-xl-8">
+        <div class="row gy-5 g-xl-8 boxed-check-group boxed-check-success">
 	<div class="alert alert-custom alert-primary" role="alert">
 	    <div class="alert-text">Pemilihan Badan Pengawas</div>
 	</div>		
@@ -264,9 +264,10 @@ if($user['role'] !== 'Voters') { ?>
                     </div>
                     <div class="card-body pt-2">
                         <div class="d-flex align-items-center mb-8">
-                            <button type="submit" id="kt_sign_in_submit" onclick="processVote('<?=$idCalon;?>')" class="btn btn-lg btn-primary w-100 mb-5">
-                                <span class="indicator-label">Pilih</span>
-                            </button>
+				<label class="boxed-check w-100 mb-5 text-center">
+				    <input class="boxed-check-input w-100 mb-5" type="radio" value="<?=$idCalon;?>" name="pengurus">
+				    <div class="boxed-check-label">Pilih</div>
+				</label>
                         </div>
                     </div>
                 </div>
