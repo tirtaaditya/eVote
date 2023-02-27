@@ -218,7 +218,11 @@ if($user['role'] !== 'Voters') { ?>
                         </div>
                     </div>
                     <div class="card-body pt-2">
-			    <input type="radio" name="set 2" title="Radio 1">
+                        <div class="d-flex align-items-center mb-8">
+                            <button type="submit" id="kt_sign_in_submit" onclick="processVote('<?=$idCalon;?>')" class="btn btn-lg btn-primary w-100 mb-5">
+                                <span class="indicator-label">Pilih</span>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
