@@ -109,7 +109,7 @@ class ModelPaslon extends Model
 
         $updateKodeKehadiran['identity_code'] = NULL;
         $updateKodeKehadiran['use_on'] = NULL;
-        $this->db->table('transaction_kode_kehadiran;')->update($updateKodeKehadiran);
+        $this->db->table('transaction_kode_kehadiran')->update($updateKodeKehadiran);
 	    
         $updateMasterUser['isPresent'] = 0;
         $updateMasterUser['otp'] = NULL;
