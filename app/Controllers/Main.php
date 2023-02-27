@@ -100,7 +100,7 @@ class Main extends BaseController
 			$sub_phoneNumber = substr($nomorWhatsapp,0,4);
 			if($sub_phoneNumber == '6208')
 			{
-				$nomorWhatsapp = "62".substr($phoneNumber,3,1000);
+				$nomorWhatsapp = "62".substr($nomorWhatsapp,3,1000);
 			}				
 
 			$nik = $postData['nik'];
