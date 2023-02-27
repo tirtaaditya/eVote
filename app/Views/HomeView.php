@@ -219,11 +219,13 @@ if($user['role'] !== 'Voters') { ?>
                     </div>
                     <div class="card-body pt-2">
                         <div class="d-flex align-items-center mb-8">
+				<div class="radio-inline">
 				<label class="radio radio-lg">
 				    <input type="radio" checked="checked" name="radios3_1"/>
 				    <span></span>
 				    Option 1
-				</label>				
+				</label>		
+				</div>
                         </div>
                     </div>
                 </div>
