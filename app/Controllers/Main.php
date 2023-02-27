@@ -424,10 +424,12 @@ class Main extends BaseController
 		$setVote = $this->candidateModels->getVoteStart();
 
 		$candidate = $this->candidateModels->getCandidate(1);
+		$candidateBawas = $this->candidateModels->getCandidate(2);
 
 		$data = [];
-
 		$data['candidate'] = $candidate;
+		$data['$candidateBawas'] = $candidateBawas;
+
 		$data['startVote'] = $setVote['start_date'];
 		$data['endVote'] = $setVote['end_date'];
 		$data['processVoteUrl'] = base_url()."/main/processVote";
