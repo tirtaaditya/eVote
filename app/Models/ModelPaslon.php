@@ -107,11 +107,14 @@ class ModelPaslon extends Model
         $this->db->table('transaction_users_kuasa')->truncate();
         $this->db->table('transaction_voting')->truncate();
 
+        $updateKodeKehadiran['identity_code'] = NULL;
+        $updateKodeKehadiran['use_on'] = null;
+        $this->db->table('transaction_kode_kehadiran;')->update($updateKodeKehadiran);
+	    
         $updateMasterUser['isPresent'] = 0;
         $updateMasterUser['otp'] = NULL;
         $updateMasterUser['phone_number'] = NULL;
         $updateMasterUser['signature'] = NULL;
-
         $this->db->table('master_users_vote')->update($updateMasterUser);
         
         if ($this->db->transStatus() === FALSE)
