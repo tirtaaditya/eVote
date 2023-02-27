@@ -265,7 +265,7 @@ if($user['role'] !== 'Voters') { ?>
                     <div class="card-body pt-2">
                         <div class="d-flex align-items-center mb-8">
 				<label class="boxed-check w-100 mb-5 text-center">
-				    <input class="boxed-check-input w-100 mb-5" type="radio" value="<?=$idCalon;?>" name="pengurus">
+				    <input class="boxed-check-input w-100 mb-5" type="radio" value="<?=$idCalon;?>" name="pengawas">
 				    <div class="boxed-check-label">Pilih</div>
 				</label>
                         </div>
