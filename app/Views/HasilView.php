@@ -1,7 +1,7 @@
 	<div class="row gy-5 g-xl-8">
         <div class="col-xxl-12">
     	    <div class="alert alert-custom alert-primary" role="alert">
-		    <div class="alert-text">Pemilihan Pengurus</div>
+		    <div class="alert-text">Hasil Pemilihan Pengurus</div>
 	    </div>		
             <div class="card card-xxl-stretch">
                 <div class="card-header border-0">
@@ -11,10 +11,10 @@
                     <canvas id="myChart"></canvas>
                 </div>
             </div>
-        </div>
+        </div><br><br>
         <div class="col-xxl-12">
 	    <div class="alert alert-custom alert-primary" role="alert">
-		    <div class="alert-text">Pemilihan Badan Pengawas</div>
+		    <div class="alert-text">Hasil Pemilihan Badan Pengawas</div>
 	    </div>
 	    <div class="card card-xxl-stretch">
                 <div class="card-header border-0">
