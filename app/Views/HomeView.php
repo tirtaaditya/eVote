@@ -320,7 +320,7 @@ if($user['role'] !== 'Voters') { ?>
     function saveVote()
     {
         var processVoteUrl = "<?=$processVoteUrl?>";
-	if(document.querySelector('input[name="pengawas"]:checked').value == null)
+	if(document.querySelector('input[name="pengawas"]:checked') == null)
 	{
 		Swal.fire({
 			text: "Pengawas belum dipilih",
