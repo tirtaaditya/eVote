@@ -186,7 +186,7 @@ if($user['role'] !== 'Voters') { ?>
     $enddate = new DateTime($endVote);
     
     if($startdate <= $now && $now <= $enddate) { ?>
-        <div class="row gy-5 g-xl-8" id="affected">
+        <div class="row gy-5 g-xl-8 boxed-check-group boxed-check-primary">
 	<div class="alert alert-custom alert-primary" role="alert">
 	    <div class="alert-text">Pemilihan Pengurus</div>
 	</div>
@@ -219,9 +219,10 @@ if($user['role'] !== 'Voters') { ?>
                     </div>
                     <div class="card-body pt-2">
                         <div class="d-flex align-items-center mb-8">
-                            <button type="submit" id="kt_sign_in_submit" onclick="processVote('<?=$idCalon;?>')" class="btn btn-lg btn-outline-secondary w-100 mb-5">
-                                <span class="indicator-label">Pilih</span>
-                            </button>
+				<label class="boxed-check">
+				    <input class="boxed-check-input" type="radio" name="pengawas">
+				    <div class="boxed-check-label">Pilih</div>
+				</label>
                         </div>
                     </div>
                 </div>
