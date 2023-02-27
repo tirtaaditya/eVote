@@ -96,7 +96,14 @@ class Main extends BaseController
 			$postData = $this->request->getPost();
 
 			$nomorWhatsapp = $postData['nomorWhatsapp'];
-		    $nik = $postData['nik'];
+			
+			$sub_phoneNumber = substr($nomorWhatsapp,0,4);
+			if($sub_phoneNumber == '6208')
+			{
+				$nomorWhatsapp = "62".substr($phoneNumber,3,1000);
+			}				
+
+			$nik = $postData['nik'];
 			$otp = rand(100000, 999999);
 			$message = $otp." adalah kode OTP anda untuk Form Absensi";
 			
@@ -164,7 +171,7 @@ class Main extends BaseController
 			$sub_phoneNumber = substr($phoneNumber,0,4);
 			if($sub_phoneNumber == '6208')
 			{
-				$phoneNumber = "62".substr($phoneNumber,4,1000);
+				$phoneNumber = "62".substr($phoneNumber,3,1000);
 			}				
 			
 			$userVote = $this->uservoteModels->getUserVote($nik);
