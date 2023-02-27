@@ -45,6 +45,7 @@ $routes->add('pemilihan/hasil', 'Main::hasil');
 $routes->add('pemilihan/resendLink/(:alphanum)', 'Main::resendLink/$1');
 
 $routes->add('pemilihan/peserta', 'Main::peserta');
+$routes->add('pemilihan/kodekehadiran', 'Main::kodeKehadiran');
 $routes->add('master/paslon', 'Main::daftarPaslon');
 $routes->add('master/waktu', 'Main::waktu');
 
