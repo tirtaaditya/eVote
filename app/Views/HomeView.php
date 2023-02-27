@@ -323,7 +323,22 @@ if($user['role'] !== 'Voters') { ?>
 	if(document.querySelector('input[name="pengawas"]:checked') == null)
 	{
 		Swal.fire({
-			text: "Pengawas belum dipilih",
+			text: "Badan Pengawas belum dipilih",
+			icon: "error",
+			buttonsStyling: !1,
+			confirmButtonText: "Ok",
+			customClass: {
+				confirmButton: "btn btn-primary"
+			}
+		}).then((result) => {
+                        return;
+                    });;		
+	}
+	    
+	if(document.querySelector('input[name="pengurus"]:checked') == null)
+	{
+		Swal.fire({
+			text: "Pengurus belum dipilih",
 			icon: "error",
 			buttonsStyling: !1,
 			confirmButtonText: "Ok",
@@ -338,12 +353,12 @@ if($user['role'] !== 'Voters') { ?>
 	var pengawas = document.querySelector('input[name="pengawas"]:checked').value;
 	var pengurus = document.querySelector('input[name="pengurus"]:checked').value;
 
-        /*
         $.ajax({
 				type: "POST",
 				url: processVoteUrl,
 				data: {
-					idCalon: idCalon
+					pengawasId: pengawas,
+					pengurusId: pengurus
 				},
 				dataType: 'JSON',
 				success: function (result) {
@@ -375,6 +390,5 @@ if($user['role'] !== 'Voters') { ?>
 					}
 				}
 			});
-	*/
     }
 </script>
