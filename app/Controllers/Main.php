@@ -451,7 +451,8 @@ class Main extends BaseController
 		{
 			$postData = $this->request->getPost();
 
-			$idCalon = $postData['idCalon'];
+			$idPengurus = $postData['pegurusId'];
+			$idPengawas = $postData['pengawasId'];
 			$nik = $this->session->user['nik'];
 			
 			$validateUserNotVote = $this->uservoteModels->getUserValidateVote($nik);
@@ -463,10 +464,15 @@ class Main extends BaseController
 
 			if(empty($errorMessage))
 			{
-				$dataSession['master_candidate_vote_id'] = $idCalon;
-				$dataSession['identity_code'] = $nik;
-				array_push($dataVote, $dataSession);
+				$dataSessionPengurus['master_candidate_vote_id'] = $idPengurus;
+				$dataSessionPengurus['identity_code'] = $nik;
+				array_push($dataVote, $dataSessionPengurus);
 
+				$dataSessionPengawas['master_candidate_vote_id'] = $idPengawas;
+				$dataSessionPengawas['identity_code'] = $nik;
+				array_push($dataVote, $dataSessionPengawas);
+
+				
 				$getKuasa = $this->uservoteModels->getDataKuasa($nik);
 
 				if(!empty($getKuasa))
