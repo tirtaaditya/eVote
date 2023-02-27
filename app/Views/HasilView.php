@@ -1,5 +1,8 @@
 	<div class="row gy-5 g-xl-8">
         <div class="col-xxl-12">
+    	    <div class="alert alert-custom alert-primary" role="alert">
+		    <div class="alert-text">Pemilihan Pengurus</div>
+	    </div>		
             <div class="card card-xxl-stretch">
                 <div class="card-header border-0">
                     <h3 class="card-title fw-bolder text-dark"></h3>
@@ -10,7 +13,10 @@
             </div>
         </div>
         <div class="col-xxl-12">
-            <div class="card card-xxl-stretch">
+	    <div class="alert alert-custom alert-primary" role="alert">
+		    <div class="alert-text">Pemilihan Badan Pengawas</div>
+	    </div>
+	    <div class="card card-xxl-stretch">
                 <div class="card-header border-0">
                     <h3 class="card-title fw-bolder text-dark"></h3>
                 </div>
