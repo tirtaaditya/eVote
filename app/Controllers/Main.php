@@ -451,7 +451,7 @@ class Main extends BaseController
 		{
 			$postData = $this->request->getPost();
 
-			$idPengurus = $postData['pegurusId'];
+			$idPengurus = $postData['pengurusId'];
 			$idPengawas = $postData['pengawasId'];
 			$nik = $this->session->user['nik'];
 			
