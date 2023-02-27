@@ -10,10 +10,7 @@ $user = session('user');
 		<link href="<?=base_url()?>/assets/plugins/custom/fullcalendar/fullcalendar.bundle.css" rel="stylesheet" type="text/css" />
 		<link href="<?=base_url()?>/assets/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css" />
 		<link href="<?=base_url()?>/assets/css/style.bundle.css" rel="stylesheet" type="text/css" />
-		<link id="stylesheet" rel="stylesheet" type="text/css" href="<?=base_url()?>/assets/buttonvote/css/zInput_default_stylesheet.css">
-		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-		<script src="<?=base_url()?>/assets/buttonvote/zInput.js"></script>
-
+		<link rel="stylesheet" href="<?=base_url()?>/assets/css/boxed-check.css">
 		
 		<script src="<?=base_url()?>/assets/plugins/global/Chart.js"></script>
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css" />
