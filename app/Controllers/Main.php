@@ -598,7 +598,7 @@ class Main extends BaseController
 			return redirect()->to(base_url());	
 		}
 
-		$dataKode = $this->uservoteModels->getKodeKehadiran();
+		$dataKode = $this->uservoteModels->getListKodeKehadiran();
 		$data['dataKode'] = $dataKode;
 
 		$masterpage_data['title'] = 'Kode Kehadiran';
