@@ -232,9 +232,9 @@ if($user['role'] !== 'Voters') { ?>
             ?>
         </div>
         <div class="row gy-5 g-xl-8 boxed-check-group boxed-check-success">
-	<div class="alert alert-custom alert-primary" role="alert">
-	    <div class="alert-text">Pemilihan Badan Pengawas</div>
-	</div>		
+  	    <div class="alert alert-custom alert-primary" role="alert">
+	       <div class="alert-text">Pemilihan Badan Pengawas</div>
+	    </div>		
             <?php 
                 foreach($candidateBawas as $key => $value)
                 {
@@ -276,6 +276,17 @@ if($user['role'] !== 'Voters') { ?>
                 }
             ?>
         </div>
+        <div class="row gy-5 g-xl-8">
+            <div class="col-sm-12">
+		  <div class="card-body pt-2">
+                       <div class="d-flex align-items-center mb-8">
+                           <button type="submit" id="kt_sign_in_submit" onclick="processVote()" class="btn btn-lg btn-primary w-100 mb-5">
+                               <span class="indicator-label">Pilih</span>
+                           </button>
+                      </div>
+                 </div>
+	    </div>
+	</div>
     <?php
         }else{
     ?>
@@ -295,7 +306,7 @@ $("#affected").zInput();
 </script>
 
 <script>
-    function processVote(idCalon)
+    function processVote()
     {
         Swal.fire({
                         title: 'Yakin dengan pilihan anda ?',
@@ -307,16 +318,21 @@ $("#affected").zInput();
                         cancelButtonText: 'Tidak'
                   }).then((result) => {
                         if (result['isConfirmed']){
-                            saveVote(idCalon);
+                            saveVote();
                         }
                     });
 
     }
 
-    function saveVote(idCalon)
+    function saveVote()
     {
         var processVoteUrl = "<?=$processVoteUrl?>";
-        
+	var pengawas = document.querySelector('input[name="pengawas"]:checked').value;
+	var pengurus = document.querySelector('input[name="pengurus"]:checked').value;	 
+	alert(pengawas);
+	alert(pengurus);
+	    
+        /*
         $.ajax({
 				type: "POST",
 				url: processVoteUrl,
@@ -353,5 +369,6 @@ $("#affected").zInput();
 					}
 				}
 			});
+	*/
     }
 </script>
