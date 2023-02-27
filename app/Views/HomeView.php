@@ -281,7 +281,7 @@ if($user['role'] !== 'Voters') { ?>
 		  <div class="card-body pt-2">
                        <div class="d-flex align-items-center mb-8">
                            <button type="submit" id="kt_sign_in_submit" onclick="processVote()" class="btn btn-lg btn-primary w-100 mb-5">
-                               <span class="indicator-label">Pilih</span>
+                               <span class="indicator-label">Simpan Pilihan</span>
                            </button>
                       </div>
                  </div>
@@ -297,13 +297,6 @@ if($user['role'] !== 'Voters') { ?>
     <?php
     }}  
     ?>
-<script>
-$(function() {
-    FastClick.attach(document.body);
-});
-
-$("#affected").zInput();
-</script>
 
 <script>
     function processVote()
@@ -327,11 +320,24 @@ $("#affected").zInput();
     function saveVote()
     {
         var processVoteUrl = "<?=$processVoteUrl?>";
+	if(!document.querySelector('input[name="pengawas"]:checked').value)
+	{
+		Swal.fire({
+			text: "Pengawas belum dipilih",
+			icon: "error",
+			buttonsStyling: !1,
+			confirmButtonText: "Ok",
+			customClass: {
+				confirmButton: "btn btn-primary"
+			}
+		}).then((result) => {
+                        return;
+                    });;		
+	}
+	
 	var pengawas = document.querySelector('input[name="pengawas"]:checked').value;
-	var pengurus = document.querySelector('input[name="pengurus"]:checked').value;	 
-	alert(pengawas);
-	alert(pengurus);
-	    
+	var pengurus = document.querySelector('input[name="pengurus"]:checked').value;
+
         /*
         $.ajax({
 				type: "POST",
