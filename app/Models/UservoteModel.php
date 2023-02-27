@@ -102,6 +102,16 @@ class UservoteModel extends Model
         return $result->getResultArray();           
     }
 
+    function getKodeKehadiran()
+    {
+        $query = "SELECT * FROM transaction_kode_kehadiran";
+       
+        $result = $this->db->query($query);
+        
+        return $result->getResultArray();           
+    }
+
+	
     function updateUserVote($data)
 	{
 		$this->db->transBegin();
