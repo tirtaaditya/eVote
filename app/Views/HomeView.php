@@ -187,6 +187,9 @@ if($user['role'] !== 'Voters') { ?>
     
     if($startdate <= $now && $now <= $enddate) { ?>
         <div class="row gy-5 g-xl-8">
+	<div class="alert alert-custom alert-primary" role="alert">
+	    <div class="alert-text">Pemilihan Pengurus</div>
+	</div>
             <?php 
                 foreach($candidate as $key => $value)
                 {
@@ -228,6 +231,9 @@ if($user['role'] !== 'Voters') { ?>
             ?>
         </div>
         <div class="row gy-5 g-xl-8">
+	<div class="alert alert-custom alert-primary" role="alert">
+	    <div class="alert-text">Pemilihan Badan Pengawas</div>
+	</div>		
             <?php 
                 foreach($candidateBawas as $key => $value)
                 {
