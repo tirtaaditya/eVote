@@ -187,7 +187,7 @@ $user = session('user');
 										<span class="menu-section text-muted text-uppercase fs-8 ls-1">Manajemen</span>
 									</div>
 								</div>
-								<div data-kt-menu-trigger="click" class="menu-item menu-accordion <?php echo ($title == "Hasil Pemilihan" || $title == "Daftar Peserta") ? "here show" : ""; ?>">
+								<div data-kt-menu-trigger="click" class="menu-item menu-accordion <?php echo ($title == "Hasil Pemilihan" || $title == "Daftar Peserta" || $title == "Kode Kehadiran") ? "here show" : ""; ?>">
 									<span class="menu-link">
 										<span class="menu-icon">
 											<span class="svg-icon svg-icon-2">
@@ -218,6 +218,14 @@ $user = session('user');
 												<span class="menu-title">Daftar Peserta</span>
 											</a>
 										</div>
+										<div class="menu-item">
+											<a class="menu-link <?php echo ($title == "Kode Kehadiran") ? "active" : ""; ?>" href="<?=base_url();?>/pemilihan/kodekehadiran">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">Kode Kehadiran</span>
+											</a>
+										</div>										
 										<?php } ?>
 									</div>
 								</div>
