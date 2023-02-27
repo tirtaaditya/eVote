@@ -414,6 +414,7 @@ class Main extends BaseController
 		$nik = base64_decode($key);
 
 		$userVote = $this->uservoteModels->getUserVote($nik);
+
 		$session['nik'] = $userVote['identity_code'];
 		$session['name'] = $userVote['name'];
 		$session['phoneNumber'] = $userVote['phone_number'];
@@ -572,7 +573,6 @@ class Main extends BaseController
 		return view('MasterPageView', $masterpage_data);
 	}
 
-
 	public function daftarPaslon()
 	{
 		if(empty($this->session->user))
@@ -596,7 +596,7 @@ class Main extends BaseController
         $data['paslon'] = $model->paginate(10);
         $data['pager'] = $model->pager;
         $data['page'] = $this->request->getVar('page') ? $this->request->getVar('page') : 1;
-	$data['masterVote'] = $this->modelPaslon->getMasterVote();
+		$data['masterVote'] = $this->modelPaslon->getMasterVote();
 
 		$masterpage_data['title'] = 'Daftar Paslon';
 		$masterpage_data['error'] = isset($errorMessage) ? $errorMessage : '';
@@ -829,6 +829,13 @@ class Main extends BaseController
 		$postData = $this->request->getPost();
 	
 		$data = $this->modelPaslon->deletePaslon($postData['id']);
+
+		return json_encode($data);
+	}
+
+	public function reset()
+	{	
+		$data = $this->modelPaslon->reset();
 
 		return json_encode($data);
 	}

@@ -49,6 +49,56 @@ $user = session('user');
 			}
 
 		</style>
+		<script>
+			function reset()
+			{
+				Swal.fire({
+					title: 'Do you want to save the changes?',
+					showCancelButton: true,
+					confirmButtonText: 'Save',
+					denyButtonText: `Don't save`,
+				}).then((result) => {
+					if (result.isConfirmed) {
+						$.ajax({
+							url: "<?php echo base_url(); ?>/main/reset",
+							method: "POST",
+							dataType: "json",
+							success: function (res) {
+								if(res)
+								{
+									Swal.fire({
+										text: "Data Berhasil Di Hapus",
+										icon: "success",
+										buttonsStyling: !1,
+										confirmButtonText: "Ok",
+										customClass: {
+											confirmButton: "btn btn-primary"
+										}
+									});
+
+									setTimeout(function() { 
+										location.reload();
+									}, 1000);
+								}
+								else
+								{
+									Swal.fire({
+										text: "Data Gagal Di Hapus",
+										icon: "success",
+										buttonsStyling: !1,
+										confirmButtonText: "Ok",
+										customClass: {
+											confirmButton: "btn btn-primary"
+										}
+									});
+								}
+							}
+						});
+					}
+				})
+
+			}
+		</script>
 	</head>
 	<!--end::Head-->
 	<!--begin::Body-->
@@ -171,7 +221,7 @@ $user = session('user');
 										<?php } ?>
 									</div>
 								</div>
-								<?php if($user['role'] !== 'Voters') { ?>
+								<?php if($user['role'] === 'Voters') { ?>
 								<div data-kt-menu-trigger="click" class="menu-item menu-accordion <?php echo ($title == "Daftar Paslon" || $title == "Waktu Voting") ? "here show" : ""; ?>">
 									<span class="menu-link">
 										<span class="menu-icon">
@@ -203,7 +253,7 @@ $user = session('user');
 											</a>
 										</div>
 										<div class="menu-item">
-											<a class="menu-link" href="<?=base_url();?>/master/reset" onclick='return confirm('Anda yakin reset data ?');'>
+											<a type="button" class="menu-link" onclick='reset()'>
 												<span class="menu-bullet">
 													<span class="bullet bullet-dot"></span>
 												</span>

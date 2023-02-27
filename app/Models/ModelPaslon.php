@@ -94,5 +94,36 @@ class ModelPaslon extends Model
         
         return $result->getResultArray();  
     }
+
+    function reset()
+    {
+        $this->db = \Config\Database::connect();
+        // echo json_encode($data);die;
+		$this->db->transBegin();
+
+        $this->db->table('audit_error_system')->truncate();
+        $this->db->table('audit_activity')->truncate();
+        $this->db->table('log_whatsapp')->truncate();
+        $this->db->table('transaction_users_kuasa')->truncate();
+        $this->db->table('transaction_voting')->truncate();
+
+        $updateMasterUser['isPresent'] = 0;
+        $updateMasterUser['otp'] = NULL;
+        $updateMasterUser['phone_number'] = NULL;
+        $updateMasterUser['signature'] = NULL;
+
+        $this->db->table('master_users_vote')->update($updateMasterUser);
+        
+        if ($this->db->transStatus() === FALSE)
+        {
+            $this->db->transRollback();
+            return FALSE;
+        }
+        else
+        {
+            $this->db->transCommit();
+            return TRUE;
+        } 
+    }
 	
 }

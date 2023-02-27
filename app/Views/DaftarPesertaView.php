@@ -17,6 +17,7 @@
                             <th style='text-align:center; vertical-align:middle; font-weight: 900;'> Nomor WA </th>
                             <th style='text-align:center; vertical-align:middle; font-weight: 900;'> Kehadiran </th>
                             <th style='text-align:center; vertical-align:middle; font-weight: 900;'> Kode Kehadiran </th>
+                            <th style='text-align:center; vertical-align:middle; font-weight: 900;'> Signature </th>
                             <th style='text-align:center; vertical-align:middle; font-weight: 900;'> Aksi </th>
                         </tr>
                     </thead>
@@ -34,6 +35,11 @@
                                 <td><?= $phonenumber ?></td>
                                 <td><?= $isPresent ?></td>
                                 <td><?= $value['kode_kehadiran'] ?></td>
+                                <td>
+                                    <?php if($value['isPresent'] == 1 && !empty($value['signature'])) { ?>
+                                        <a type="button" class="btn  btn-primary" href="<?= base_url('assets/media/signature/'.$value['signature']) ?>" target="_blank">Open</a>
+                                    <?php } ?>
+                                </td>
                                 <td>
                                     <?php if($value['isPresent'] == 1) { ?>
                                         <button type="button" class="btn  btn-primary btn-action" onclick="resendLink('<?=$value['identity_code']?>')" value="Detail">Resend Link</button>
