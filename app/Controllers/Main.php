@@ -456,11 +456,10 @@ class Main extends BaseController
 			$nik = $this->session->user['nik'];
 			
 			$validateUserNotVote = $this->uservoteModels->getUserValidateVote($nik);
+			$validatePesertaHadir = $this->uservoteModels->getPesertaHadir($nik);
 
-			if(!empty($validateUserNotVote))
-			{
-				$errorMessage = "NIK sudah melakukan voting"; 
-			}
+			$errorMessage = (!empty($validateUserNotVote)) ? "NIK sudah melakukan voting" : "";
+			$errorMessage = (empty($validatePesertaHadir)) ? "NIK belum melakukan absen" : "";
 
 			if(empty($errorMessage))
 			{
