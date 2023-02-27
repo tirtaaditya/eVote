@@ -428,7 +428,7 @@ class Main extends BaseController
 
 		$data = [];
 		$data['candidate'] = $candidate;
-		$data['$candidateBawas'] = $candidateBawas;
+		$data['candidateBawas'] = $candidateBawas;
 
 		$data['startVote'] = $setVote['start_date'];
 		$data['endVote'] = $setVote['end_date'];
