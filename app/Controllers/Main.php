@@ -465,14 +465,14 @@ class Main extends BaseController
 			
 			$validateUserNotVote = $this->uservoteModels->getUserValidateVote($nik);
 			$validatePesertaHadir = $this->uservoteModels->getPesertaHadir($nik);
-
-			$errorMessage = (!empty($validateUserNotVote)) ? "NIK sudah melakukan voting" : "";
-			$errorMessage = (empty($validatePesertaHadir)) ? "NIK belum melakukan absen" : "";
+			
+			$errorMessage .= (!empty($validateUserNotVote)) ? "NIK sudah melakukan voting, " : "";
+			$errorMessage .= (empty($validatePesertaHadir)) ? "NIK belum melakukan absen, " : "";
 
 			$userBlackList = array("610208", "600861", "600509", "621076", "623095", "631616", "650416", "651146", "651232", "651240");
 			if (in_array($nik, $userBlackList))
 			{
-				$errorMessage = "Anda tidak dapat melakukan voting";				
+				$errorMessage .= "Anda tidak dapat melakukan voting";				
 			}
 			
 
