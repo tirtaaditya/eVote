@@ -381,7 +381,7 @@ class Main extends BaseController
 			$nik = $postData['nik'];			
 			if (in_array($nik, $userBlackList))
 			{
-				$message = "Anda berhasil absen, anda tidak dapat melakukan voting karena terblacklist";				
+				$message = "Anda berhasil absen, anda tidak dapat melakukan voting karena masuk daftar hitam";				
 			}
 			else
 			{
