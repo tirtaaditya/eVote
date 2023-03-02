@@ -111,9 +111,9 @@ class Main extends BaseController
 			$userVotePresent = $this->uservoteModels->getUserPresentAndKuasa($nik);
 			$phoneNumberUse = $this->uservoteModels->getPhonenumber($nomorWhatsapp);
 			
-			$errorMessage = (empty($userVote)) ? "NIK salah/tidak ditemukan" : "";
-			$errorMessage = (empty($userVotePresent)) ? "" : "Anda telah ".$userVotePresent['isPresent'];
-			$errorMessage = (empty($phoneNumberUse)) ? "" : "Nomor Whatsapp telah digunakan";
+			$errorMessage .= (empty($userVote)) ? "NIK salah/tidak ditemukan" : "";
+			$errorMessage .= (empty($userVotePresent)) ? "" : "Anda telah ".$userVotePresent['isPresent'];
+			$errorMessage .= (empty($phoneNumberUse)) ? "" : "Nomor Whatsapp telah digunakan";
 			
 			if(empty($errorMessage))
 			{
@@ -179,14 +179,14 @@ class Main extends BaseController
 			$getkodeKehadiran = $this->uservoteModels->getKodeKehadiran($kodeKehadiran);
 			$phoneNumberUse = $this->uservoteModels->getPhonenumber($phoneNumber);
 			
-			$errorMessage = (empty($userVote)) ? "NIK salah/tidak ditemukan" : "";
-			$errorMessage = (empty($userVotePresent)) ? "" : "Anda telah ".$userVotePresent['isPresent'];
-			$errorMessage = (empty($kodeKehadiran)) ? "" : (empty($getkodeKehadiran) ? "Kode kehadiran tidak sesuai" : "");
-			$errorMessage = (empty($phoneNumberUse)) ? "" : "Nomor Whatsapp telah digunakan";
+			$errorMessage .= (empty($userVote)) ? "NIK salah/tidak ditemukan" : "";
+			$errorMessage .= (empty($userVotePresent)) ? "" : "Anda telah ".$userVotePresent['isPresent'];
+			$errorMessage .= (empty($kodeKehadiran)) ? "" : (empty($getkodeKehadiran) ? "Kode kehadiran tidak sesuai" : "");
+			$errorMessage .= (empty($phoneNumberUse)) ? "" : "Nomor Whatsapp telah digunakan";
 			
 			if(!empty($getkodeKehadiran))
 			{
-				$errorMessage = (!empty($getkodeKehadiran['identity_code'])) ? "Kode kehadiran telah digunakan user lain" : "";
+				$errorMessage .= (!empty($getkodeKehadiran['identity_code'])) ? "Kode kehadiran telah digunakan user lain" : "";
 			}			
 			
 			if(empty($errorMessage))
