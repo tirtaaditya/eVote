@@ -163,6 +163,7 @@ class Main extends BaseController
 			$otp = $postData['otp'];
 			$kodeKehadiran = $postData['kodeKehadiran'];
 			$userValidate = $this->uservoteModels->getUserValidateOTP($nik, $otp);
+
 			if(!empty($userValidate))
 			{
 				$phoneNumber = $userValidate['phone_number'];
@@ -176,19 +177,20 @@ class Main extends BaseController
 			
 			$userVote = $this->uservoteModels->getUserVote($nik);
 			$userVotePresent = $this->uservoteModels->getUserPresentAndKuasa($nik);
+			$cekkodeKehadiran = $this->uservoteModels->cekKodeKehadiran($kodeKehadiran);
 			$getkodeKehadiran = $this->uservoteModels->getKodeKehadiran($kodeKehadiran);
 			$phoneNumberUse = $this->uservoteModels->getPhonenumber($phoneNumber);
-			
-			$errorMessage .= (empty($userVote)) ? "NIK salah/tidak ditemukan" : "";
-			$errorMessage .= (empty($userVotePresent)) ? "" : "Anda telah ".$userVotePresent['isPresent'];
-			$errorMessage .= (empty($kodeKehadiran)) ? "" : (empty($getkodeKehadiran) ? "Kode kehadiran tidak sesuai" : "");
-			$errorMessage .= (empty($phoneNumberUse)) ? "" : "Nomor Whatsapp telah digunakan";
+
+			$errorMessage = (empty($userVote)) ? "NIK salah/tidak ditemukan" : "";
+			$errorMessage = (empty($userVotePresent)) ? "" : "Anda telah ".$userVotePresent['isPresent'];
+			$errorMessage = (empty($kodeKehadiran)) ? "" : (empty($cekkodeKehadiran) ? "Kode kehadiran tidak sesuai" : "");
+			$errorMessage = (empty($phoneNumberUse)) ? "" : "Nomor Whatsapp telah digunakan";
 			
 			if(!empty($getkodeKehadiran))
 			{
 				$errorMessage .= (!empty($getkodeKehadiran['identity_code'])) ? "Kode kehadiran telah digunakan user lain" : "";
 			}			
-			
+
 			if(empty($errorMessage))
 			{
 				$userValidate = $this->uservoteModels->getUserValidateOTP($nik, $otp);

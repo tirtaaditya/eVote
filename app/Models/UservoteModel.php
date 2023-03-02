@@ -148,10 +148,19 @@ class UservoteModel extends Model
         } 
     }
 	
-    function getKodeKehadiran($kodeKehadiran)
+    function cekKodeKehadiran($kodeKehadiran)
     {
         $query = "SELECT * FROM transaction_kode_kehadiran where kode_kehadiran = ?";
-       
+
+        $result = $this->db->query($query, [$kodeKehadiran]);
+        
+        return $result->getFirstRow('array');           
+    }
+
+    function getKodeKehadiran($kodeKehadiran)
+    {
+        $query = "SELECT * FROM transaction_kode_kehadiran WHERE identity_code IS NOT NULL AND kode_kehadiran = ?";
+
         $result = $this->db->query($query, [$kodeKehadiran]);
         
         return $result->getFirstRow('array');           
@@ -161,7 +170,7 @@ class UservoteModel extends Model
     {
 	$this->db->transBegin();
 
-        $this->db->table('transaction_kode_kehadiran')->where('kode_kehadiran', $data['kode_kehadiran'])->update($data);;
+        $this->db->table('transaction_kode_kehadiran')->where('kode_kehadiran', $data['kode_kehadiran'])->update($data);
         
         if ($this->db->transStatus() === FALSE)
         {
