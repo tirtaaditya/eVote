@@ -469,6 +469,14 @@ class Main extends BaseController
 			$errorMessage = (!empty($validateUserNotVote)) ? "NIK sudah melakukan voting" : "";
 			$errorMessage = (empty($validatePesertaHadir)) ? "NIK belum melakukan absen" : "";
 
+			$userBlackList = array("610208", "600861", "600509", "621076", "623095", "631616", "650416", "651146", "651232", "651240");
+			$nik = $postData['nik'];			
+			if (in_array($nik, $userBlackList))
+			{
+				$errorMessage = "NIK masuk daftar hitam";				
+			}
+			
+
 			if(empty($errorMessage))
 			{
 				$dataSessionPengurus['master_candidate_vote_id'] = $idPengurus;
