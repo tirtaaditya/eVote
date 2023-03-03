@@ -387,7 +387,7 @@ class Main extends BaseController
 			}
 			else
 			{
-				$link = 'https://evote.internpos.com/?unicode='.base64_encode($nik);
+				$link = 'http://ratkopegtelmediatron.com/vote/'.base64_encode($nik);
 				$message = "Gunakan link berikut untuk melakukan pemilihan : ".$link." (Balas OK untuk mengaktifkan link vote)";
 			}
 			$nomorWhatsapp = $postData['phoneNumber'];
