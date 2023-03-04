@@ -159,6 +159,15 @@ class UservoteModel extends Model
 
     function getKodeKehadiran($kodeKehadiran)
     {
+        $query = "SELECT * FROM transaction_kode_kehadiran WHERE identity_code IS NULL AND kode_kehadiran = ?";
+
+        $result = $this->db->query($query, [$kodeKehadiran]);
+        
+        return $result->getFirstRow('array');           
+    }
+
+    function getKodeKehadiran2($kodeKehadiran)
+    {
         $query = "SELECT * FROM transaction_kode_kehadiran WHERE identity_code IS NOT NULL AND kode_kehadiran = ?";
 
         $result = $this->db->query($query, [$kodeKehadiran]);

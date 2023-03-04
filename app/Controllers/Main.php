@@ -31,9 +31,67 @@ class Main extends BaseController
 	//STEP 1
 	public function index()
 	{
+		$data['submitFormUrl'] = base_url()."/submittype";
+		$data['sendOTPUrl'] = base_url()."/main/sendOTP";
+		$data['validateAbsenUrl'] = base_url()."/main/validateAbsen";
+
+		return view('AbsenTypeView', $data);		
+	}
+
+	public function SubmitType()
+	{
+		$postData = $this->request->getPost();
+		
+		if(empty($postData['typeKehadiran']))
+		{
+			$this->session->set('errorMessage', "Type Kehadiran Wajib Di Isi");
+			$this->session->markAsFlashdata('errorMessage');
+
+			return redirect()->to(base_url());	
+		}
+
+		if($postData['typeKehadiran'] == "Offline" && empty($postData['kodeKehadiran']))
+		{
+			$this->session->set('errorMessage', "Kode Kehadiran Wajib Di Isi Jika Offline");
+			$this->session->markAsFlashdata('errorMessage');
+
+			return redirect()->to(base_url());	
+		}
+		
+		$kodeKehadiran = $postData['kodeKehadiran'] ?? "";
+
+		if(!empty($kodeKehadiran))
+		{
+			$getkodeKehadiran = $this->uservoteModels->getKodeKehadiran($kodeKehadiran);
+
+			if(empty($getkodeKehadiran))
+			{	
+				$this->session->set('errorMessage', "Kode kehadiran tidak sesuai atau telah di gunakan");
+				$this->session->markAsFlashdata('errorMessage');
+	
+				return redirect()->to(base_url());	
+			}
+		}
+
+		$data = array(
+			'kodeKehadiran' => $kodeKehadiran
+		);
+
+		$path = urlencode($kodeKehadiran);
+
+		return redirect()->to(base_url()."/absencreate?path=".$path);
+	}
+	
+	public function absenCreate()
+	{
+		$getData = $this->request->getGet();
+
+		$kodeKehadiran = explode("/", $getData['path']);
+
 		$data['submitFormUrl'] = base_url()."/submitform";
 		$data['sendOTPUrl'] = base_url()."/main/sendOTP";
 		$data['validateAbsenUrl'] = base_url()."/main/validateAbsen";
+		$data['kodeKehadiran'] = $kodeKehadiran[0];
 
 		return view('AbsenCreateView', $data);		
 	}
@@ -177,8 +235,7 @@ class Main extends BaseController
 			
 			$userVote = $this->uservoteModels->getUserVote($nik);
 			$userVotePresent = $this->uservoteModels->getUserPresentAndKuasa($nik);
-			$cekkodeKehadiran = $this->uservoteModels->cekKodeKehadiran($kodeKehadiran);
-			$getkodeKehadiran = $this->uservoteModels->getKodeKehadiran($kodeKehadiran);
+
 			$phoneNumberUse = $this->uservoteModels->getPhonenumber($phoneNumber);
 
 			$errorMessage = (empty($userVote)) ? "NIK salah/tidak ditemukan" : "";
@@ -186,9 +243,11 @@ class Main extends BaseController
 			$errorMessage = (empty($kodeKehadiran)) ? "" : (empty($cekkodeKehadiran) ? "Kode kehadiran tidak sesuai" : "");
 			$errorMessage = (empty($phoneNumberUse)) ? "" : "Nomor Whatsapp telah digunakan";
 			
+			$getkodeKehadiran = $this->uservoteModels->getKodeKehadiran2($kodeKehadiran);
+
 			if(!empty($getkodeKehadiran))
 			{
-				$errorMessage .= (!empty($getkodeKehadiran['identity_code'])) ? "Kode kehadiran telah digunakan user lain" : "";
+				$errorMessage = (!empty($getkodeKehadiran['identity_code'])) ? "Kode kehadiran telah digunakan user lain" : "";
 			}			
 
 			if(empty($errorMessage))
@@ -443,6 +502,7 @@ class Main extends BaseController
 		$data['startVote'] = $setVote['start_date'];
 		$data['endVote'] = $setVote['end_date'];
 		$data['processVoteUrl'] = base_url()."/main/processVote";
+		$data['hasilUrl'] = base_url()."/pemilihan/hasil";
 
 		$masterpage_data['title'] = 'Beranda';
 		$masterpage_data['error'] = isset($errorMessage) ? $errorMessage : '';

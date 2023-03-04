@@ -35,6 +35,8 @@ $routes->setAutoRoute(true);
 
 // Evote
 $routes->add('submitform', 'Main::submitForm');
+$routes->add('submittype', 'Main::SubmitType');
+$routes->add('absencreate', 'Main::absenCreate');
 $routes->add('sukses', 'Main::messageSuccess');
 $routes->add('submit', 'Main::submit');
 $routes->add('login', 'Main::login');
