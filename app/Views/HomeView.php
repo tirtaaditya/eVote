@@ -320,38 +320,39 @@ if($user['role'] !== 'Voters') { ?>
     function saveVote()
     {
         var processVoteUrl = "<?=$processVoteUrl?>";
-	if(document.querySelector('input[name="pengawas"]:checked') == null)
-	{
-		Swal.fire({
-			text: "Badan Pengawas belum dipilih",
-			icon: "error",
-			buttonsStyling: !1,
-			confirmButtonText: "Ok",
-			customClass: {
-				confirmButton: "btn btn-primary"
-			}
-		}).then((result) => {
-                        return;
-                    });;		
-	}
+        var hasilUrl = "<?=$hasilUrl?>";
+        if(document.querySelector('input[name="pengawas"]:checked') == null)
+        {
+            Swal.fire({
+                text: "Badan Pengawas belum dipilih",
+                icon: "error",
+                buttonsStyling: !1,
+                confirmButtonText: "Ok",
+                customClass: {
+                    confirmButton: "btn btn-primary"
+                }
+            }).then((result) => {
+                            return;
+                        });;		
+        }
 	    
-	if(document.querySelector('input[name="pengurus"]:checked') == null)
-	{
-		Swal.fire({
-			text: "Pengurus belum dipilih",
-			icon: "error",
-			buttonsStyling: !1,
-			confirmButtonText: "Ok",
-			customClass: {
-				confirmButton: "btn btn-primary"
-			}
-		}).then((result) => {
-                        return;
-                    });;		
-	}
+        if(document.querySelector('input[name="pengurus"]:checked') == null)
+        {
+            Swal.fire({
+                text: "Pengurus belum dipilih",
+                icon: "error",
+                buttonsStyling: !1,
+                confirmButtonText: "Ok",
+                customClass: {
+                    confirmButton: "btn btn-primary"
+                }
+            }).then((result) => {
+                            return;
+                        });;		
+        }
 	
-	var pengawas = document.querySelector('input[name="pengawas"]:checked').value;
-	var pengurus = document.querySelector('input[name="pengurus"]:checked').value;
+        var pengawas = document.querySelector('input[name="pengawas"]:checked').value;
+        var pengurus = document.querySelector('input[name="pengurus"]:checked').value;
 
         $.ajax({
 				type: "POST",
@@ -373,7 +374,7 @@ if($user['role'] !== 'Voters') { ?>
 								confirmButton: "btn btn-primary"
 							}
 						}).then((function(e) {
-								window.location.href = submitFormUrl;
+								window.location.href = hasilUrl;
                             }));
 					}
 					else
