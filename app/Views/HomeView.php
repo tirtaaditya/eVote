@@ -242,8 +242,9 @@ if($user['role'] !== 'Voters') { ?>
             ?>
             <div class="col-sm-4">
                 <div class="card card-xxl-stretch">
-                    <div class="card-header border-0">
+                    <div class="card-header border-0"><center>
                         <h3 class="card-title fw-bolder text-center text-<?php if($value['name']=="Tidak Setuju"){ echo "danger"; }else{ echo "dark";}?>"><?=strtoupper($value['name']);?></h3>
+			    </center>
                     </div>
                     <div class="card-body pt-2">
                         <div class="d-flex align-items-center mb-8">
