@@ -290,7 +290,9 @@
 								<label class="form-label fs-6 fw-bolder text-dark">Kode Kehadiran</label>
 								<input class="form-control form-control-lg form-control-solid" type="text" maxlength="6" name="kodeKehadiran" value="<?= $kodeKehadiran ?>" readonly/>
 							</div>
-						<?php } ?>
+						<?php } else{ ?>
+<input type="text" name="kodeKehadiran" hidden>
+                                                <?php } ?>
 						<div class="text-center">
 							<button type="submit" id="kt_sign_in_submit" onclick="validateAbsen()" class="btn btn-lg btn-primary w-100 mb-5">
 								<span class="indicator-label">Konfirmasi</span>
