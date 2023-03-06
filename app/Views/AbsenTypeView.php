@@ -73,8 +73,7 @@
 							</div>
 							<div class="fv-row mb-10" id="rowKodeKehadiran" style="display :none;">
 								<label class="form-label fs-6 fw-bolder text-dark">Kode Kehadiran</label>
-								<input class="form-control form-control-lg form-control-solid" type="text" maxlength="6" id="kodeKehadiran" name="kodeKehadiran"/>
-								<span class="form-text text-muted">Kosongkan Apabila Anggota Hadir Secara Online</span>
+								<input class="form-control form-control-lg" type="text" maxlength="6" id="kodeKehadiran" name="kodeKehadiran"/>
 							</div>
 							<div class="text-center">
 								<button type="submit" class="btn btn-lg btn-primary w-100 mb-5">
