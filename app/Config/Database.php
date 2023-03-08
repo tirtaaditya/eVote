@@ -33,8 +33,8 @@ class Database extends Config
 	public $default = [
 		'DSN'      => '',
 		'hostname' => 'localhost',
-		'username' => 'eVote',
-		'password' => 'P@ssw0rd12345',
+		'username' => 'mediatron',
+		'password' => 'password123',
 		'database' => 'eVote',
 		'DBDriver' => 'MySQLi',
 		'DBPrefix' => '',
